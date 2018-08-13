@@ -1,11 +1,12 @@
+/* Consider this as an parent class for the class "Admin" which the "Admin" class will inherit using super */ 
 
-public class user 
+public class User
 {
 	private string userName;
 	private string email;
 	private string password; 
 	
-	public user(string userName, string email, string password)
+	public User(string userName, string email, string password)
 	{
 		this.userName = userName;
 		this.email = email;

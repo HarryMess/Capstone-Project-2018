@@ -25,9 +25,9 @@ public class user
 	{
 		return email;
 	}
-	public void setPassword(string email)
+	public void setEmail(string email)
 	{
-		this.password = password;
+		this.email = email;
 	}
 	
 	public string getPassword()
@@ -41,6 +41,6 @@ public class user
 	
 	public string getString()
 	{
-		return "Username: " + username + "\n" + "Email: " + email + "\n" + "Password: " + password + "\n";
+		return "Username: " + userName + "\n" + "Email: " + email + "\n" + "Password: " + password + "\n";
 	}
 }

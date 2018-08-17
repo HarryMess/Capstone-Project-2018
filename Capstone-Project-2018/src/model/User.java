@@ -1,6 +1,8 @@
 /* Consider this as an parent class for the class "Admin" which the "Admin" class will inherit */ 
 import java.util.*;
 
+package model;
+
 public class User
 {
 	private String userName;

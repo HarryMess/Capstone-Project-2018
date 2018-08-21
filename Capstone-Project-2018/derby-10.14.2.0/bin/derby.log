@@ -1,0 +1,31 @@
+Tue Aug 21 15:41:27 AEST 2018 : Apache Derby Network Server - 10.14.2.0 - (1828579) started and ready to accept connections on port 1527
+----------------------------------------------------------------
+Tue Aug 21 15:49:46 AEST 2018:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-0165-5b00-8a35-0000175ae5bb 
+on database directory C:\Users\quick\GitHub\Capstone-Project-2018\Capstone-Project-2018\derby-10.14.2.0\bin\Database with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@4cf8d065 
+Loaded from file:/C:/Users/quick/GitHub/Capstone-Project-2018/Capstone-Project-2018/derby-10.14.2.0/lib/derby.jar
+java.vendor=Oracle Corporation
+java.runtime.version=10.0.1+10
+user.dir=C:\Users\quick\GitHub\Capstone-Project-2018\Capstone-Project-2018\derby-10.14.2.0\bin
+os.name=Windows 10
+os.arch=amd64
+os.version=10.0
+derby.system.home=C:\Users\quick\GitHub\Capstone-Project-2018\Capstone-Project-2018\derby-10.14.2.0\bin
+Database Class Loader started - derby.database.classpath=''
+----------------------------------------------------------------
+Tue Aug 21 15:49:48 AEST 2018:
+Shutting down instance a816c00e-0165-5b00-8a35-0000175ae5bb on database directory C:\Users\quick\GitHub\Capstone-Project-2018\Capstone-Project-2018\derby-10.14.2.0\bin\Database with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@4cf8d065 
+Tue Aug 21 15:49:48 AEST 2018 Thread[DRDAConnThread_3,5,main] (DATABASE = Database), (DRDAID = {4}), Database 'Database' shutdown.
+----------------------------------------------------------------
+Tue Aug 21 15:51:16 AEST 2018:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance 0ddd00a9-0165-5b00-8a35-0000175ae5bb 
+on database directory C:\Users\quick\GitHub\Capstone-Project-2018\Capstone-Project-2018\derby-10.14.2.0\bin\Database with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@4cf8d065 
+Loaded from file:/C:/Users/quick/GitHub/Capstone-Project-2018/Capstone-Project-2018/derby-10.14.2.0/lib/derby.jar
+java.vendor=Oracle Corporation
+java.runtime.version=10.0.1+10
+user.dir=C:\Users\quick\GitHub\Capstone-Project-2018\Capstone-Project-2018\derby-10.14.2.0\bin
+os.name=Windows 10
+os.arch=amd64
+os.version=10.0
+derby.system.home=C:\Users\quick\GitHub\Capstone-Project-2018\Capstone-Project-2018\derby-10.14.2.0\bin
+Database Class Loader started - derby.database.classpath=''

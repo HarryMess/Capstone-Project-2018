@@ -1,0 +1,23 @@
+CREATE TABLE Users (
+UserID int NOT NULL,
+LastName varchar(255) NOT NULL,
+FirstName varchar(255) NOT NULL,
+Email varchar (255) NOT NULL,
+Username varchar (25) NOT NULL,
+Password varchar (255) NOT NULL,
+PRIMARY KEY (Email)
+);
+
+INSERT INTO Users
+(UserID, LastName, FirstName, Email, username, password) 
+VALUES
+(00000, 'Iacobozzi', 'Joshua', 'joshua.iaco@gmail.com', 'joshuai', 'password');
+
+SELECT * From Users;
+
+ALTER TABLE Users
+ADD password varchar(50);
+
+DELETE FROM Users
+WHERE FirstName='Joshua';
+

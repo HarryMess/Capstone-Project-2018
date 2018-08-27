@@ -1,0 +1,83 @@
+package model;
+
+import java.util.List;
+
+public class StockMarket {
+
+	private List<Company> companies;
+	private List<TradingAccount> accounts;
+	private List<Transaction> transactionHistory;
+
+	/**
+	 * 
+	 * @param companies
+	 */
+	public StockMarket(List<Company> companies) {
+		// TODO - implement StockMarket.StockMarket
+		throw new UnsupportedOperationException();
+	}
+
+	/**
+	 * 
+	 * @param id
+	 */
+	public Company getCompany(String id) {
+		// TODO - implement StockMarket.getCompany
+		throw new UnsupportedOperationException();
+	}
+
+	/**
+	 * 
+	 * @param id
+	 */
+	public User getUser(String id) {
+		// TODO - implement StockMarket.getUser
+		throw new UnsupportedOperationException();
+	}
+
+	/**
+	 * 
+	 * @param id
+	 */
+	public Transaction getTransaction(String id) {
+		// TODO - implement StockMarket.getTransaction
+		throw new UnsupportedOperationException();
+	}
+
+	public void updateMarket() {
+		// TODO - implement StockMarket.updateMarket
+		throw new UnsupportedOperationException();
+	}
+	
+	/**
+	 * 
+	 * @param account
+	 * @param stock
+	 */
+	public void buyStockFromMarket(int account, int stock) {
+		// TODO - implement StockMarketSystem.buyStockFromMarket
+		throw new UnsupportedOperationException();
+	}
+
+	/**
+	 * 
+	 * @param sellAcount
+	 * @param buyAccount
+	 * @param stock
+	 */
+	public void sellStock(int sellAcount, int buyAccount, int stock) {
+		// TODO - implement StockMarketSystem.sellStock
+		throw new UnsupportedOperationException();
+	}
+
+	/**
+	 * 
+	 * @param sender
+	 * @param receiver
+	 */
+	public void transferFunds(int sender, int receiver) {
+		// TODO - implement StockMarketSystem.transferFunds
+		throw new UnsupportedOperationException();
+	}
+
+}

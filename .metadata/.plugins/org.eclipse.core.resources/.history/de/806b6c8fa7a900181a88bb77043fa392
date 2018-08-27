@@ -1,0 +1,46 @@
+public class StockMarketSystem {
+
+	private List<User> User;
+
+	/**
+	 * 
+	 * @param email
+	 * @param password
+	 */
+	public void authnticate(String email, String password) {
+		// TODO - implement StockMarketSystem.authnticate
+		throw new UnsupportedOperationException();
+	}
+
+	/**
+	 * 
+	 * @param account
+	 * @param stock
+	 */
+	public void buyStockFromMarket(int account, int stock) {
+		// TODO - implement StockMarketSystem.buyStockFromMarket
+		throw new UnsupportedOperationException();
+	}
+
+	/**
+	 * 
+	 * @param sellAcount
+	 * @param buyAccount
+	 * @param stock
+	 */
+	public void sellStock(int sellAcount, int buyAccount, int stock) {
+		// TODO - implement StockMarketSystem.sellStock
+		throw new UnsupportedOperationException();
+	}
+
+	/**
+	 * 
+	 * @param sender
+	 * @param receiver
+	 */
+	public void transferFunds(int sender, int receiver) {
+		// TODO - implement StockMarketSystem.transferFunds
+		throw new UnsupportedOperationException();
+	}
+
+}

@@ -1,0 +1,30 @@
+public class Stock {
+
+	private String id;
+	private String companyId;
+	private int amount;
+
+	/**
+	 * 
+	 * @param id
+	 * @param companyId
+	 */
+	public Stock(int id, int companyId) {
+		// TODO - implement Stock.Stock
+		throw new UnsupportedOperationException();
+	}
+
+	public String getId() {
+		return this.id;
+	}
+
+	public Company getCompany() {
+		// TODO - implement Stock.getCompany
+		throw new UnsupportedOperationException();
+	}
+
+	public int getAmount() {
+		return this.amount;
+	}
+
+}

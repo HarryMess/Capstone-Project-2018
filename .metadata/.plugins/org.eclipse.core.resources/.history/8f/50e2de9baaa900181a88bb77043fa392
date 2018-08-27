@@ -1,0 +1,24 @@
+package model;
+
+public class Transaction {
+
+	private String id;
+	private String buyerId;
+	private String sellerId;
+	private String stockID;
+
+	public String getId() {
+		return this.id;
+	}
+
+	public String getBuyer() {
+		// TODO - implement Transaction.getBuyer
+		throw new UnsupportedOperationException();
+	}
+
+	public String getSeller() {
+		// TODO - implement Transaction.getSeller
+		throw new UnsupportedOperationException();
+	}
+
+}

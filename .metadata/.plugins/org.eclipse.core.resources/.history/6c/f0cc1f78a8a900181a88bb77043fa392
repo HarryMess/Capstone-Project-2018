@@ -1,0 +1,61 @@
+package model;
+
+public class Company {
+
+	private String id;
+	private String name;
+	private float marketPrice;
+	private float profitPerStock;
+
+	/**
+	 * 
+	 * @param id
+	 * @param name
+	 * @param initalStocks
+	 */
+	public Company(int id, int name, int initalStocks) {
+		// TODO - implement Company.Company
+		throw new UnsupportedOperationException();
+	}
+
+	public String getId() {
+		return this.id;
+	}
+
+	public String getName() {
+		return this.name;
+	}
+
+	/**
+	 * 
+	 * @param name
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public float getMarketPrice() {
+		return this.marketPrice;
+	}
+
+	/**
+	 * 
+	 * @param marketPrice
+	 */
+	public void setMarketPrice(float marketPrice) {
+		this.marketPrice = marketPrice;
+	}
+
+	public float getProfitPerStock() {
+		return this.profitPerStock;
+	}
+
+	/**
+	 * 
+	 * @param profitPerStock
+	 */
+	public void setProfitPerStock(float profitPerStock) {
+		this.profitPerStock = profitPerStock;
+	}
+
+}

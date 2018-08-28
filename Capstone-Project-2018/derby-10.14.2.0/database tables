@@ -1,7 +1,7 @@
 CREATE TABLE Users (
 Email varchar (255) NOT NULL,
 Password varchar (255) NOT NULL,
-isAdmin varchar (1) NOT NULL,
+isAdmin BOOLEAN NOT NULL,
 PRIMARY KEY (Email)
 );
 
@@ -10,7 +10,6 @@ id int NOT NULL,
 Name varchar (50),
 Balance int NOT NULL,
 Hours_active int,
-Column int,
 Email varchar (255),
 PRIMARY KEY (id),
 FOREIGN KEY (Email) REFERENCES Users(Email)
@@ -32,7 +31,6 @@ FOREIGN KEY (stock) REFERENCES Stock(company_id)
 CREATE TABLE Stock (
 company_id int,
 Name varchar (255) NOT NULL,
-owner varchar (255) NOT NULL,
 Trade_Accountsid int NOT NULL,
 PRIMARY KEY company_id,
 FOREIGN KEY (Trade_Accountsid) REFERENCES Trade_Accounts(id),

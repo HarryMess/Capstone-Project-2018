@@ -22,7 +22,7 @@ seller int NOT NULL,
 stock int NOT NULL,
 price int NOT NULL,
 amount int,
-PRIMARY KEY date_time,
+PRIMARY KEY (date_time, buyer, seller),
 FOREIGN KEY (buyer) REFERENCES TRADE_Accounts(id),
 FOREIGN KEY (seller) REFERENCES Trade_Accounts(id),
 FOREIGN KEY (stock) REFERENCES Stock(company_id)
@@ -41,8 +41,8 @@ date_time TIMESTAMP NOT NULL,
 company_id int NOT NULL,
 market_price int NOT NULL,
 profit_per_hour int NOT NULL,
-PRIMARY KEY date_time
-FOREIGN KEY company_id REFERENCES Stock(company_id)
+PRIMARY KEY (date_time,company_id),
+FOREIGN KEY (company_id) REFERENCES Stock(company_id)
 );
 
 CREATE TABLE Company_Transaction(
@@ -51,9 +51,9 @@ client int NOT NULL,
 company_id int NOT NULL,
 price int NOT NULL,
 amount int,
-PRIMARY KEY date_time,
-FOREIGN KEY client REFERENCES Trade_Accounts(id),
-FOREIGN KEY company_id REFERENCES Stock(company_id)
+PRIMARY KEY (date_time,client,company_id),
+FOREIGN KEY (client) REFERENCES Trade_Accounts(id),
+FOREIGN KEY (company_id) REFERENCES Stock(company_id)
 );
 
 CREATE TABLE Trade_History(
@@ -61,6 +61,6 @@ date_time TIMESTAMP NOT NULL,
 account_id int NOT NULL,
 balance int NOT NULL,
 share_value int NOT NULL,
-PRIMARY KEY date_time
+PRIMARY KEY (date_time,account_id),
 FOREIGN KEY account_id REFERENCES Trade_Accounts(id)
 );

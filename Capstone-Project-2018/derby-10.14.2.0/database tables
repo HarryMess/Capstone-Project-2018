@@ -1,0 +1,66 @@
+CREATE TABLE Users (
+Email varchar (255) NOT NULL,
+Password varchar (255) NOT NULL,
+isAdmin BOOLEAN NOT NULL,
+PRIMARY KEY (Email)
+);
+
+CREATE TABLE Trade_Accounts (
+id int NOT NULL,
+Name varchar (50),
+Balance int NOT NULL,
+Hours_active int,
+Email varchar (255),
+PRIMARY KEY (id),
+FOREIGN KEY (Email) REFERENCES Users(Email)
+);
+
+CREATE TABLE Client_Transaction (
+date_time TIMESTAMP NOT NULL,
+buyer int NOT NULL,
+seller int NOT NULL,
+stock int NOT NULL,
+price int NOT NULL,
+amount int,
+PRIMARY KEY (date_time, buyer, seller),
+FOREIGN KEY (buyer) REFERENCES TRADE_Accounts(id),
+FOREIGN KEY (seller) REFERENCES Trade_Accounts(id),
+FOREIGN KEY (stock) REFERENCES Stock(company_id)
+);
+
+CREATE TABLE Stock (
+company_id int,
+Name varchar (255) NOT NULL,
+Trade_Accountsid int NOT NULL,
+PRIMARY KEY company_id,
+FOREIGN KEY (Trade_Accountsid) REFERENCES Trade_Accounts(id),
+);
+
+CREATE TABLE Stock_History(
+date_time TIMESTAMP NOT NULL,
+company_id int NOT NULL,
+market_price int NOT NULL,
+profit_per_hour int NOT NULL,
+PRIMARY KEY (date_time,company_id),
+FOREIGN KEY (company_id) REFERENCES Stock(company_id)
+);
+
+CREATE TABLE Company_Transaction(
+date_time TIMESTAMP NOT NULL,
+client int NOT NULL,
+company_id int NOT NULL,
+price int NOT NULL,
+amount int,
+PRIMARY KEY (date_time,client,company_id),
+FOREIGN KEY (client) REFERENCES Trade_Accounts(id),
+FOREIGN KEY (company_id) REFERENCES Stock(company_id)
+);
+
+CREATE TABLE Trade_History(
+date_time TIMESTAMP NOT NULL,
+account_id int NOT NULL,
+balance int NOT NULL,
+share_value int NOT NULL,
+PRIMARY KEY (date_time,account_id),
+FOREIGN KEY account_id REFERENCES Trade_Accounts(id)
+);

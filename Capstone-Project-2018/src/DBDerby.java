@@ -25,13 +25,13 @@ public class DBDerby
         }
     }
     
-    public void insertUsers(int id, String userName, String password, String email) /* Creation of tables */
+    public void insertUsers(String userName, String password, String email) /* Creation of tables */
     {
         try
         {
             statem = connec.createStatement();
             statem.execute("insert into " + tableName + " values (" +
-                    id + ",'" + userName + "','" + password + "','" + email + "','" + "')");
+                    ",'" + userName + "','" + password + "','" + email + "','" + "')");
             statem.close();
         }
         
@@ -58,11 +58,11 @@ public class DBDerby
 
             while(res.next())
             {
-                int id = res.getInt(1);
-                String userName = res.getString(2);
-                String password = res.getString(3);
-                String email = res.getString(4); 
-                System.out.println(id + "\t\t" + userName + "\t\t" + password  + "\t\t" + email);
+                /*int id = res.getInt(1); */ 
+                String userName = res.getString(1);
+                String password = res.getString(2);
+                String email = res.getString(3); 
+                System.out.println(userName + "\t\t" + password  + "\t\t" + email);
             }
             
             res.close();

@@ -1,0 +1,13 @@
+INSERT INTO USERS ( ISADMIN, PASSWORD, EMAIL )
+VALUES (TRUE, 'password', 's3429789@student.rmit.edu.au'),
+(TRUE, 'password', 's3488361@student.rmit.edu.au'),
+(TRUE, 'password', 's3449513@student.rmit.edu.au'),
+(TRUE, 'password', 's3606166@student.rmit.edu.au'),
+(TRUE, 'password', 's3442142@student.rmit.edu.au')
+
+INSERT INTO TRADE_ACCOUNTS (id, email, name, balance, hours_active)
+VALUES (1,(select email from USERS where email = 's3429789@student.rmit.edu.au'), 'Joshua Iacobozzi', 1000000, 0),
+(2,(select email from USERS where email = 's3488361@student.rmit.edu.au'), 'Joshua Wallace', 1000000, 0),
+(3,(select email from USERS where email = 's3449513@student.rmit.edu.au'), 'Paul King', 1000000, 0),
+(4,(select email from USERS where email = 's3606166@student.rmit.edu.au'), 'Harrison Meskell', 1000000, 0),
+(5,(select email from USERS where email = 's3442142@student.rmit.edu.au'), 'Zhouxin Shi', 1000000, 0)

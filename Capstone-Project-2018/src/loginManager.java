@@ -1,80 +1,140 @@
+package model;
+
 import java.util.*;
 import java.io.*;
+import java.sql.*;
+//import java.util.regex.*;
 
-public class loginManager()
+public class LoginManager
 {
-  
-  Scanner input = new Scanner(System.in);
-  
-  private DBDerby db = new DBDerby; /* Class instances */
-  
-  Arraylist<User> users; /* Lists */
-  
-  private String userName; /* Generic variables */ 
-  private String password;
-  private String email;
-  private boolean valid; 
-  
-  public loginManager()
-  {
-    users = new Arraylist<User>();
-  }
-  
-  public addUser()
-  {
-    /* Will probably need a try catch */
-    
-    System.out.println("Welcome, username & password must be between 1 and 12 characters");
-    System.out.println("Please enter your account name");
-    String userName = input.nextLine(); 
-    
-    while (userName == null) /* Checks if user entered inputed a username, numbers can still be entered */
+    private Scanner input = new Scanner(System.in); // Probably replace with a utilty class
+    //private ArrayList<User> userArray1 = new ArrayList<User>();
+
+    private String userName;
+    private String password;
+    private String email;
+
+    private static String dbURL = "jdbc:derby://localhost:8080/DBDerby;create=true;user='s3488361;password=password"; /* This needs to be changed */
+    private static Connection connec = null; /* Instance */
+    private static Statement statem = null;
+
+    public void addUser()
     {
-      System.out.println("Please input your username!");
+       System.out.println("Welcome user to this test instance");
+       System.out.println("Please enter the username you would like to be added to the database");
+       System.out.println("Restrictions will apply!");
+       String userName = input.nextLine();
+
+       System.out.println("Please enter the password you would like to be added to the database");
+       String password = input.nextLine();
+
+       System.out.println("Please enter your email");
+
+       /*
+       boolean status = false;
+       String email_Pattern = "^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$";
+       Pattern p = Pattern.compile(email_Pattern);
+       Matcher m = p.m(email);
+
+       if(m.matches())
+       {
+           status = true;
+       }
+
+       else
+       {
+           System.out.println("Invalid email");
+           status = false;
+           return status;
+       }
+       */
+
+
+       String email = input.nextLine();
+
+       /* Will require do try catch while to prevent users from entering nothing */
+
+       try
+       {
+           Class.forName("org.apache.derby.jdbc.ClientDriver").newInstance();
+           connec = DriverManager.getConnection(dbURL);
+
+           /* Old method of mapping driver to URL, refer to
+            * https://docs.oracle.com/javase/6/docs/api/java/sql/DriverManager.html
+            * Swap to the method outlined in the url when possible
+           */
+       }
+
+       catch (Exception exception)
+       {
+           exception.printStackTrace(); /* Calls the toString method of whatever exception was thrown */
+       }
+
+       try
+       {
+           statem = connec.createStatement();
+           statem.execute("insert into " + Users + " values (" + // Table name needs to be changed //
+                   ",'" + userName + "','" + password + "','" + email + "','" + "')");
+           statem.close();
+       }
+
+       catch (SQLException sqlExcept)
+       {
+           sqlExcept.printStackTrace();
+       }
+
+        //return status;
+
     }
-    
-    System.out.println("Field cannot be left empty, please input your password!"); 
-    String password = input.nextLine();
-    
-    while (password == null) /* Same deal */
+
+    public void autheticate()
     {
-      System.out.println("Field cannot be left empty, please input your password!");
+        try
+        {
+            Class.forName("org.apache.derby.jdbc.ClientDriver").newInstance();
+            connec = DriverManager.getConnection(dbURL);
+        }
+
+        catch (Exception exception)
+        {
+            exception.printStackTrace(); /* Calls the toString method of whatever exception was thrown */
+        }
+
+        System.out.println("Please enter your username");
+        String userName = input.nextLine();
+
+        System.out.println("Please enter your password");
+        String password = input.nextLine();
+
+        try
+        {
+            statem = connec.createStatement();
+            ResultSet res = statem.executeQuery("select * from users where userName='"+userName+"' AND password = '"+password+"'");
+            int counter = 0;
+            while (res.next())
+            {
+                counter += 1;
+            }
+
+            if (counter == 1)
+            {
+                System.out.println("Access granted");
+            }
+
+            else
+            {
+                System.out.println("Username and/or password do not match up with our records");
+                System.out.println("Access denied");
+
+            }
+        }
+
+        catch(Exception exception)
+        {
+            exception.printStackTrace();
+        }
+
+
     }
-    
-    System.out.println("Please enter your email!"); 
-    String email = input.nextLine();
-    
-    while (email == null) /* Same deal */
-    {
-      System.out.println("Field cannot be left empty, please input your email!");
-    }
-     
-    if (userName.length() !null & userName.length() <= 12) /* Checks size of String, this will obviously cause an exception if an number is present */
-    {
-      System.out.println("Sucessful entry!"); /* Also careful of 'magical number' */
-      User u = new User(userName, password, email); /* Declares an instance of the Array of the class User and adds user input into the Array */ 
-      users.add(u); /* Not sure how to do this part, should I use the main method to do this kind of stuff using the DBDERBY.java class ? */
-    
-    
-      db.createConnection();
-      db.insertUsers(userName, password, email); /* Might be an error through the ID, I removed the ID variable which could cause insertUsers to reject due to amount of arguments */ 
-      db.shutdown();
-    }
-  }
-  
-  public authenticateUser()
-  {
-    db.createConnection();
-    
-    try 
-    {
-      
-    }
-    
-    catch
-    {
-      
-    }
-       
-  }
+
 }

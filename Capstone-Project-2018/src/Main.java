@@ -16,6 +16,7 @@ public class Main extends Application {
 		
 		Stage loginStage = new LoginScreen();
 		loginStage.show();
+		/*df*/
 	}
 
 }

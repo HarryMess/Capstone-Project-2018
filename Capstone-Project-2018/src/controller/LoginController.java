@@ -1,5 +1,5 @@
 /** LoginController.java
- *  @author Paul King - s3449513 *  
+ *  @author Paul King - s3449513
  */
 
 package controller;

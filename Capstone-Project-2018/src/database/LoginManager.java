@@ -11,7 +11,6 @@ public class LoginManager
     private Scanner input = new Scanner(System.in); // Probably replace with a utilty class
     //private ArrayList<User> userArray1 = new ArrayList<User>();
 
-//    private String userName;
     private String password;
     private String email;
 
@@ -28,8 +27,6 @@ public class LoginManager
 
        System.out.println("Please enter the password you would like to be added to the database");
        String password = input.nextLine();
-
-       System.out.println("Please enter your email");
 
        /*
        boolean status = false;
@@ -72,8 +69,8 @@ public class LoginManager
        try
        {
            statem = connec.createStatement();
-           /*statem.execute("insert into " + users + " values (" + // Table name needs to be changed //
-                   ",'" + userName + "','" + password + "','" + email + "','" + "')");*/
+           /*statem.execute("insert into " + Users + " values (" +
+                   ",'" + email + "','" + password + "','" + "')");*/
            statem.close();
        }
 
@@ -100,7 +97,7 @@ public class LoginManager
         }
 
         System.out.println("Please enter your username");
-        String userName = input.nextLine();
+        String email = input.nextLine();
 
         System.out.println("Please enter your password");
         String password = input.nextLine();
@@ -108,7 +105,7 @@ public class LoginManager
         try
         {
             statem = connec.createStatement();
-            ResultSet res = statem.executeQuery("select * from users where userName='"+email+"' AND password = '"+password+"'");
+            ResultSet res = statem.executeQuery("select * from users where email='"+email+"' AND password = '"+password+"'");
             int counter = 0;
             while (res.next())
             {

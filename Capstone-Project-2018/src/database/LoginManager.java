@@ -1,5 +1,6 @@
 package database;
 
+
 import java.util.*;
 import java.io.*;
 import java.sql.*;
@@ -19,13 +20,49 @@ public class LoginManager
 
     public void addUser()
     {
+       
+       boolean iError = true;
+       
        System.out.println("Welcome user to this test instance");
        System.out.println("Please enter the email you would like to be added to the database");
        System.out.println("Restrictions will apply!");
-       String email = input.nextLine();
+       
+       do
+       {
+       try
+       {
+           String email = input.nextLine();
+       }
+           
+       catch(Exception exception)
+       {
+           exception.printStackTrace();
+       }
+       
+           
+       }
+      
+       while (email == null);
 
        System.out.println("Please enter the password you would like to be added to the database");
-       String password = input.nextLine();
+          
+       do
+       {
+       try
+       {
+           String password = input.nextLine();
+       }
+              
+       catch(Exception exception)
+       {
+           exception.printStackTrace();
+       }
+       
+       }
+          
+       while(password == null || password.length() > 15);
+          
+          
 
        /*
        boolean status = false;

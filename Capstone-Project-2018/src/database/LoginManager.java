@@ -1,6 +1,5 @@
 package database;
 
-
 import java.util.*;
 import java.io.*;
 import java.sql.*;
@@ -14,7 +13,7 @@ public class LoginManager
     private String password;
     private String email;
 
-    private static String dbURL = "jdbc:derby://localhost:8080/DBDerby;create=true;user='s3488361;password=password"; /* This needs to be changed */
+    private static String dbURL = "jdbc:derby:Database;create=true;user='s3488361;password=password"; /* This needs to be changed */
     private static Connection connec = null; /* Instance */
     private static Statement statem = null;
 
@@ -33,12 +32,10 @@ public class LoginManager
        String email_Pattern = "^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$";
        Pattern p = Pattern.compile(email_Pattern);
        Matcher m = p.m(email);
-
        if(m.matches())
        {
            status = true;
        }
-
        else
        {
            System.out.println("Invalid email");

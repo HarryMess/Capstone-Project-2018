@@ -88,7 +88,7 @@ public class LoginManager
        
        try
        {
-           Class.forName("org.apache.derby.jdbc.ClientDriver").newInstance();
+           Class.forName("org.apache.derby.jdbc.ClientDriver").newInstance(); // Use org.apache.derby.jdbc.EmbeddedDriver
            connec = DriverManager.getConnection(dbURL);
 
            /* Old method of mapping driver to URL, refer to
@@ -124,7 +124,7 @@ public class LoginManager
     {
         try
         {
-            Class.forName("org.apache.derby.jdbc.ClientDriver").newInstance();
+            Class.forName("org.apache.derby.jdbc.ClientDriver").newInstance(); // use org.apache.derby.jdbc.EmbeddedDriver
             connec = DriverManager.getConnection(dbURL);
         }
 

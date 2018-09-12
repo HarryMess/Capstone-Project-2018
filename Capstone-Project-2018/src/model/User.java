@@ -11,6 +11,7 @@ public class User
 	private String email;
 	private String password;
 	private final TradingAccount account;
+	private boolean isAdmid;
 	
 	public User(String email, String password)
 	{
@@ -63,6 +64,67 @@ public class User
 			e.printStackTrace();
 		}
 	}
+	
+	//register
+	public void register()
+	{
+		
+	}
+	
+	// function log in
+	public void logIn() 
+	{
+		
+	}
+    
+	// function log out 
+	public void logOut()
+	{
+		
+	}
+	
+	// view friend list 
+	public void viewFriendlist()
+	{
+	   System.out.println("1. Add friend \n"
+			   	    + "2. Accept friend request \n"
+			   		+ "3. Send money to friend \n"
+			   		+ "4. Send massage \n"
+			   		+ "5. View info \n");
+	   int i = 0;
+	   
+	}
+	
+	// add friend
+	public void addFriend()
+	{
+		
+	}
+	
+	// accept friend request
+	public void acceptFriendrequest()
+	{
+		
+	}
+	
+	// send money to friend
+	public void sendMoney()
+	{
+		
+	}
+	
+	// send massage 
+	public void sendmassage()
+	{
+		
+	}
+	
+	//view info
+	public void viewinfo() 
+	{
+		
+	}
+	
 	
 	@Override
 	public String toString()

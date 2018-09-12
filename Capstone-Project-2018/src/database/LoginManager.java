@@ -24,8 +24,6 @@ public class LoginManager
     public void addUser()
     {
        
-       boolean iError = true;
-       
        System.out.println("Welcome user to this test instance");
        System.out.println("Please enter the email you would like to be added to the database");
        System.out.println("Restrictions will apply!");

@@ -2,7 +2,7 @@ package model;
 
 public class Company {
 
-	private String id;
+	private String code;
 	private String name;
 	private float marketPrice;
 	private float profitPerStock;
@@ -12,14 +12,14 @@ public class Company {
 	 * @param id
 	 * @param name
 	 */
-	public Company(String id, String name) {
+	public Company(String code, String name) {
 		
-		this.id = id;
+		this.code = code;
 		this.name = name;
 	}
 
 	public String getId() {
-		return id;
+		return code;
 	}
 
 	public String getName() {

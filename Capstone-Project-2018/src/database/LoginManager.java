@@ -2,6 +2,9 @@ package database;
 
 
 import java.util.*;
+
+import model.User;
+
 import java.io.*;
 import java.sql.*;
 //import java.util.regex.*;
@@ -9,7 +12,7 @@ import java.sql.*;
 public class LoginManager
 {
     private Scanner input = new Scanner(System.in); // Probably replace with a utilty class
-    //private ArrayList<User> userArray1 = new ArrayList<User>();
+    private ArrayList<User> users = new ArrayList<User>();
 
     private String password;
     private String email;
@@ -60,10 +63,8 @@ public class LoginManager
        
        }
           
-       while(password == null || password.length() > 15);
+       while(password == null || password.length() > 15);          
           
-          
-
        /*
        boolean status = false;
        String email_Pattern = "^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$";
@@ -81,9 +82,12 @@ public class LoginManager
        }
        */
 
-
        /* Will require do try catch while to prevent users from entering nothing */
-
+       
+       // create a new user and hash the password
+       User user = new User(email, password);
+       user.hashPassword(password);
+       
        try
        {
            Class.forName("org.apache.derby.jdbc.ClientDriver").newInstance();
@@ -102,9 +106,10 @@ public class LoginManager
 
        try
        {
+    	   users.add(user);       	   
            statem = connec.createStatement();
-           /*statem.execute("insert into " + Users + " values (" +
-                   ",'" + email + "','" + password + "','" + "')");*/
+           statem.execute("insert into Users values (" +
+                   ",'" + user.getEmail() + "','" + user.getPassword() + "','" + "')");
            statem.close();
        }
 

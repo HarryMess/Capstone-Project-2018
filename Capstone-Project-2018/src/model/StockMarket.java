@@ -57,7 +57,7 @@ public class StockMarket {
 	public User getUser(String userName) {
 		
 		for(User u : users) {
-			if(u.getUserName().equals(userName))
+			if(u.getEmail().equals(userName))
 				return u;
 		}
 		
@@ -67,7 +67,7 @@ public class StockMarket {
 	public TradingAccount getTradingAccount(String userName) {
 		
 		for(User u : users) {
-			if(u.getUserName().equals(userName))
+			if(u.getEmail().equals(userName))
 				return u.getTradingAccount();
 		}
 		

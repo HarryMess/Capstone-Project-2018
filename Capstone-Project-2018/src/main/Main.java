@@ -1,16 +1,18 @@
+package main;
+import controller.FrameManager;
 import view.LoginFrame;
 import javax.swing.*;
 
 public class Main
 {
-	public static void Main(String args[])
+	public static void main(String[] args)
 	{
 		SwingUtilities.invokeLater(new Runnable()
 		{
 			@Override
 			public void run()
 			{
-				LoginFrame loginFrame = new LoginFrame("Stock Market Simulator");
+				FrameManager fm = new FrameManager("Stock Market Simulator");
 			}
 		});
 	}

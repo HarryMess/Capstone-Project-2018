@@ -9,7 +9,7 @@ import java.io.*;
 import java.sql.*;
 //import java.util.regex.*;
 
-public class LoginManager
+public class LoginManagerOld
 {
     private Scanner input = new Scanner(System.in); // Probably replace with a utilty class
     private ArrayList<User> users = new ArrayList<User>();

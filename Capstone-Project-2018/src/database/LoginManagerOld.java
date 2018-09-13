@@ -17,14 +17,12 @@ public class LoginManagerOld
     private String password;
     private String email;
 
-    private static String dbURL = "jdbc:derby:Database;create=true;user='s3488361;password=password"; /* This needs to be changed */
+    private static String dbURL = "jdbc:derby:Database;create=true;user='s3488361;password=password"; /* This might have to be changed, if you get a "No suitable driver found for ..." Error the classpath is wrong
     private static Connection connec = null; /* Instance */
     private static Statement statem = null;
 
     public void addUser()
     {
-       
-       boolean iError = true;
        
        System.out.println("Welcome user to this test instance");
        System.out.println("Please enter the email you would like to be added to the database");
@@ -90,7 +88,7 @@ public class LoginManagerOld
        
        try
        {
-           Class.forName("org.apache.derby.jdbc.ClientDriver").newInstance();
+           Class.forName("org.apache.derby.jdbc.ClientDriver").newInstance(); // Use org.apache.derby.jdbc.EmbeddedDriver
            connec = DriverManager.getConnection(dbURL);
 
            /* Old method of mapping driver to URL, refer to
@@ -126,7 +124,7 @@ public class LoginManagerOld
     {
         try
         {
-            Class.forName("org.apache.derby.jdbc.ClientDriver").newInstance();
+            Class.forName("org.apache.derby.jdbc.ClientDriver").newInstance(); // use org.apache.derby.jdbc.EmbeddedDriver
             connec = DriverManager.getConnection(dbURL);
         }
 

@@ -8,16 +8,26 @@ import javax.xml.bind.DatatypeConverter;
 
 public class User
 {
+	private String userName;
 	private String email;
 	private String password;
 	private final TradingAccount account;
-	private boolean isAdmid;
 	
-	public User(String email, String password)
+	public User(String userName, String email, String password)
 	{
+		this.userName = userName;
 		this.email = email;
 		this.password = password;
 		account = new TradingAccount();
+	}
+	
+	public String getUserName()
+	{
+		return userName;
+	}
+	public void setUserName(String userName)
+	{
+		this.userName = userName;
 	}
 	
 	public String getEmail()
@@ -64,11 +74,10 @@ public class User
 			e.printStackTrace();
 		}
 	}
-
 	
 	@Override
 	public String toString()
 	{
-		return "Email: " + email + "\n" + "Password: " + password + "\n";
+		return "Username: " + userName + "\n" + "Email: " + email + "\n" + "Password: " + password + "\n";
 	}
 }

@@ -1,19 +1,46 @@
 package view;
 
-import controller.FrameManager;
+import javax.swing.*;
+import java.awt.*;
 
-public class LoginFrame extends AbstractFrame
+@SuppressWarnings("serial")
+public class LoginFrame extends JFrame
 {
-	FrameManager fm;
-	public LoginFrame(FrameManager fm, String title)
+	public LoginFrame(String title)
 	{
-		super(fm, title);
+		super(title);
 
+		//For convenience
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		int screenWidth = (int)screenSize.getWidth();
+		int screenHeight = (int)screenSize.getHeight();
+
+		//Frame settings
+		this.setBounds(screenWidth/4, screenHeight/4, screenWidth/2, screenHeight/2);
+		this.setMinimumSize(new Dimension(500, 250));
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setLayout(new GridLayout(3, 1));
+		//imglabelapprove.setHorizontalAlignment(JLabel.CENTER);
 		//Upper panel
-		this.add(new TitlePanel());
+		//JPanel upPane = new JPanel();
+		JLabel upLabel = new JLabel("Stock Market Simulator");
+		upLabel.setFont(new Font("Century Gothic", Font.PLAIN, 32));
+		//upPane.add(upLabel);
+		upLabel.setHorizontalAlignment(JLabel.CENTER);
+		upLabel.setVerticalAlignment(JLabel.NORTH);
+		this.add(upLabel);
 
-		//Centre panel
-		this.add(new LoginPanel(this));
+		//Middle panel
+//		JPanel midPane = new JPanel();
+		JLabel midLabel = new JLabel("Middle section");
+		midLabel.setHorizontalAlignment(JLabel.CENTER);
+		this.add(midLabel);
+
+		//Lower panel
+//		JPanel lowPane = new JPanel();
+		JLabel lowLabel = new JLabel("Lower section");
+		lowLabel.setHorizontalAlignment(JLabel.CENTER);
+		this.add(lowLabel);
 
 		this.setVisible(true);
 	}

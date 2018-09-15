@@ -6,14 +6,14 @@ import java.util.List;
 
 public class TradingAccount {
 	
-	public final float STARTING_MONEY = 1000000;
+	public final double STARTING_MONEY = 1000000.00;
 
-	private float balance;
+	private double balance;
 	private List<Float> valueHistory;
 	private List<Stock> stocksOwned;	
 	private List<Transaction> transactionHistory;
 
-	public void stockAccount() {
+	public TradingAccount() {
 		
 		balance = STARTING_MONEY;
 		stocksOwned = new ArrayList<Stock>();
@@ -25,39 +25,22 @@ public class TradingAccount {
 		return this.stocksOwned;
 	}
 
-	public float getBalance() {
+	public double getBalance() {
 		return balance;
 	}
 
-	/**
-	 * 
-	 * @param amount
-	 */
 	public void addFunds(float amount) {
 		balance += amount;
 	}
 
-	/**
-	 * 
-	 * @param amount
-	 */
 	public void removeFunds(float amount) {
 		balance -= amount;
 	}
 
-	/**
-	 * 
-	 * @param stock
-	 */
 	public void BuyStock(Stock stock) {
-		// TODO - implement TradingAccount.BuyStock
 		stocksOwned.add(stock);
 	}
 
-	/**
-	 * 
-	 * @param stock
-	 */
 	public void sellStock(Stock stock, float price) {
 		stocksOwned.remove(stock);
 		balance += price;

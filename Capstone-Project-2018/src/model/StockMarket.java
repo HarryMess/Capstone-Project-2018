@@ -30,10 +30,10 @@ public class StockMarket {
 	 * 
 	 * @param id
 	 */	
-	public Stock getStocks(String id) {
+	public Stock getStocks(int id) {
 		
 		for(Stock s : stocks) {
-			if(s.getId().equals(id))
+			if(s.getId() == id)
 				return s;
 		}
 		
@@ -43,7 +43,7 @@ public class StockMarket {
 	public Company getCompany(String id) {
 		
 		for(Company c : companies) {
-			if(c.getId().equals(id))
+			if(c.getCode().equals(id))
 				return c;
 		}
 			

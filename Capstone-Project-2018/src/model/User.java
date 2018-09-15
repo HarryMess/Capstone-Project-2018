@@ -11,12 +11,13 @@ public class User
 	private String email;
 	private String password;
 	private final TradingAccount account;
-	private boolean isAdmid;
 	
 	public User(String email, String password)
 	{
 		this.email = email;
 		this.password = password;
+		hashPassword(password);		
+		
 		account = new TradingAccount();
 	}
 	
@@ -56,15 +57,14 @@ public class User
 			byte[] digest = md.digest();			
 			hashedPassword = DatatypeConverter.printHexBinary(digest);
 			
-			System.out.println("Password: " + password);
-			System.out.println("Hashed password: " + hashedPassword);
+//			System.out.println("Password: " + password);
+//			System.out.println("Hashed password: " + hashedPassword);
 			
 		} catch (NoSuchAlgorithmException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-
 	
 	@Override
 	public String toString()

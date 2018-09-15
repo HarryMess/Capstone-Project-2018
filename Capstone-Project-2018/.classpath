@@ -3,5 +3,9 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/5"/>
+	<classpathentry kind="con" path="org.apache.derby.jdbc.ClientDriver"/>
+	<classpathentry kind="con" path="org.apache.derby.jdbc.EmbeddedDriver"/>
+	<classpathentry kind="con" path="derby-10.14.2.0/lib/derby.jar" />
+	<classpathentry kind="con" path="derby-10.14.2.0/lib/derbyclient.jar" />
 	<classpathentry kind="output" path="bin"/>
 </classpath>

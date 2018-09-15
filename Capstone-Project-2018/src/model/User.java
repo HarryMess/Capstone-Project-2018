@@ -4,7 +4,7 @@ package model;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-import javax.xml.bind.DatatypeConverter;
+//import javax.xml.bind.DatatypeConverter;
 
 public class User
 {
@@ -47,15 +47,15 @@ public class User
 	
 	public void hashPassword(String password) {
 		
-		String hashedPassword;
+//		String hashedPassword;
 		
 		try {
 			MessageDigest md = MessageDigest.getInstance("SHA-256");
 			md.update(password.getBytes());
 			
 			// create a string format of hash
-			byte[] digest = md.digest();			
-			hashedPassword = DatatypeConverter.printHexBinary(digest);
+//			byte[] digest = md.digest();			
+//			hashedPassword = DatatypeConverter.printHexBinary(digest);
 			
 //			System.out.println("Password: " + password);
 //			System.out.println("Hashed password: " + hashedPassword);
@@ -71,4 +71,5 @@ public class User
 	{
 		return "Email: " + email + "\n" + "Password: " + password + "\n";
 	}
+
 }

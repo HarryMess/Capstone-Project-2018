@@ -17,8 +17,16 @@ public class LoginListener implements ActionListener
 	{
 		String email = userField.getText();
 		String password = passField.getText();
-
-		//loginMethod(email, password);
+		
+		loginMethod(email, password);
+		
 		System.out.println("Test call.\n Email: " + email + "\nPassword: " + password);
+	}
+	
+	public void loginMethod(String email, String password)
+	{
+		private static String dbURL = ""
+		
+		
 	}
 }

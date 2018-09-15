@@ -13,7 +13,7 @@ public class Stock {
 		this.quantity = quantity;
 	}
 
-	public int getId() {
+	public int getOwner() {
 		return ownerId;
 	}
 

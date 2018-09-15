@@ -5,39 +5,51 @@
 
 package model;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class StockMarket {
 
+	private static StockMarket stockMarket;	
+	
 	private List<User> users;
 	private List<Company> companies;
 	private List<Stock> stocks;	
 	private List<Transaction> transactionHistory;
+	
+	public static StockMarket getInstance() {
 
-	/**
-	 * 
-	 * @param companies
-	 */
-	public StockMarket(List<Company> companies) {
+		if (stockMarket == null) {
+			Model model = Model.getInstance();
+			stockMarket = new StockMarket(model.getUsers(), model.getCompanies(),
+						  model.getStocks(), model.getTransactionHistory());
+		}
+		
+		return stockMarket;
+	}
+
+	private StockMarket(List<User> users, List<Company> companies, 
+			List<Stock> stocks, List<Transaction> transactionHistory) {
+		
 		this.companies = companies;
-		stocks = new ArrayList<Stock>(); // need to decide how we want to implement this
-		users = new ArrayList<User>();
-		transactionHistory = new ArrayList<Transaction>();
+		this.stocks = stocks; // need to decide how we want to implement this
+		this.users = users;
+		this.transactionHistory = transactionHistory;
 	}
 
 	/**
 	 * 
 	 * @param id
+	 * @throws NotFoundException 
 	 */	
-	public Stock getStocks(int id) {
+	public Stock getStock(String code, int ownerId) throws NotFoundException {
 		
 		for(Stock s : stocks) {
-			if(s.getId() == id)
+			if(s.getCompany() == code && s.getOwner() == ownerId)
 				return s;
 		}
 		
-		throw new NullPointerException("Error: Stock id'" + id + "' was not found.");
+		throw new NotFoundException("No stocks from company '" + code + 
+				"' is owned by id '" + ownerId + "'");
 	}
 	
 	public Company getCompany(String id) {
@@ -78,10 +90,10 @@ public class StockMarket {
 	 * 
 	 * @param id
 	 */
-	public Transaction getTransaction(String id) {
+	public Transaction getTransaction(int id) {
 		
 		for(Transaction t : transactionHistory) {
-			if(t.getTranasctionId().equals(id))
+			if(t.getTranasctionId() == id)
 				return t;
 		}
 			
@@ -121,9 +133,14 @@ public class StockMarket {
 	 * @param sender
 	 * @param receiver
 	 */
-	public void transferFunds(int sender, int receiver) {
+	public void transferFunds(int sender, int receiver, float amount) {
 		// TODO - implement StockMarketSystem.transferFunds
 		
+	}
+	
+	public void transferFunds(TradingAccount sender, TradingAccount receiver, float amount) {
+		sender.removeFunds(amount);
+		receiver.addFunds(amount);
 	}
 
 }

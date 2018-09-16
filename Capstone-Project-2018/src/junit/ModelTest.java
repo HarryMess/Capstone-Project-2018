@@ -19,25 +19,18 @@ import model.User;
 
 class ModelTest {
 	
-	private Model model = Model.getInstance();
-	private DataGenerator generator  = new DataGenerator();
+	static Model model;
+	
+//	@Before
+//	void begin() {
+//		Model model = Model.getInstance();
+//	}
 
 	@Test
 	void addUsers() {
 		
 		try {
-			generator.addUsers();
-			List<User> users = model.getUsers();
-			
-			assert(users != null && users.size() > 0);
-
-			System.out.println("Users");
-			System.out.println("-----");
-			for(User user : users) {
-				System.out.print(user.toString());
-				System.out.println("Balance: $" + user.getTradingAccount().getBalance());
-				System.out.println();	
-			}
+			DataGenerator.addUsers();
 		}
 		catch(Exception e) {
 			fail(""+e.getStackTrace());
@@ -48,7 +41,7 @@ class ModelTest {
 	void createCompanies() {
 		
 		try {
-			generator.createCompanies();
+			DataGenerator.createCompanies();
 			
 			List<Company> companies = model.getCompanies();			
 			assert(companies != null && companies.size() > 0);
@@ -69,7 +62,7 @@ class ModelTest {
 	@Test
 	void addStockToCompanies() {
 		try {
-			generator.addStockToCompanies();
+			DataGenerator.addStockToCompanies();
 			
 			List<Stock> stocks = model.getStocks();
 			assert(stocks != null && stocks.size() > 0);
@@ -121,4 +114,28 @@ class ModelTest {
 		}
  	}
 	
+	@Test
+	void showData() {
+		try {
+			
+			model = Model.getInstance();
+			
+			List<User> users = model.getUsers();
+			
+			assert(users != null && users.size() > 0);
+
+			System.out.println("Users");
+			System.out.println("-----");
+			for(User user : users) {
+				System.out.print(user.toString());
+				System.out.println("Balance: $" + user.getTradingAccount().getBalance());
+				System.out.println();		
+			}
+			
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+			fail(""+e.getStackTrace());
+		}
+	}
 }

@@ -2,6 +2,7 @@ package controller;
 
 import javax.swing.*;
 
+import main.ConsoleApplication;
 import model.Model;
 import model.User;
 
@@ -46,14 +47,10 @@ public class LoginListener implements ActionListener
 			JOptionPane.showMessageDialog(null, "Login successul", "Login Confirmation",
 					JOptionPane.INFORMATION_MESSAGE);
 			
-			// add user to logged in user variable
-			
 			// open dashboard screen - replace the code below with actual screen
-			JFrame dashboard = new JFrame("Dashboard");
-			dashboard.setMinimumSize(new Dimension(500, 250));
-			dashboard.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			parent.setVisible(false);
-			dashboard.setVisible(true);
+			new ConsoleApplication(user);
+			
 		}
 	}
 }

@@ -6,45 +6,27 @@ import model.*;
 
 public class DataGenerator {
 
-	private static Model model = Model.getInstance();
+	private Model model;
 	
-	public static void main(String[] args) {
+	public DataGenerator( ) {
+		model = Model.getInstance();
+	}
+	
+	public void main(String[] args) {
 
 		addUsers();
 		createCompanies();
 		addStockToCompanies();
-		
-		List<User> users = model.getUsers();
-		List<Company> companies = model.getCompanies();
-		List<Stock> stocks = model.getStocks();
-		
-		System.out.println("Users");
-		System.out.println("-----");
-		for(User user : users) {
-			System.out.print(user.toString());
-			System.out.println("Balance: $" + user.getTradingAccount().getBalance());
-			System.out.println();		
-		}
-		
-		System.out.println("Company");
-		System.out.println("-------");
-		for(Company company : companies)
-			System.out.println(company.toString());
-		
-		System.out.println();
-		System.out.println("Stocks");
-		System.out.println("-----");
-		for(Stock stock : stocks)
-			System.out.println(stock.toString());
+		showData();
 	}
 	
-	public static void addUsers() {
+	public void addUsers() {
 		
 		model.addUser(new Admin("admin@asx.com.au", "password", "Stock Market"));
 		model.addUser(new User("s3449513@student.rmit.edu.au", "password", "Paul King"));
 	}
 	
-	public static void createCompanies() {
+	public void createCompanies() {
 		
 		model.addCompany(new Company("A2M", "THE A2 MILK COMPANY LIMITED", 1000000));
 		model.addCompany(new Company("AA", "AUSTRALIAN AGRICULTURAL COMPANY LIMITED.", 1000000));
@@ -107,7 +89,7 @@ public class DataGenerator {
 				
 	}
 	
-	public static void addStockToCompanies() {
+	public void addStockToCompanies() {
 		
 		List<Company> companies = model.getCompanies();		
 		List<Stock> stocks = model.getStocks();
@@ -116,6 +98,31 @@ public class DataGenerator {
 			stocks.add(new Stock(company.getCode(), 0, company.getTotalShares()));
 		}
 		
+	}
+	
+	public void showData() {
+		List<User> users = model.getUsers();
+		List<Company> companies = model.getCompanies();
+		List<Stock> stocks = model.getStocks();
+		
+		System.out.println("Users");
+		System.out.println("-----");
+		for(User user : users) {
+			System.out.print(user.toString());
+			System.out.println("Balance: $" + user.getTradingAccount().getBalance());
+			System.out.println();		
+		}
+		
+		System.out.println("Company");
+		System.out.println("-------");
+		for(Company company : companies)
+			System.out.println(company.toString());
+		
+		System.out.println();
+		System.out.println("Stocks");
+		System.out.println("-----");
+		for(Stock stock : stocks)
+			System.out.println(stock.toString());
 	}
 	
 }

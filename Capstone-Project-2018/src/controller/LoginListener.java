@@ -5,7 +5,6 @@ import javax.swing.*;
 import main.ConsoleApplication;
 import model.Model;
 import model.User;
-
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -49,8 +48,10 @@ public class LoginListener implements ActionListener
 			
 			// open dashboard screen - replace the code below with actual screen
 			parent.setVisible(false);
-			new ConsoleApplication(user);
-			
+			ConsoleApplication ca = new ConsoleApplication(user);
+			ca.showCompany();
+			ca.showMyshare();
+			ca.showRecenttrans();
 		}
 	}
 }

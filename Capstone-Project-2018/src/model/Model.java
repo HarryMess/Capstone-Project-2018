@@ -60,4 +60,55 @@ public class Model {
 	public void addTransaction(Transaction transaction) {
 		transactionHistory.add(transaction);
 	}
+	
+	public Stock getStock(String code, int ownerId) throws NotFoundException {
+		
+		for(Stock s : stocks) {
+			if(s.getCompany() == code && s.getOwner() == ownerId)
+				return s;
+		}
+		
+		throw new NotFoundException("No stocks from company '" + code + 
+				"' is owned by id '" + ownerId + "'");
+	}
+	
+	public Company getCompany(String id) {
+		
+		for(Company c : companies) {
+			if(c.getCode().equals(id))
+				return c;
+		}
+			
+		throw new NullPointerException("Error: Company id'" + id + "' was not found.");	
+	}
+
+	public User getUser(String userName) {
+		
+		for(User u : users) {
+			if(u.getEmail().equals(userName))
+				return u;
+		}
+		
+		return null;
+	}
+	
+	public TradingAccount getTradingAccount(String userName) {
+		
+		for(User u : users) {
+			if(u.getEmail().equals(userName))
+				return u.getTradingAccount();
+		}
+		
+		throw new NullPointerException("Error: Username '" + userName + "' was not found.");
+	}
+
+	public Transaction getTransaction(int id) {
+		
+		for(Transaction t : transactionHistory) {
+			if(t.getTranasctionId() == id)
+				return t;
+		}
+			
+		throw new NullPointerException("Error: Transaction id'" + id + "' was not found.");	
+	}
 }

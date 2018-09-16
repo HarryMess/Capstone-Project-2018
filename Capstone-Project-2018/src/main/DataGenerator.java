@@ -40,8 +40,8 @@ public class DataGenerator {
 	
 	public static void addUsers() {
 		
-		model.addUser(new Admin("admin@asx.com.au", "password"));
-		model.addUser(new User("s3449513@student.rmit.edu.au", "password"));
+		model.addUser(new Admin("admin@asx.com.au", "password", "Stock Market"));
+		model.addUser(new User("s3449513@student.rmit.edu.au", "password", "Paul King"));
 	}
 	
 	public static void createCompanies() {

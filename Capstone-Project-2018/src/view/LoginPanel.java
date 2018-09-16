@@ -54,7 +54,7 @@ public class LoginPanel extends JPanel
 		this.add(forgotPassLabel, gbc);
 
 		//Action Listener
-		loginButton.addActionListener(new LoginListener(emailText, passText));
+		loginButton.addActionListener(new LoginListener(parentFrame, emailText, passText));
 
 		//this.setBorder(BorderFactory.createLineBorder(Color.black)); TODO: Figure out border
 	}

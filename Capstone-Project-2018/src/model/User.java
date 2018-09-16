@@ -12,13 +12,13 @@ public class User
 	private String password;
 	private final TradingAccount account;
 	
-	public User(String email, String password)
+	public User(String email, String password, String name)
 	{
 		this.email = email;
 		this.password = password;
 		hashPassword(password);		
 		
-		account = new TradingAccount();
+		account = new TradingAccount(name);
 	}
 	
 	public String getEmail()
@@ -64,6 +64,16 @@ public class User
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	public boolean passwordMatches(String passwordEntered) {
+		
+		hashPassword(passwordEntered);
+		
+		if(password.equals(passwordEntered))
+			return true;
+		
+		return false;
 	}
 	
 	@Override

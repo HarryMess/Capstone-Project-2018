@@ -3,8 +3,8 @@ package model;
 public class Admin extends User 
 {
 	
-	public Admin(String email, String password) {
-		super(email, password);
+	public Admin(String email, String password, String name) {
+		super(email, password, name);
 		// TODO Auto-generated constructor stub
 	}
 	

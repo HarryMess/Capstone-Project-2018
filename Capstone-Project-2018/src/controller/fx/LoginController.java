@@ -2,7 +2,7 @@
  *  @author Paul King - s3449513
  */
 
-package controller;
+package controller.fx;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;

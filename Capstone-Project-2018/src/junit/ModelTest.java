@@ -88,13 +88,14 @@ class ModelTest {
 			StockMarket market = StockMarket.getInstance();
 			
 			// searches Arraylist for matches			
-			TradingAccount buyer = market.getTradingAccount("s3449513@student.rmit.edu.au");
-			TradingAccount seller = market.getTradingAccount("admin@asx.com.au");
-			Stock stock = market.getStock("A2M", 0);
-			Company company = market.getCompany("A2M");
+			TradingAccount buyer = model.getTradingAccount("s3449513@student.rmit.edu.au");
+			TradingAccount seller = model.getTradingAccount("admin@asx.com.au");
+			Stock stock = model.getStock("A2M", 0);
+			Company company = model.getCompany("A2M");
 		
 			// create the transaction
-			model.addTransaction(new Transaction(1, buyer, seller, stock, LocalDateTime.now(), company.getMarketPrice()));
+			model.addTransaction(new Transaction(1, buyer, seller, stock, LocalDateTime.now(),
+					company.getMarketPrice()));
 			
 			// transfer the money
 			market.transferFunds(buyer, seller, company.getMarketPrice());

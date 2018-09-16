@@ -8,17 +8,23 @@ public class TradingAccount {
 	
 	public final double STARTING_MONEY = 1000000.00;
 
+	private final String name;
 	private double balance;
 	private List<Float> valueHistory;
 	private List<Stock> stocksOwned;	
 	private List<Transaction> transactionHistory;
 
-	public TradingAccount() {
+	public TradingAccount(String name) {
 		
+		this.name = name;
 		balance = STARTING_MONEY;
 		stocksOwned = new ArrayList<Stock>();
 		valueHistory = new LinkedList<Float>();
 		transactionHistory = new ArrayList<Transaction>();
+	}
+	
+	public String getName() {
+		return name;
 	}
 
 	public List<Stock> getStocksOwned() {

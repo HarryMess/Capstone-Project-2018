@@ -83,7 +83,7 @@ public class LoginManagerOld
        /* Will require do try catch while to prevent users from entering nothing */
        
        // create a new user and hash the password
-       User user = new User(email, password);
+       User user = new User(email, password, "player 1");
        user.hashPassword(password);
        
        try

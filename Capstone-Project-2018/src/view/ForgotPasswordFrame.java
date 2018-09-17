@@ -12,7 +12,7 @@ public class ForgotPasswordFrame extends AbstractFrame
 		super(fm, title);
 
 		//Upper panel
-		this.add(new TitlePanel());
+		this.add(new TitlePanel(this));
 
 		//Centre panel
 		this.add(new ForgotPasswordPanel(this));

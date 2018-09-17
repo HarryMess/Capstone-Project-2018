@@ -42,7 +42,7 @@ public class LoginPanel extends JPanel
 		forgotPassLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR)); //Change to hand cursor on hover
 		forgotPassLabel.setForeground(Color.blue);
 		forgotPassLabel.addMouseListener(
-				new LinkListener(parentFrame.getFrameManager(), parentFrame, "forgotpass"));
+				new LinkListener(parentFrame.getFrameManager(), parentFrame, "dashboard"));
 
 
 		//Add all elements to panel

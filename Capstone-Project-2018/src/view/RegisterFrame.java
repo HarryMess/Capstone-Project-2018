@@ -13,7 +13,7 @@ public class RegisterFrame extends AbstractFrame
 		super(fm, title);
 
 		//Upper panel
-		this.add(new TitlePanel());
+		this.add(new TitlePanel(this));
 
 		//Centre panel
 		this.add(new RegisterPanel(this));

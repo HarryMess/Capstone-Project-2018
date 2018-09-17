@@ -1,16 +1,13 @@
 package controller;
 
-import view.AbstractFrame;
-import view.ForgotPasswordFrame;
-import view.LoginFrame;
-import view.RegisterFrame;
+import view.*;
 
 import javax.swing.*;
 
 public class FrameManager
 {
 	private String frameTitle;
-	private AbstractFrame loginFrame, registerFrame, forgotPassFrame;
+	private AbstractFrame loginFrame, registerFrame, forgotPassFrame, dashboardFrame;
 	public FrameManager(String frameTitle)
 	{
 		loginFrame = new LoginFrame(this, frameTitle);
@@ -37,8 +34,16 @@ public class FrameManager
 					forgotPassFrame = new ForgotPasswordFrame(this, frameTitle);
 				}
 				return forgotPassFrame;
+
+			case("dashboard"):
+				if(dashboardFrame == null)
+				{
+					dashboardFrame = new DashboardFrame(this, frameTitle);
+				}
+				return dashboardFrame;
 			default:
-				return null;
+				return loginFrame; //If something goes wrong, return user to login
+				//TODO: Add error screen?
 		}
 	}
 }

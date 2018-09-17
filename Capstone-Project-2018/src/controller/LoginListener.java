@@ -25,7 +25,8 @@ public class LoginListener implements ActionListener
 	
 	public void loginMethod(String email, String password)
 	{
-		private static String dbURL = ""
+		String dbURL = "jdbc:derby:Database;create=true;";		
+		
 		
 		
 	}

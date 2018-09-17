@@ -29,7 +29,7 @@ public class RegisterPanel extends JPanel
 		//Link to login
 		JLabel loginLabel = new JLabel("(or Log In)");
 		loginLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR)); //Change to hand cursor on hover
-		loginLabel.setForeground(Color.blue); //TODO: Make only register clickable etc
+		loginLabel.setForeground(Color.blue); //TODO: Make only login clickable etc
 		loginLabel.addMouseListener(new LinkListener(parentFrame.getFrameManager(), parentFrame, "login"));
 
 		//Register text fields

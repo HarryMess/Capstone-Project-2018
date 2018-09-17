@@ -6,9 +6,9 @@ import java.awt.event.MouseListener;
 
 public class LinkListener implements MouseListener
 {
-	JFrame oldFrame;
-	String newFrame;
-	FrameManager fm;
+	private JFrame oldFrame;
+	private String newFrame;
+	private FrameManager fm;
 	public LinkListener(FrameManager fm, JFrame oldFrame, String newFrame)
 	{
 		this.oldFrame = oldFrame;

@@ -32,9 +32,9 @@ public class DataGenerator {
 		model.addCompany(new Company("A2M", "THE A2 MILK COMPANY LIMITED", 1000000));
 		model.addCompany(new Company("AA", "AUSTRALIAN AGRICULTURAL COMPANY LIMITED.", 1000000));
 		model.addCompany(new Company("ARB", "ARB CORPORATION LIMITED.", 1000000));
-//		model.addCompany(new Company("ASB", "AUSTAL LIMITED", 1000000));
-//		model.addCompany(new Company("ANZ", "AUSTRALIA AND NEW ZEALAND BANKING GROUP LIMITED", 1000000));
-//		model.addCompany(new Company("BAL", "BELLAMY'S AUSTRALIA LIMITED", 1000000));
+		model.addCompany(new Company("ASB", "AUSTAL LIMITED", 1000000));
+		model.addCompany(new Company("ANZ", "AUSTRALIA AND NEW ZEALAND BANKING GROUP LIMITED", 1000000));
+		model.addCompany(new Company("BAL", "BELLAMY'S AUSTRALIA LIMITED", 1000000));
 //		model.addCompany(new Company("BAP", "BAPCOR LIMITED", 1000000));
 //		model.addCompany(new Company("BBN", "BABY BUNTING GROUP LIMITED", 1000000));
 //		model.addCompany(new Company("BEAR", "BETASHARES AUSTRALIAN EQUITIES BEAR HEDGE FUND", 1000000));

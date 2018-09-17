@@ -4,7 +4,7 @@
 
 package view;
 
-import controller.LoginController;
+import controller.fx.LoginController;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;

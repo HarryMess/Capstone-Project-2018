@@ -4,30 +4,21 @@ package model;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-import javax.xml.bind.DatatypeConverter;
+//import javax.xml.bind.DatatypeConverter;
 
 public class User
 {
-	private String userName;
 	private String email;
 	private String password;
 	private final TradingAccount account;
 	
-	public User(String userName, String email, String password)
+	public User(String email, String password, String name)
 	{
-		this.userName = userName;
 		this.email = email;
 		this.password = password;
-		account = new TradingAccount();
-	}
-	
-	public String getUserName()
-	{
-		return userName;
-	}
-	public void setUserName(String userName)
-	{
-		this.userName = userName;
+		hashPassword(password);		
+		
+		account = new TradingAccount(name);
 	}
 	
 	public String getEmail()
@@ -56,18 +47,18 @@ public class User
 	
 	public void hashPassword(String password) {
 		
-		String hashedPassword;
+//		String hashedPassword;
 		
 		try {
 			MessageDigest md = MessageDigest.getInstance("SHA-256");
 			md.update(password.getBytes());
 			
 			// create a string format of hash
-			byte[] digest = md.digest();			
-			hashedPassword = DatatypeConverter.printHexBinary(digest);
+//			byte[] digest = md.digest();			
+//			hashedPassword = DatatypeConverter.printHexBinary(digest);
 			
-			System.out.println("Password: " + password);
-			System.out.println("Hashed password: " + hashedPassword);
+//			System.out.println("Password: " + password);
+//			System.out.println("Hashed password: " + hashedPassword);
 			
 		} catch (NoSuchAlgorithmException e) {
 			// TODO Auto-generated catch block
@@ -75,9 +66,20 @@ public class User
 		}
 	}
 	
+	public boolean passwordMatches(String passwordEntered) {
+		
+		hashPassword(passwordEntered);
+		
+		if(password.equals(passwordEntered))
+			return true;
+		
+		return false;
+	}
+	
 	@Override
 	public String toString()
 	{
-		return "Username: " + userName + "\n" + "Email: " + email + "\n" + "Password: " + password + "\n";
+		return "Email: " + email + "\n" + "Password: " + password + "\n";
 	}
+
 }

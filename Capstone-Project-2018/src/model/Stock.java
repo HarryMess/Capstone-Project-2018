@@ -2,31 +2,36 @@ package model;
 
 public class Stock {
 
-	private String id;
-	private String companyId;
-	private int amount;
-
-	/**
-	 * 
-	 * @param id
-	 * @param companyId
-	 */
-	public Stock(String id, String companyId) {
-		// TODO - implement Stock.Stock
-		this.id = id;
-		this.companyId = companyId;
+	private String code;
+	private int ownerId;
+	private int quantity;
+	
+	public Stock(String code, int ownerId, int quantity) {
+	
+		this.code = code;
+		this.ownerId = ownerId;	
+		this.quantity = quantity;
 	}
 
-	public String getId() {
-		return this.id;
+	public int getOwner() {
+		return ownerId;
 	}
 
 	public String getCompany() {
-		return companyId;
+		return code;
 	}
 
-	public int getAmount() {
-		return this.amount;
+	public int getQuantity() {
+		return quantity;
+	}
+	
+	public void removeShares(int amount) {
+		quantity -= amount;
+	}
+	
+	@Override
+	public String toString() {
+		return "Code: " + code + ", Owner: " + ownerId + ", Quantity: " + quantity;
 	}
 
 }

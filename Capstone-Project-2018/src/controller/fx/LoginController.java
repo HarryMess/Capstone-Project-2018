@@ -1,8 +1,8 @@
 /** LoginController.java
- *  @author Paul King - s3449513 *  
+ *  @author Paul King - s3449513
  */
 
-package controller;
+package controller.fx;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;

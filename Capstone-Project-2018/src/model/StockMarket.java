@@ -5,87 +5,36 @@
 
 package model;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class StockMarket {
 
+	private static StockMarket stockMarket;	
+	
+	private User currentUser;	
 	private List<User> users;
 	private List<Company> companies;
 	private List<Stock> stocks;	
 	private List<Transaction> transactionHistory;
+	
+	public static StockMarket getInstance() {
 
-	/**
-	 * 
-	 * @param companies
-	 */
-	public StockMarket(List<Company> companies) {
+		if (stockMarket == null) {
+			Model model = Model.getInstance();
+			stockMarket = new StockMarket(model.getUsers(), model.getCompanies(),
+						  model.getStocks(), model.getTransactionHistory());
+		}
+		
+		return stockMarket;
+	}
+
+	private StockMarket(List<User> users, List<Company> companies, 
+			List<Stock> stocks, List<Transaction> transactionHistory) {
+		
 		this.companies = companies;
-		stocks = new ArrayList<Stock>(); // need to decide how we want to implement this
-		users = new ArrayList<User>();
-		transactionHistory = new ArrayList<Transaction>();
-	}
-
-	/**
-	 * 
-	 * @param id
-	 */	
-	public Stock getStocks(String id) {
-		
-		for(Stock s : stocks) {
-			if(s.getId().equals(id))
-				return s;
-		}
-		
-		throw new NullPointerException("Error: Stock id'" + id + "' was not found.");
-	}
-	
-	public Company getCompany(String id) {
-		
-		for(Company c : companies) {
-			if(c.getId().equals(id))
-				return c;
-		}
-			
-		throw new NullPointerException("Error: Company id'" + id + "' was not found.");	
-	}
-
-	/**
-	 * 
-	 * @param id
-	 */
-	public User getUser(String userName) {
-		
-		for(User u : users) {
-			if(u.getUserName().equals(userName))
-				return u;
-		}
-		
-		throw new NullPointerException("Error: Username '" + userName + "' was not found.");
-	}
-	
-	public TradingAccount getTradingAccount(String userName) {
-		
-		for(User u : users) {
-			if(u.getUserName().equals(userName))
-				return u.getTradingAccount();
-		}
-		
-		throw new NullPointerException("Error: Username '" + userName + "' was not found.");
-	}
-
-	/**
-	 * 
-	 * @param id
-	 */
-	public Transaction getTransaction(String id) {
-		
-		for(Transaction t : transactionHistory) {
-			if(t.getTranasctionId().equals(id))
-				return t;
-		}
-			
-		throw new NullPointerException("Error: Transaction id'" + id + "' was not found.");	
+		this.stocks = stocks; // need to decide how we want to implement this
+		this.users = users;
+		this.transactionHistory = transactionHistory;
 	}
 
 	// This method will be called each hour to update the prices in the stock market
@@ -121,9 +70,14 @@ public class StockMarket {
 	 * @param sender
 	 * @param receiver
 	 */
-	public void transferFunds(int sender, int receiver) {
+	public void transferFunds(int sender, int receiver, float amount) {
 		// TODO - implement StockMarketSystem.transferFunds
 		
+	}
+	
+	public void transferFunds(TradingAccount sender, TradingAccount receiver, float amount) {
+		sender.removeFunds(amount);
+		receiver.addFunds(amount);
 	}
 
 }

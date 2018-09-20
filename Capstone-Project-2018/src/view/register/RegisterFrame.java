@@ -1,9 +1,8 @@
-package view;
+package view.register;
 
 import controller.FrameManager;
-
-import javax.swing.*;
-import java.awt.*;
+import view.AbstractFrame;
+import view.TitlePanel;
 
 public class RegisterFrame extends AbstractFrame
 {

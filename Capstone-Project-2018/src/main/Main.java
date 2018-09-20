@@ -1,6 +1,6 @@
 package main;
 import controller.FrameManager;
-import view.LoginFrame;
+
 import javax.swing.*;
 
 public class Main

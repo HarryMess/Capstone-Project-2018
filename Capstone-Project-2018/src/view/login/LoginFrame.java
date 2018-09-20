@@ -1,6 +1,8 @@
-package view;
+package view.login;
 
 import controller.FrameManager;
+import view.AbstractFrame;
+import view.TitlePanel;
 
 public class LoginFrame extends AbstractFrame
 {

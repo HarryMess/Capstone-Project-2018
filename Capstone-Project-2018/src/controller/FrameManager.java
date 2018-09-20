@@ -1,6 +1,10 @@
 package controller;
 
 import view.*;
+import view.dashboard.DashboardFrame;
+import view.forgotpass.ForgotPasswordFrame;
+import view.login.LoginFrame;
+import view.register.RegisterFrame;
 
 import javax.swing.*;
 

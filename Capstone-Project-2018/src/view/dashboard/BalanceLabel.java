@@ -1,4 +1,4 @@
-package view;
+package view.dashboard;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
@@ -18,7 +18,7 @@ public class BalanceLabel extends JLabel
 		return balance;
 	}
 
-	public void setBalance(int newBalance)
+	public void setBalance(int newBalance) //TODO: Draw from User/StockAccount class
 	{ //TODO: Better validation??
 		if(newBalance >= 0)
 		{

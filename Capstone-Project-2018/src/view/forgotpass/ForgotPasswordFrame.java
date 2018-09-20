@@ -1,8 +1,8 @@
-package view;
+package view.forgotpass;
 
 import controller.FrameManager;
-
-import javax.swing.*;
+import view.AbstractFrame;
+import view.TitlePanel;
 
 public class ForgotPasswordFrame extends AbstractFrame
 {

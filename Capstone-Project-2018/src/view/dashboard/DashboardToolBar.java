@@ -1,4 +1,6 @@
-package view;
+package view.dashboard;
+
+import controller.LinkListener;
 
 import javax.swing.*;
 import java.awt.*;
@@ -27,6 +29,7 @@ public class DashboardToolBar extends JToolBar
 		add(logOutButton);
 
 		//Action listeners
+		logOutButton.addMouseListener(new LinkListener(parentFrame.getFrameManager(), parentFrame, "login"));
 		//TODO: ACTION LISTENERS
 	}
 }

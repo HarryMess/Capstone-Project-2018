@@ -104,12 +104,19 @@ public class LoginListener implements ActionListener
 			JOptionPane.showMessageDialog(null, "Login successul", "Login Confirmation",
 					JOptionPane.INFORMATION_MESSAGE);
 			
+			// add user to logged in user variable
+			
 			// open dashboard screen - replace the code below with actual screen
+			JFrame dashboard = new JFrame("Dashboard");
+			dashboard.setMinimumSize(new Dimension(500, 250));
+			dashboard.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			parent.setVisible(false);
 			ConsoleApplication ca = new ConsoleApplication(user);
 			ca.showCompany();
 			ca.showMyshare();
 			ca.showRecenttrans();
+			dashboard.setVisible(true);
+
 		}
 	}
 }

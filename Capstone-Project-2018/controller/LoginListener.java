@@ -28,7 +28,7 @@ public class LoginListener implements ActionListener
 	public boolean loginMethod (String email, String password)
 	{
 		//Database CANNOT be connected to by DTP before running program, else will throw error
-		final String dbURL = "jdbc:derby:C:\\Users\\quick\\GitHub\\Capstone-Project-2018\\Capstone-Project-2018\\Capstone-Project-2018\\derby-10.14.2.0\\bin\\Database;create=true"; // This might have to be changed, if you get a "No suitable driver found for ..." Error the classpath is wrong
+		final String dbURL = "jdbc:derby:C:\\DerbyDB;create=true"; // This might have to be changed, if you get a "No suitable driver found for ..." Error the classpath is wrong
 	    Connection connec = null; /* Instance */
 	    Statement statem = null;
 

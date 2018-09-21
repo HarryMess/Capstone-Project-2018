@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 
 class DatabaseTest {
 
-	private static String dbURL = "jdbc:derby:/c/RMIT/\"Programming Project\"/\"Project Source\"/Capstone-Project-2018/derby-10.14.2.0/bin/Database jdbc:derby:Database;create=true;user='username;password=password\"";
+	private static String dbURL = "jdbc:derby:jdbc:derby:C:\\DerbyDB;create=true";
 	private static Connection connec = null; /* Instance */
     private static Statement statem = null;
 	

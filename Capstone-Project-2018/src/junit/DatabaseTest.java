@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 
 class DatabaseTest {
 
-	private static String dbURL = "jdbc:derby:Database;create=true;user='s3488361;password=password";
+	private static String dbURL = "jdbc:derby:/c/RMIT/\"Programming Project\"/\"Project Source\"/Capstone-Project-2018/derby-10.14.2.0/bin/Database jdbc:derby:Database;create=true;user='username;password=password\"";
 	private static Connection connec = null; /* Instance */
     private static Statement statem = null;
 	
@@ -18,8 +18,9 @@ class DatabaseTest {
 	void testConnection() {
 	 try
        {
-           Class.forName("org.apache.derby.jdbc.EmbeddedDriver").newInstance();
+		   Class.forName("org.apache.derby.jdbc.EmbeddedDriver").newInstance();
            connec = DriverManager.getConnection(dbURL);
+           
 
            /* Old method of mapping driver to URL, refer to
             * https://docs.oracle.com/javase/6/docs/api/java/sql/DriverManager.html

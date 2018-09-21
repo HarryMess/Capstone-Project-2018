@@ -8,7 +8,7 @@ public class BuyStockPanel extends JPanel
 {
 	public BuyStockPanel()
 	{
-		add(new JLabel("Buy New Stocks"));
+		add(new JLabel("Buy New Stocks:"));
 		setBorder(new LineBorder(Color.BLACK));
 	}
 }

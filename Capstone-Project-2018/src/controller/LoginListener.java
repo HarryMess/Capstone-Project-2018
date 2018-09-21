@@ -25,10 +25,10 @@ public class LoginListener implements ActionListener
 		this.passField = passField;
 	}
 	
-	public void loginMethod (String email, String password)
+	public boolean loginMethod (String email, String password)
 	{
-		
-		final String dbURL = "jdbc:derby:Database;create=true;user='s3488361;password=password"; // This might have to be changed, if you get a "No suitable driver found for ..." Error the classpath is wrong
+		//Database CANNOT be connected to by DTP before running program, else will throw error
+		final String dbURL = "jdbc:derby:C:\\Users\\quick\\GitHub\\Capstone-Project-2018\\Capstone-Project-2018\\Capstone-Project-2018\\derby-10.14.2.0\\bin\\Database;create=true"; // This might have to be changed, if you get a "No suitable driver found for ..." Error the classpath is wrong
 	    Connection connec = null; /* Instance */
 	    Statement statem = null;
 
@@ -47,7 +47,10 @@ public class LoginListener implements ActionListener
 	        try
 	        {
 	            statem = connec.createStatement();
-	            ResultSet res = statem.executeQuery("select * from users where email='"+email+"' AND password = '"+password+"'");
+	            
+	            //String sql = "select * from \"USERS\" where email='"+email+"' AND password = '"+password+"'";
+	            String sql = "select * from 'USERS'";
+	            ResultSet res = statem.executeQuery(sql);
 	            int counter = 0;
 	            while (res.next())
 	            {
@@ -57,12 +60,14 @@ public class LoginListener implements ActionListener
 	            if (counter == 1)
 	            {
 	                System.out.println("Access granted");
+	                return true;
 	            }
 
 	            else
 	            {
 	                System.out.println("Username and/or password do not match up with our records");
 	                System.out.println("Access denied");
+	                return false;
 
 	            }
 	        }
@@ -71,6 +76,7 @@ public class LoginListener implements ActionListener
 	        {
 	            exception.printStackTrace();
 	        }
+	        return false;
 	    }
 		
 	}
@@ -84,22 +90,15 @@ public class LoginListener implements ActionListener
 		
 		User user = model.getUser(email);
 		
-		if(user == null) {
-			System.out.print("No user with that email address was found\n");
-			JOptionPane.showMessageDialog(null, "Ivalid username or password",
-					"Authentication failed", JOptionPane.ERROR_MESSAGE);
-			
-		} else if (!user.passwordMatches(password)) {
-			System.out.println("The password is invalid");
-			JOptionPane.showMessageDialog(null, "Ivalid username or password",
+		//System.out.println("Email is:" + user); 
+		
+		System.out.println("Test call.\n Email: " + email + "\nPassword: " + password);
+		
+		if(!loginMethod(email, password)) {
+			JOptionPane.showMessageDialog(null, "Invalid username or password",
 					"Authentication failed", JOptionPane.ERROR_MESSAGE);
 			
 		} else  {			
-			
-			
-			
-			loginMethod(email, password);
-			System.out.println("Test call.\n Email: " + email + "\nPassword: " + password);
 			
 			JOptionPane.showMessageDialog(null, "Login successul", "Login Confirmation",
 					JOptionPane.INFORMATION_MESSAGE);
@@ -110,6 +109,30 @@ public class LoginListener implements ActionListener
 			ca.showCompany();
 			ca.showMyshare();
 			ca.showRecenttrans();
+		
+		/*if(user == null) {
+			System.out.print("No user with that email address was found\n");
+			JOptionPane.showMessageDialog(null, "Invalid username or password",
+					"Authentication failed", JOptionPane.ERROR_MESSAGE);
+			
+		} else if (!user.passwordMatches(password)) {
+			System.out.println("The password is invalid");
+			JOptionPane.showMessageDialog(null, "Ivalid username or password",
+					"Authentication failed", JOptionPane.ERROR_MESSAGE);
+			
+		} else  {			
+
+			System.out.println("Test call.\n Email: " + email + "\nPassword: " + password);
+			
+			JOptionPane.showMessageDialog(null, "Login successul", "Login Confirmation",
+					JOptionPane.INFORMATION_MESSAGE);
+			
+			// open dashboard screen - replace the code below with actual screen
+			parent.setVisible(false);
+			ConsoleApplication ca = new ConsoleApplication(user);
+			ca.showCompany();
+			ca.showMyshare();
+			ca.showRecenttrans();*/
 		}
 	}
 }

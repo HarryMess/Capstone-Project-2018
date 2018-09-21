@@ -1,6 +1,9 @@
 package view.dashboard;
 
+import controller.AccountListener;
+import controller.LeaderboardListener;
 import controller.LinkListener;
+import controller.LogoutListener;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,7 +13,6 @@ public class DashboardToolBar extends JToolBar
 	public DashboardToolBar(DashboardFrame parentFrame)
 	{
 		setFloatable(false);
-		this.setMaximumSize(new Dimension(2000, 20));
 
 		//Create ToolBar items
 		BalanceLabel currentBalance = new BalanceLabel();
@@ -23,13 +25,14 @@ public class DashboardToolBar extends JToolBar
 
 		//Add to toolbar
 		add(currentBalance);
-		add(Box.createHorizontalGlue());
+		add(Box.createHorizontalGlue()); //Pushes currentBalance to left side, and all other buttons to right side
 		add(leaderboardButton);
 		add(accountButton);
 		add(logOutButton);
 
 		//Action listeners
-		logOutButton.addMouseListener(new LinkListener(parentFrame.getFrameManager(), parentFrame, "login"));
-		//TODO: ACTION LISTENERS
+		logOutButton.addActionListener(new LogoutListener(parentFrame.getFrameManager(), parentFrame));
+		leaderboardButton.addActionListener(new LeaderboardListener());
+		accountButton.addActionListener(new AccountListener());
 	}
 }

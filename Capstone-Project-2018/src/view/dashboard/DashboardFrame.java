@@ -10,7 +10,7 @@ import java.awt.*;
 public class DashboardFrame extends AbstractFrame
 {
 	public DashboardFrame(FrameManager fm, String title)
-	{
+	{ //TODO: Space everything out nicely
 		super(fm, title);
 		setLayout(new BorderLayout());
 

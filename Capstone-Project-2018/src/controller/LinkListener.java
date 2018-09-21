@@ -25,15 +25,6 @@ public class LinkListener extends MouseAdapter
 	{
 		//Get new frame from Frame Manager
 		JFrame newFrame = fm.getFrame(newFrameStr);
-
-		//Make sure new frame is same size/place as old one.
-		Dimension currentSize = oldFrame.getSize();
-		Point currentPoint = oldFrame.getLocation();
-		newFrame.setSize(currentSize);
-		newFrame.setLocation(currentPoint);
-
-		//Switch visible frame
-		newFrame.setVisible(true);
-		oldFrame.setVisible(false);
+		fm.switchFrame(oldFrame, newFrame);
 	}
 }

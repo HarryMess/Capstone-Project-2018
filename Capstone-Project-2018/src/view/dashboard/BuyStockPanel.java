@@ -8,26 +8,22 @@ public class BuyStockPanel extends JPanel
 {
 	public BuyStockPanel()
 	{
-		add(new JLabel("Buy New Stocks:"));
+		setLayout(new BorderLayout());
 		setBorder(new LineBorder(Color.BLACK));
+
+		//Create components
+		JLabel title = new JLabel("Buy New Stocks:", SwingConstants.CENTER);
+		Object[] columnNames = {"Stock Code", "Stock Name", "Price"};
+		Object[][] rowData = {
+				{"ABC", "Stock 1", 5.00 },
+				{"DEF", "Stock 2", 4.00},
+				{"GHI", "Stock 3", 3.00}
+		};
+		StockTable buyStocks = new StockTable(rowData, columnNames);
+
+
+		//Add components
+		add(title, BorderLayout.NORTH);
+		add(buyStocks, BorderLayout.CENTER);
 	}
 }
-
-
-//	public void updateResults()
-//	{
-//		Collection<Player> players = gameEngine.getAllPlayers();
-//
-//		JLabel title = new JLabel("Results:"); //Start with results heading
-//		title.setFont(title.getFont().deriveFont(24.0f));
-//		title.setHorizontalAlignment(SwingConstants.CENTER);
-//
-//		this.add(title);
-//
-//		for(Player player : players)
-//		{ //For each player, display their current information
-//			String output = String.format("%s now has %d points.", player.getPlayerName(), player.getPoints());
-//			JLabel playerLabel = new JLabel(output);
-//			this.add(playerLabel);
-//		}
-//	}

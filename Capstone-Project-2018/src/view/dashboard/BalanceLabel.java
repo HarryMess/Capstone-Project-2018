@@ -11,6 +11,7 @@ public class BalanceLabel extends JLabel
 	{
 		super("Current Balance: 1000000", LEFT);
 		setBorder(new LineBorder(Color.BLACK)); //TODO: Make border look nicer
+
 	}
 
 	public int getBalance()

@@ -3,18 +3,18 @@ package model;
 public class Stock {
 
 	private String code;
-	private int ownerId;
+	private String owner;
 	private int quantity;
-	
-	public Stock(String code, int ownerId, int quantity) {
+
+	public Stock(String code, String owner, int quantity) {
 	
 		this.code = code;
-		this.ownerId = ownerId;	
+		this.owner = owner;	
 		this.quantity = quantity;
 	}
 
-	public int getOwner() {
-		return ownerId;
+	public String getOwner() {
+		return owner;
 	}
 
 	public String getCompany() {
@@ -31,7 +31,7 @@ public class Stock {
 	
 	@Override
 	public String toString() {
-		return "Code: " + code + ", Owner: " + ownerId + ", Quantity: " + quantity;
+		return "Code: " + code + ", Owner: " + owner + ", Quantity: " + quantity;
 	}
 
 }

@@ -1,12 +1,13 @@
 package model;
 
 import java.sql.Time;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.sql.Date;
 
 public class Transaction {
 
-	private final int id;
+	private int id;
 	
 	// used in database
 	private String buyerId;
@@ -16,39 +17,36 @@ public class Transaction {
 	private final TradingAccount buyer;
 	private final TradingAccount seller;
 	private final Stock stock;
-	private final LocalDateTime dateTime;
-	
-	// not used anymore
-	private Date date;
-	private Time time;
+	private final Timestamp dateTime;
 	
 	private final float price;
+	private final int amount;
 	
-	public Transaction(int id, String buyerId, String sellerId, String stockId,
-			Date date, Time time, float price) {
+	public Transaction(Timestamp dateTime, String buyerId, String sellerId,
+			String stockId, float price, int amount) {
 		
-		this.id = id;
+//		this.id = id;
 		this.buyerId = buyerId;
 		this.sellerId = sellerId;
 		this.stockId = stockId;
-		this.date = date;
-		this.time = time;
 		this.price = price;
+		this.dateTime = dateTime;
+		this.amount = amount;
 		buyer = null;
 		seller = null;
 		stock = null;
-		dateTime = null;
 	}
 	
-	public Transaction(int id, TradingAccount buyer, TradingAccount seller,
-			Stock stock, LocalDateTime dateTime, float price) {
+	public Transaction(TradingAccount buyer, TradingAccount seller,
+			Stock stock, Timestamp dateTime, float price) {
 		
-		this.id = id;
+//		this.id = id;
 		this.price = price;
 		this.buyer = buyer;
 		this.seller = seller;
 		this.stock = stock;
 		this.dateTime = dateTime;
+		this.amount = stock.getQuantity();
 	}
 	
 	public void makeTransaction() {
@@ -78,13 +76,6 @@ public class Transaction {
 		return stockId;
 	}
 
-	public Date getDate() {
-		return date;
-	}
-
-	public Time getTime() {
-		return time;
-	}
 	
 	public float getPrice() {
 		return price;
@@ -92,7 +83,7 @@ public class Transaction {
 	
 	@Override
 	public String toString() {
-		return id +", " + buyer + ", " + seller + ", " + stock + ", " + 
+		return buyer + ", " + seller + ", " + stock + ", " + 
 			   dateTime + ", " + price;
 	}
 

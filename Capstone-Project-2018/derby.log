@@ -1,7 +1,7 @@
 ----------------------------------------------------------------
-Fri Sep 21 14:20:57 AEST 2018:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-0165-fa5b-fc74-000006448f98 
-on database directory C:\DerbyDB with class loader sun.misc.Launcher$AppClassLoader@2a139a55 
+Sat Sep 22 18:30:53 AEST 2018:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-0166-0067-2d72-0000073cc390 
+on database directory C:\RMIT\Programming Project\Project Source\Capstone-Project-2018\derby-10.14.2.0\bin\Database with class loader sun.misc.Launcher$AppClassLoader@279f2327 
 Loaded from file:/C:/RMIT/Programming%20Project/Project%20Source/Capstone-Project-2018/derby-10.14.2.0/lib/derby.jar
 java.vendor=Oracle Corporation
 java.runtime.version=1.8.0_181-b13

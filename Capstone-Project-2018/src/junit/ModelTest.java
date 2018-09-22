@@ -2,6 +2,7 @@ package junit;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -20,11 +21,6 @@ import model.User;
 class ModelTest {
 	
 	static Model model;
-	
-//	@Before
-//	void begin() {
-//		Model model = Model.getInstance();
-//	}
 
 	@Test
 	void addUsers() {
@@ -90,11 +86,11 @@ class ModelTest {
 			// searches Arraylist for matches			
 			TradingAccount buyer = model.getTradingAccount("s3449513@student.rmit.edu.au");
 			TradingAccount seller = model.getTradingAccount("admin@asx.com.au");
-			Stock stock = model.getStock("A2M", 0);
+			Stock stock = model.getStock("A2M", "admin@asx.com.au");
 			Company company = model.getCompany("A2M");
 		
 			// create the transaction
-			model.addTransaction(new Transaction(1, buyer, seller, stock, LocalDateTime.now(),
+			model.addTransaction(new Transaction(buyer, seller, stock, new Timestamp(System.currentTimeMillis()),
 					company.getMarketPrice()));
 			
 			// transfer the money

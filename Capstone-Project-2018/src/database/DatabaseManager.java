@@ -1,31 +1,55 @@
 package database;
 
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public abstract class DatabaseManager {
+public class DatabaseManager {
 	
-	/* This needs to be changed */
-	private String dbURL = "jdbc:derby:C:\\RMIT\\Programming Project\\Project Source\\Capstone-Project-2018\\derby-10.14.2.0\\bin\\Database;create=false;user=username";
-    private Connection connec = null; /* Instance */
-    private Statement statem = null;
+	private static DatabaseManager dbManager;
+	
+	/* Insert your own connection string here */
+	private String url = "jdbc:derby:C:\\RMIT\\Programming Project\\Project Source\\Capstone-Project-2018\\derby-10.14.2.0\\bin\\Database;create=false;user=username";
+    private Connection connection; /* Instance */
+    private Statement statement;
+    
+    public static DatabaseManager getInstance() {
+    	if (dbManager == null)
+    		dbManager = new DatabaseManager();
+    	
+    	return dbManager;
+    }
+    
+    private DatabaseManager()  {
+    	    	
+    	try {
+			Class.forName("org.apache.derby.jdbc.ClientDriver").newInstance();
+			connection = DriverManager.getConnection(url);
+			statement = null;
+		} catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
+			e.printStackTrace();	
+		} catch (SQLException e) {			
+			e.printStackTrace();
+		}
+        
+    }
 	
 	// create
 	public void insert(String table, String columns, String values) throws SQLException {
-		statem = connec.createStatement();
-		statem.execute("INSERT INTO " + table + "(" + columns + ") \n" +
+		statement = connection.createStatement();
+		statement.execute("INSERT INTO " + table + "(" + columns + ") \n" +
 						"VALUES (" + values + ")");
-		statem.close();
+		statement.close();
 	}
 	
 	// read
 	public ResultSet select(String table, String columns) throws SQLException {
 		
-		statem = connec.createStatement();
-		ResultSet results = statem.executeQuery("SELECT " + columns + " FROM " + table);
-		statem.close();
+		statement = connection.createStatement();
+		ResultSet results = statement.executeQuery("SELECT " + columns + " FROM " + table);
+		statement.close();
 		
 		return results;		
 	}
@@ -33,25 +57,25 @@ public abstract class DatabaseManager {
 	// read
 	public ResultSet select(String table, String columns, String condition) throws SQLException {
 		
-		statem = connec.createStatement();
-		ResultSet set = statem.executeQuery("SELECT " + columns + " FROM " + table + 
+		statement = connection.createStatement();
+		ResultSet set = statement.executeQuery("SELECT " + columns + " FROM " + table + 
 											"WHERE " + condition);
-		statem.close();
+		statement.close();
 		return set;		
 	}
 	
 	//update	
 	public ResultSet update(String table, String set, String condition) throws SQLException {
-		statem = connec.createStatement();
-		ResultSet results = statem.executeQuery("UPDATE " + table + " SET " + set + " WHERE " + condition);
-		statem.close();
+		statement = connection.createStatement();
+		ResultSet results = statement.executeQuery("UPDATE " + table + " SET " + set + " WHERE " + condition);
+		statement.close();
 		return results;	
 	}
 	
 	//delete
 	public void delete(String table, String condition) throws SQLException {
-		statem = connec.createStatement();
-		statem.executeQuery("DELETE FROM " + table + " WHERE " + condition);
-		statem.close();
+		statement = connection.createStatement();
+		statement.executeQuery("DELETE FROM " + table + " WHERE " + condition);
+		statement.close();
 	}
 }

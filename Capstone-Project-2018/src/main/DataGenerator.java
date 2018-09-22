@@ -126,15 +126,15 @@ public class DataGenerator {
 		List<Stock> stocks = model.getStocks();
 		
 		for(Company company : companies) {
-			stocks.add(new Stock(company.getCode(), 0, company.getTotalShares()));
+			stocks.add(new Stock(company.getCode(), "admin@asx.com.au", company.getTotalShares()));
 		}
 		
 	}
 	
 	public void addstockowned() {
 		String admin = "Username";
-		Stock stock = new Stock("XRO", 0, 10);	
-		Stock stock2 = new Stock("WEB", 0, 10);	
+		Stock stock = new Stock("XRO", "admin@asx.com.au", 10);	
+		Stock stock2 = new Stock("WEB", "admin@asx.com.au", 10);	
 		model.getTradingAccount(admin).BuyStock(stock);
 		model.getTradingAccount(admin).BuyStock(stock2);	
 	}

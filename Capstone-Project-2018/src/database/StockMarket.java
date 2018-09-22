@@ -20,12 +20,16 @@ public class StockMarket {
 
 	private static StockMarket market; // singleton object
 	
-	private String dbURL = "jdbc:derby:Database;create=true;user='s3488361;password=password"; /* This needs to be changed */
+	/* replace with your own connection string */
+	private String dbURL = "jdbc:derby:C:\\RMIT\\Programming Project\\Project Source\\Capstone-Project-2018\\derby-10.14.2.0\\bin\\Database;create=false;user=username"; 
     private Connection connec = null; /* Instance */
     private Statement statem = null;
     
+    private DatabaseManager db;
+    
     // returns a singleton instance of StockMarket class
-    public static StockMarket getInstance() throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
+    public static StockMarket getInstance() throws InstantiationException, IllegalAccessException, 
+    ClassNotFoundException, SQLException {
     	if (market == null)
     		market = new StockMarket();
     	
@@ -33,9 +37,13 @@ public class StockMarket {
     }
 
     // constructor
-	private StockMarket() throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
-		Class.forName("org.apache.derby.jdbc.ClientDriver").newInstance();
-        connec = DriverManager.getConnection(dbURL);
+	private StockMarket() throws InstantiationException, IllegalAccessException, ClassNotFoundException,
+	SQLException {
+		//Class.forName("org.apache.derby.jdbc.ClientDriver").newInstance();
+       //connec = DriverManager.getConnection(dbURL);
+		
+		db = DatabaseManager.getInstance();
+		
 	}
     
 	// This method gets called as soon as the game begins
@@ -90,18 +98,51 @@ public class StockMarket {
 	
 	public Company getCompany(String id) {
 		return null;
-			
 	}
 
 
-	public User getUser(String userName) {
-		return null;
+	// returns a user object based on the the username
+	public User getUser(String username) throws SQLException {
 		
+		User user;
+		ResultSet result = db.select("Users", "*", "Where Email = '"+ username+"'");
+		
+		result.next(); // gets the matching result
+		
+		String email = result.getString("email");
+		String password = result.getString("password");
+		boolean isAdmin = result.getBoolean("isAdmin");
+		
+		// get the player name from the trading account
+		TradingAccount account = getTradingAccount(username);
+		
+		// create new user based on its type		
+		if(isAdmin)
+			user = new Admin(email, password, account.getName());
+		else
+			user = new User(email, password, account.getName());
+		
+		return user;
 	}
 	
-	public TradingAccount getTradingAccount(String userName) {
-		return null;
+	public TradingAccount getTradingAccount(String user) throws SQLException {
 		
+		ResultSet result = db.select("Trade_Accounts", "*", "Where Email = '"+ user+"'");
+		
+		result.next(); // gets the matching result
+		
+		// get values from table
+		String name = result.getString("Name");
+		double balance = (double) result.getFloat("Balance");
+		int hours = result.getInt("Hours_active");
+		
+		// run additional queries for other tables
+		List<Stock> stocksOwned = TradeAccounts.getStocksOwned(user);
+		List<ValueTimeStamp> valueHistory = TradeAccounts.getValueHistory(user);
+		List<Transaction> transactions = TradeAccounts.getTransactionHistory(user);
+		
+		// return new trading account object containing all matching values
+		return new TradingAccount(name, balance, hours, valueHistory, stocksOwned, transactions);
 	}
 
 

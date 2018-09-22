@@ -36,20 +36,5 @@ class DatabaseTest {
            fail(e.getMessage());
        }
 	}
-	
-//    @Test
-//	void registerUser() {
-//    	
-//    	try {
-//		statem = statem = connec.createStatement();
-//		statem.execute("INSERT INTO User ('0'  \n" +
-//				"VALUES (" + values + ")");
-//		statem.close();
-//		
-//    	} catch (Exception e) {    		
-//    		e.printStackTrace();
-//    		fail(e.getMessage());
-//    	}
-//	}
 
 }

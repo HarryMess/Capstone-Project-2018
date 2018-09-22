@@ -1,6 +1,8 @@
-package view;
+package view.login;
 
 import controller.FrameManager;
+import view.AbstractFrame;
+import view.TitlePanel;
 
 public class LoginFrame extends AbstractFrame
 {
@@ -10,7 +12,7 @@ public class LoginFrame extends AbstractFrame
 		super(fm, title);
 
 		//Upper panel
-		this.add(new TitlePanel());
+		this.add(new TitlePanel(this));
 
 		//Centre panel
 		this.add(new LoginPanel(this));

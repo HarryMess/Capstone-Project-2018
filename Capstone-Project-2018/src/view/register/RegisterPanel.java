@@ -1,4 +1,4 @@
-package view;
+package view.register;
 
 import controller.LinkListener;
 import controller.RegisterListener;

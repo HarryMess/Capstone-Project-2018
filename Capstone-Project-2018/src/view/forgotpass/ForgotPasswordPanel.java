@@ -1,8 +1,8 @@
-package view;
+package view.forgotpass;
 
 import controller.ForgotPassListener;
 import controller.LinkListener;
-import controller.LoginListener;
+import view.AbstractFrame;
 
 import javax.swing.*;
 import java.awt.*;

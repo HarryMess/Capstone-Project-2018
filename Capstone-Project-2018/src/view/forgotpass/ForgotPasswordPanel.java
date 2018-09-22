@@ -3,6 +3,7 @@ package view.forgotpass;
 import controller.ForgotPassListener;
 import controller.LinkListener;
 import view.AbstractFrame;
+import view.CustomTextField;
 
 import javax.swing.*;
 import java.awt.*;
@@ -27,7 +28,7 @@ public class ForgotPasswordPanel extends JPanel
 		JLabel descLabel = new JLabel("We will send you a password reset link.");
 
 		//Email text field
-		JTextField emailText = new JTextField("Email", 12); //TODO: Make this proper prompt text
+		CustomTextField emailText = new CustomTextField("Email"); //TODO: Make this proper prompt text
 
 		//Submit button
 		JButton submitButton = new JButton("Submit");

@@ -48,13 +48,14 @@ public class LoginListener implements ActionListener
 	        {
 	            statem = connec.createStatement();
 	            
-	            //String sql = "select * from \"USERS\" where email='"+email+"' AND password = '"+password+"'";
-	            String sql = "select * from 'USERS'";
+	            //String sql2 = "select email from username.users";
+	            String sql = "select password from username.users where password";
+	            
 	            ResultSet res = statem.executeQuery(sql);
 	            int counter = 0;
 	            while (res.next())
 	            {
-	                counter += 1;
+	                counter += 1; //counting how many columns are present
 	            }
 
 	            if (counter == 1)
@@ -63,7 +64,7 @@ public class LoginListener implements ActionListener
 	                return true;
 	            }
 
-	            else
+	            else if (counter == 2) //if duplicate records
 	            {
 	                System.out.println("Username and/or password do not match up with our records");
 	                System.out.println("Access denied");

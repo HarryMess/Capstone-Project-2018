@@ -1,5 +1,7 @@
 package controller;
 
+import view.AbstractFrame;
+
 import javax.swing.*;
 
 import java.io.*;
@@ -10,19 +12,22 @@ import main.ConsoleApplication;
 import model.Model;
 import model.User;
 import java.awt.Dimension;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class LoginListener implements ActionListener
 {
-	private JFrame parent;
 	private JTextField userField, passField;
-	
-	public LoginListener(JFrame parent, JTextField userField, JTextField passField)
+	private FrameManager fm;
+	private AbstractFrame parentFrame;
+	public LoginListener(AbstractFrame parentFrame, JTextField userField, JTextField passField)
 	{
-		this.parent = parent;
+		this.parentFrame = parentFrame;
 		this.userField = userField;
 		this.passField = passField;
+
+		fm = parentFrame.getFrameManager();
 	}
 	
 	public boolean loginMethod (String email, String password)
@@ -103,13 +108,15 @@ public class LoginListener implements ActionListener
 			
 			JOptionPane.showMessageDialog(null, "Login successul", "Login Confirmation",
 					JOptionPane.INFORMATION_MESSAGE);
+
+			fm.switchFrame(parentFrame, fm.getFrame("dashboard")); //Actually changes the frame
 			
 			// open dashboard screen - replace the code below with actual screen
-			parent.setVisible(false);
-			ConsoleApplication ca = new ConsoleApplication(user);
-			ca.showCompany();
-			ca.showMyshare();
-			ca.showRecenttrans();
+//			parent.setVisible(false);
+//			ConsoleApplication ca = new ConsoleApplication(user);
+//			ca.showCompany();
+//			ca.showMyshare();
+//			ca.showRecenttrans();
 		
 		/*if(user == null) {
 			System.out.print("No user with that email address was found\n");
@@ -135,5 +142,6 @@ public class LoginListener implements ActionListener
 			ca.showMyshare();
 			ca.showRecenttrans();*/
 		}
+
 	}
 }

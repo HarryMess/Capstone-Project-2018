@@ -19,7 +19,7 @@ public class BuyStockPanel extends JPanel
 				{"DEF", "Stock 2", 4.00},
 				{"GHI", "Stock 3", 3.00}
 		};
-		StockTable buyStocks = new StockTable(rowData, columnNames);
+		StockTable buyStocks = new StockTable(rowData, columnNames); //TODO: Add search?
 
 
 		//Add components

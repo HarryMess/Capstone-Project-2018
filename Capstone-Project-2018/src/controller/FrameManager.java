@@ -1,6 +1,7 @@
 package controller;
 
 import view.*;
+import view.account.AccountFrame;
 import view.dashboard.DashboardFrame;
 import view.forgotpass.ForgotPasswordFrame;
 import view.login.LoginFrame;
@@ -12,7 +13,7 @@ import java.awt.*;
 public class FrameManager
 {
 	private String frameTitle;
-	private AbstractFrame loginFrame, registerFrame, forgotPassFrame, dashboardFrame;
+	private AbstractFrame loginFrame, registerFrame, forgotPassFrame, dashboardFrame, accountFrame;
 	public FrameManager(String frameTitle)
 	{
 		loginFrame = new LoginFrame(this, frameTitle);
@@ -46,6 +47,13 @@ public class FrameManager
 					dashboardFrame = new DashboardFrame(this, frameTitle);
 				}
 				return dashboardFrame;
+
+			case("account"):
+				if(accountFrame == null)
+				{
+					accountFrame = new AccountFrame(this, frameTitle);
+				}
+				return accountFrame;
 			default:
 				return loginFrame; //If something goes wrong, return user to login
 				//TODO: Add error screen?

@@ -2,7 +2,10 @@ package view.login;
 
 import controller.LinkListener;
 import controller.LoginListener;
+import controller.TextFieldListener;
 import view.AbstractFrame;
+import view.CustomPasswordField;
+import view.CustomTextField;
 
 import javax.swing.*;
 import java.awt.*;
@@ -31,8 +34,8 @@ public class LoginPanel extends JPanel
 				new LinkListener(parentFrame.getFrameManager(), parentFrame, "register"));
 
 		//Login text fields
-		emailText = new JTextField("Username", 12); //TODO: Make this proper prompt text
-		passText = new JPasswordField("Password", 12);
+		emailText = new CustomTextField("Username");
+		passText = new CustomPasswordField("Password");
 
 		//Login button
 		JButton loginButton = new JButton("Login");

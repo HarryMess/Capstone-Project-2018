@@ -37,7 +37,7 @@ public class DashboardFrame extends AbstractFrame
 
 		add(upperPanel, BorderLayout.NORTH);
 		add(mainPanel, BorderLayout.CENTER);
-		add(lowerPanel, BorderLayout.SOUTH);
+		add(lowerPanel, BorderLayout.SOUTH); //currently just exists for spacing purposes
 
 
 		this.setVisible(true);

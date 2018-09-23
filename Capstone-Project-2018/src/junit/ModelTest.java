@@ -3,17 +3,15 @@ package junit;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
 import java.util.List;
 
-import org.junit.Before;
 import org.junit.jupiter.api.Test;
 
+import database.StockMarket;
 import main.DataGenerator;
 import model.Company;
 import model.Model;
 import model.Stock;
-import model.StockMarket;
 import model.TradingAccount;
 import model.Transaction;
 import model.User;

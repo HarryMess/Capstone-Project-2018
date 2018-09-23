@@ -7,6 +7,7 @@ package database;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -25,13 +26,15 @@ public class StockMarket {
     private Connection connec = null; /* Instance */
     private Statement statem = null;
     
-    private DatabaseManager db;
-    
     // returns a singleton instance of StockMarket class
-    public static StockMarket getInstance() throws InstantiationException, IllegalAccessException, 
-    ClassNotFoundException, SQLException {
+    public static StockMarket getInstance() {
     	if (market == null)
-    		market = new StockMarket();
+			try {
+				market = new StockMarket();
+			} catch (InstantiationException | IllegalAccessException | ClassNotFoundException | SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
     	
     	return market;
     }
@@ -40,10 +43,8 @@ public class StockMarket {
 	private StockMarket() throws InstantiationException, IllegalAccessException, ClassNotFoundException,
 	SQLException {
 		//Class.forName("org.apache.derby.jdbc.ClientDriver").newInstance();
-       //connec = DriverManager.getConnection(dbURL);
-		
-		db = DatabaseManager.getInstance();
-		
+        connec = DriverManager.getConnection(dbURL);
+			
 	}
     
 	// This method gets called as soon as the game begins
@@ -105,7 +106,12 @@ public class StockMarket {
 	public User getUser(String username) throws SQLException {
 		
 		User user;
-		ResultSet result = db.select("Users", "*", "Where Email = '"+ username+"'");
+		
+		PreparedStatement statement = connec.prepareStatement(
+				"SELECT * FROM Users WHERE Email = ?");
+		
+		statement.setString(1, username);
+		ResultSet result = statement.executeQuery();
 		
 		result.next(); // gets the matching result
 		
@@ -127,7 +133,11 @@ public class StockMarket {
 	
 	public TradingAccount getTradingAccount(String user) throws SQLException {
 		
-		ResultSet result = db.select("Trade_Accounts", "*", "Where Email = '"+ user+"'");
+		PreparedStatement statement = connec.prepareStatement(
+				"SELECT * FROM Trade_Accounts WHERE Email = ?");
+		
+		statement.setString(1, user);
+		ResultSet result = statement.executeQuery();
 		
 		result.next(); // gets the matching result
 		
@@ -141,14 +151,15 @@ public class StockMarket {
 		List<ValueTimeStamp> valueHistory = TradeAccounts.getValueHistory(user);
 		List<Transaction> transactions = TradeAccounts.getTransactionHistory(user);
 		
+		result.close();		
+		
 		// return new trading account object containing all matching values
 		return new TradingAccount(name, balance, hours, valueHistory, stocksOwned, transactions);
 	}
 
-
+	// returns a transaction based on an id
 	public Transaction getTransaction(String id) {
 		return null;
-	
 	}
 
 	// This method will be called each hour to update the prices in the stock market
@@ -169,10 +180,10 @@ public class StockMarket {
 		// TODO - implement StockMarketSystem.sellStock
 		
 	}
-
-	public void transferFunds(int sender, int receiver) {
-		// TODO - implement StockMarketSystem.transferFunds
-		
+	
+	public void transferFunds(TradingAccount sender, TradingAccount receiver, float amount) {
+		sender.removeFunds(amount);
+		receiver.addFunds(amount);
 	}
 
 }

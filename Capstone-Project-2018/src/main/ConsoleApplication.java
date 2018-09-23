@@ -51,7 +51,6 @@ public class ConsoleApplication
 		for(Transaction TransHis : transHis)
 			System.out.println(TransHis);
 			
-	}
-		
+	}	
 	
-	}
+}

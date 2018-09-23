@@ -78,5 +78,16 @@ public class TradingAccount {
 	public List<ValueTimeStamp> getValueHistory() {
 		return valueHistory;
 	}
+	
+	public String toString() {
+		return "Account Details\n" +	
+			   "---------------\n" +
+			   "Name: " + name +
+			   "\nBalance: " + balance + 
+			   "\nHours active: "+ hoursActive +
+			   "\nValues" + valueHistory.toString() +
+			   "\nStocks" + stocksOwned.toString() +
+			   "\nTransactions" + transactionHistory.toString();
+	}
 
 }

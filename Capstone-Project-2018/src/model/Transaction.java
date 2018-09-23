@@ -3,6 +3,9 @@ package model;
 import java.sql.Time;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+
+import database.StockMarket;
+
 import java.sql.Date;
 
 public class Transaction {

@@ -1,7 +1,11 @@
 package database;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -13,13 +17,25 @@ import model.ValueTimeStamp;
 
 public class TradeAccounts {
 	
-	private static DatabaseManager db = DatabaseManager.getInstance();
+	/* replace with your own connection string */
+	private static String dbURL = "jdbc:derby:C:\\RMIT\\Programming Project\\Project Source\\Capstone-Project-2018\\derby-10.14.2.0\\bin\\Database;create=false;user=username"; 
+    private static Connection connec = null; /* Instance */
+    private static Statement statem = null;
     
     public static List<ValueTimeStamp> getValueHistory(String user) throws SQLException {
     	
+    	connec = DriverManager.getConnection(dbURL);
+    	
     	List<ValueTimeStamp> valueHistory = new LinkedList<ValueTimeStamp>();    	
-    	ResultSet results = db.select("Trade_History, Trade_Accounts", "*",
-    		"Trade_accounts.email = '" + user + " AND Trade_History.account_id = Trade_accounts.id");    	
+    	
+    	// create the statement
+    	PreparedStatement statement = connec.prepareStatement(
+				"SELECT * FROM Trade_History, Trade_Accounts \n" + 
+				"WHERE Trade_accounts.email = ? AND Trade_History.account_id = Trade_accounts.id");
+    	
+    	// set variable for parameter
+		statement.setString(1, user);
+		ResultSet results = statement.executeQuery();
     	
     	while(results.next()) {
     		
@@ -38,10 +54,15 @@ public class TradeAccounts {
     // get stocks owned for specific user
     public static List<Stock> getStocksOwned(String user) throws SQLException {
 		
+    	connec = DriverManager.getConnection(dbURL);
+    	
     	List<Stock> stocksOwned = new ArrayList<Stock>();
     	
-    	ResultSet results = db.select("Trade_Accounts, Stock", "*", "trade_accounts.email = "+ user + 
-    			" AND trade_accounts.id = stock.trade_accountsid");
+    	PreparedStatement statement = connec.prepareStatement("SELECT * FROM Stock, trade_accounts \n" +
+    			"WHERE trade_accounts.email = ? AND trade_accounts.id = stock.trade_accountsid");
+    	
+    	statement.setString(1, user);
+    	ResultSet results = statement.executeQuery(); 
     	
     	while(results.next()) {
     		
@@ -51,15 +72,23 @@ public class TradeAccounts {
     		stocksOwned.add(new Stock(code, user, 1));
     	}
     	
-    	return stocksOwned;    	
+    	return stocksOwned;
     }
     
+    // 
     public static List<Transaction> getTransactionHistory(String user) throws SQLException {
 		
+    	connec = DriverManager.getConnection(dbURL);
+    	
     	List<Transaction> transactions = new ArrayList<Transaction>();
     	
-    	ResultSet results = db.select("Company_Transaction, Trade_Accounts", "*", "trade_accounts.email = "+ user +
-    								  "AND Company_Transaction.client = trade_accounts.id");
+    	PreparedStatement statement = connec.prepareStatement(
+    			"SELECT * FROM Company_Transaction, trade_accounts \n" +
+    			 "WHERE trade_accounts.email = ? AND Company_Transaction.client = trade_accounts.id");
+    	
+    	// set variable for parameter
+    	statement.setString(1, user);
+    	ResultSet results = statement.executeQuery();    	
     	
     	while(results.next()) {
     		

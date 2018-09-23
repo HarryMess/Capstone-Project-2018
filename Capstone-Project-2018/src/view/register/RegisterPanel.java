@@ -1,7 +1,9 @@
-package view;
+package view.register;
 
 import controller.LinkListener;
 import controller.RegisterListener;
+import view.CustomPasswordField;
+import view.CustomTextField;
 //import controller.ForgotPassLinkListener;
 //import controller.LoginListener;
 //import controller.RegisterLinkListener;
@@ -15,8 +17,8 @@ public class RegisterPanel extends JPanel
 
 	public RegisterPanel(RegisterFrame parentFrame)
 	{
-		JTextField emailText, firstNameText, lastNameText;
-		JPasswordField passText, confirmPassText;
+		CustomTextField emailText, firstNameText, lastNameText;
+		CustomPasswordField passText, confirmPassText;
 
 		//Layout stuff
 		this.setLayout(new GridBagLayout());
@@ -33,11 +35,11 @@ public class RegisterPanel extends JPanel
 		loginLabel.addMouseListener(new LinkListener(parentFrame.getFrameManager(), parentFrame, "login"));
 
 		//Register text fields
-		emailText = new JTextField("Username", 12); //TODO: Make this proper prompt text
-		passText = new JPasswordField("Password", 12);
-		confirmPassText = new JPasswordField("Confirm Password", 12);
-		firstNameText = new JTextField("First Name", 12);
-		lastNameText = new JTextField("Last Name", 12);
+		emailText = new CustomTextField("Username");
+		passText = new CustomPasswordField("Password");
+		confirmPassText = new CustomPasswordField("Confirm Password");
+		firstNameText = new CustomTextField("First Name");
+		lastNameText = new CustomTextField("Last Name");
 
 
 		//Register button

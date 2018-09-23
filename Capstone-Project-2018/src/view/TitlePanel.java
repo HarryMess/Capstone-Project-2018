@@ -12,7 +12,7 @@ public class TitlePanel extends JPanel
 	JFrame parentFrame;
 	private BufferedImage logo;
 
-	public TitlePanel()
+	public TitlePanel(AbstractFrame parentFrame)
 	{
 		this.parentFrame = parentFrame;
 		//Logo

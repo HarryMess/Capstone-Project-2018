@@ -18,7 +18,7 @@ public abstract class AbstractFrame extends JFrame
 		int screenWidth = (int)screenSize.getWidth();
 		int screenHeight = (int)screenSize.getHeight();
 
-		//Frame settings TODO: Fix minimum size and maximising not carrying over
+		//Frame settings TODO: Fix minimum size TODO: fix maximising not carrying over
 		setBounds(screenWidth/4, screenHeight/4, screenWidth/2, screenHeight/2);
 		setMinimumSize(new Dimension(500, 250));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

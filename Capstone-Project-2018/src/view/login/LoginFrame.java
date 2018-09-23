@@ -6,7 +6,6 @@ import view.TitlePanel;
 
 public class LoginFrame extends AbstractFrame
 {
-	FrameManager fm;
 	public LoginFrame(FrameManager fm, String title)
 	{
 		super(fm, title);

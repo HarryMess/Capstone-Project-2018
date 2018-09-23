@@ -33,6 +33,6 @@ public class DashboardToolBar extends JToolBar
 		//Action listeners
 		logOutButton.addActionListener(new LogoutListener(parentFrame.getFrameManager(), parentFrame));
 		leaderboardButton.addActionListener(new LeaderboardListener(parentFrame));
-		accountButton.addActionListener(new AccountListener());
+		accountButton.addActionListener(new AccountListener(parentFrame.getFrameManager(), parentFrame));
 	}
 }

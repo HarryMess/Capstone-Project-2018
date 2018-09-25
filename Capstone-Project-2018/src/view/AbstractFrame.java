@@ -1,8 +1,9 @@
 package view;
 
+import javax.swing.*;
+
 import controller.FrameManager;
 
-import javax.swing.*;
 import java.awt.*;
 
 public abstract class AbstractFrame extends JFrame

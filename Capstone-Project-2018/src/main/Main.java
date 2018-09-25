@@ -1,8 +1,9 @@
 package main;
 
 import controller.FrameManager;
-
 import javax.swing.*;
+
+import controller.FrameManager;
 
 public class Main
 {

@@ -12,9 +12,10 @@ import java.text.DecimalFormat;
 
 import org.junit.jupiter.api.Test;
 
+import database.DerbyDB;
+
 class DatabaseTest {
 
-	private static String dbURL = "jdbc:derby:"; // Enter your local URL here
 	private static Connection connec = null; /* Instance */
     private static Statement statem = null;
 	
@@ -23,7 +24,7 @@ class DatabaseTest {
 	 try
        {
 		   Class.forName("org.apache.derby.jdbc.EmbeddedDriver").newInstance();
-           connec = DriverManager.getConnection(dbURL);
+		   connec = DerbyDB.getConnection();
            
 
            /* Old method of mapping driver to URL, refer to

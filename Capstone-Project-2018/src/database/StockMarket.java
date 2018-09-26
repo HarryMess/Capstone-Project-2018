@@ -22,7 +22,6 @@ public class StockMarket {
 	private static StockMarket market; // singleton object
 	
 	/* replace with your own connection string */
-	private static String dbURL = "jdbc:derby:"; // Enter your local URL here
     private Connection connec = null; /* Instance */
     private Statement statem = null;
     
@@ -43,7 +42,7 @@ public class StockMarket {
 	private StockMarket() throws InstantiationException, IllegalAccessException, ClassNotFoundException,
 	SQLException {
 		//Class.forName("org.apache.derby.jdbc.ClientDriver").newInstance();
-        connec = DriverManager.getConnection(dbURL);
+        connec = DerbyDB.getConnection();
 			
 	}
     

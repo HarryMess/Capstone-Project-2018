@@ -4,6 +4,8 @@ import view.AbstractFrame;
 
 import javax.swing.*;
 
+import database.DerbyDB;
+
 import java.sql.*;
 
 import main.ConsoleApplication;
@@ -31,7 +33,6 @@ public class LoginListener implements ActionListener
 	public boolean loginMethod (String email, String password)
 	{
 		//Database CANNOT be connected to by DTP before running program, else will throw error
-		final String dbURL = "jdbc:derby:"; // This might have to be changed, if you get a "No suitable driver found for ..." Error the classpath is wrong
 	    Connection connec = null; /* Instance */
 	    Statement statem = null;
 
@@ -39,7 +40,7 @@ public class LoginListener implements ActionListener
 	        try
 	        {
 	            Class.forName("org.apache.derby.jdbc.ClientDriver").newInstance(); // use org.apache.derby.jdbc.EmbeddedDriver
-	            connec = DriverManager.getConnection(dbURL);
+	            connec = DerbyDB.getConnection();
 	        }
 
 	        catch (Exception exception)

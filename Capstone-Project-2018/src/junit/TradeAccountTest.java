@@ -8,13 +8,13 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import database.DerbyDB;
 import database.StockMarket;
 import model.TradingAccount;
 
 class TradeAccountTest {
 	
-	private static String dbURL = "jdbc:derby:"; // Enter your local URL here
-    private Connection connec = null; /* Instance */
+    private Connection connec = DerbyDB.getConnection(); /* Instance */
     private Statement statem = null;
 	
 	@Test

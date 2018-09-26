@@ -97,16 +97,16 @@ public class LoginListener implements ActionListener
 		
 		//System.out.println("Email is:" + user); 
 		
-		System.out.println("Test call.\n Email: " + email + "\nPassword: " + password);
-		
-		if(!loginMethod(email, password)) {
-			JOptionPane.showMessageDialog(null, "Invalid username or password",
-					"Authentication failed", JOptionPane.ERROR_MESSAGE);
-			
-		} else  {			
-			
-			JOptionPane.showMessageDialog(null, "Login successul", "Login Confirmation",
-					JOptionPane.INFORMATION_MESSAGE);
+//		System.out.println("Test call.\n Email: " + email + "\nPassword: " + password);
+//		
+//		if(!loginMethod(email, password)) {
+//			JOptionPane.showMessageDialog(null, "Invalid username or password",
+//					"Authentication failed", JOptionPane.ERROR_MESSAGE);
+//			
+//		} else  {			
+//			
+//			JOptionPane.showMessageDialog(null, "Login successul", "Login Confirmation",
+//					JOptionPane.INFORMATION_MESSAGE);
 
 			fm.switchFrame(parentFrame, fm.getFrame("dashboard")); //Actually changes the frame
 			
@@ -143,8 +143,8 @@ public class LoginListener implements ActionListener
 
 			ca.showRecenttrans();
 			dashboard.setVisible(true);
-			ca.showRecenttrans();*/
-		}
+			ca.showRecenttrans();
+		}*/
 
 	}
 }

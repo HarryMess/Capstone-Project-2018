@@ -4,15 +4,15 @@ import view.AbstractFrame;
 
 import javax.swing.*;
 
-import java.io.*;
+import database.DerbyDB;
+
 import java.sql.*;
-import java.util.*;
 
 import main.ConsoleApplication;
 import model.Model;
 import model.User;
-import java.awt.Dimension;
 
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -33,7 +33,6 @@ public class LoginListener implements ActionListener
 	public boolean loginMethod (String email, String password)
 	{
 		//Database CANNOT be connected to by DTP before running program, else will throw error
-		final String dbURL = "jdbc:derby:C:\\Users\\quick\\GitHub\\Capstone-Project-2018\\Capstone-Project-2018\\Capstone-Project-2018\\derby-10.14.2.0\\bin\\Database;create=true"; // This might have to be changed, if you get a "No suitable driver found for ..." Error the classpath is wrong
 	    Connection connec = null; /* Instance */
 	    Statement statem = null;
 
@@ -41,7 +40,7 @@ public class LoginListener implements ActionListener
 	        try
 	        {
 	            Class.forName("org.apache.derby.jdbc.ClientDriver").newInstance(); // use org.apache.derby.jdbc.EmbeddedDriver
-	            connec = DriverManager.getConnection(dbURL);
+	            connec = DerbyDB.getConnection();
 	        }
 
 	        catch (Exception exception)
@@ -98,16 +97,16 @@ public class LoginListener implements ActionListener
 		
 		//System.out.println("Email is:" + user); 
 		
-		System.out.println("Test call.\n Email: " + email + "\nPassword: " + password);
-		
-		if(!loginMethod(email, password)) {
-			JOptionPane.showMessageDialog(null, "Invalid username or password",
-					"Authentication failed", JOptionPane.ERROR_MESSAGE);
-			
-		} else  {			
-			
-			JOptionPane.showMessageDialog(null, "Login successul", "Login Confirmation",
-					JOptionPane.INFORMATION_MESSAGE);
+//		System.out.println("Test call.\n Email: " + email + "\nPassword: " + password);
+//		
+//		if(!loginMethod(email, password)) {
+//			JOptionPane.showMessageDialog(null, "Invalid username or password",
+//					"Authentication failed", JOptionPane.ERROR_MESSAGE);
+//			
+//		} else  {			
+//			
+//			JOptionPane.showMessageDialog(null, "Login successul", "Login Confirmation",
+//					JOptionPane.INFORMATION_MESSAGE);
 
 			fm.switchFrame(parentFrame, fm.getFrame("dashboard")); //Actually changes the frame
 			
@@ -135,13 +134,17 @@ public class LoginListener implements ActionListener
 			JOptionPane.showMessageDialog(null, "Login successul", "Login Confirmation",
 					JOptionPane.INFORMATION_MESSAGE);
 			
+			// add user to logged in user variable
+			
 			// open dashboard screen - replace the code below with actual screen
-			parent.setVisible(false);
 			ConsoleApplication ca = new ConsoleApplication(user);
 			ca.showCompany();
 			ca.showMyshare();
-			ca.showRecenttrans();*/
-		}
+
+			ca.showRecenttrans();
+			dashboard.setVisible(true);
+			ca.showRecenttrans();
+		}*/
 
 	}
 }

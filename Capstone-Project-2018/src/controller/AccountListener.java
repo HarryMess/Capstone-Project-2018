@@ -5,7 +5,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class AccountListener implements ActionListener
-{ //TODO: Combine with logout listener??
+{ 
+	//TODO: Combine with logout listener??
 	private FrameManager fm;
 	private JFrame oldFrame;
 	public AccountListener(FrameManager fm, JFrame oldFrame)

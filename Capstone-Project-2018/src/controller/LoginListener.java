@@ -51,10 +51,10 @@ public class LoginListener implements ActionListener
 
 	        try
 	        {
-	            statem = connec.createStatement();
+	            statem = connec.createStatement();	
 	            
-	            //String sql2 = "select email from username.users";
-	            String sql = "select password from username.users where password";
+	            String sql = "select email from username.users where email='"+email+"'";
+	            //String sql2 = "select password from username.users where password='password'";
 	            
 	            ResultSet res = statem.executeQuery(sql);
 	            int counter = 0;

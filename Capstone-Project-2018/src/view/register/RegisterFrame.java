@@ -1,9 +1,13 @@
-package view;
+package view.register;
+
+import javax.swing.*;
 
 import controller.FrameManager;
 
-import javax.swing.*;
 import java.awt.*;
+
+import view.AbstractFrame;
+import view.TitlePanel;
 
 public class RegisterFrame extends AbstractFrame
 {
@@ -13,7 +17,7 @@ public class RegisterFrame extends AbstractFrame
 		super(fm, title);
 
 		//Upper panel
-		this.add(new TitlePanel());
+		this.add(new TitlePanel(this));
 
 		//Centre panel
 		this.add(new RegisterPanel(this));

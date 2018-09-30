@@ -61,10 +61,10 @@ public class Model {
 		transactionHistory.add(transaction);
 	}
 	
-	public Stock getStock(String code, int ownerId) throws NotFoundException {
+	public Stock getStock(String code, String ownerId) throws NotFoundException {
 		
 		for(Stock s : stocks) {
-			if(s.getCompany() == code && s.getOwner() == ownerId)
+			if(s.getCompanyByCode() == code && s.getOwner() == ownerId)
 				return s;
 		}
 		

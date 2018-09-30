@@ -1,34 +1,38 @@
 package controller;
 
+import view.AbstractFrame;
+
 import javax.swing.*;
 
-import java.io.*;
+import database.DerbyDB;
+
 import java.sql.*;
-import java.util.*;
 
 import main.ConsoleApplication;
 import model.Model;
 import model.User;
+
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class LoginListener implements ActionListener
 {
-	private JFrame parent;
 	private JTextField userField, passField;
-	
-	public LoginListener(JFrame parent, JTextField userField, JTextField passField)
+	private FrameManager fm;
+	private AbstractFrame parentFrame;
+	public LoginListener(AbstractFrame parentFrame, JTextField userField, JTextField passField)
 	{
-		this.parent = parent;
+		this.parentFrame = parentFrame;
 		this.userField = userField;
 		this.passField = passField;
+
+		fm = parentFrame.getFrameManager();
 	}
 	
-	public void loginMethod (String email, String password)
+	public boolean loginMethod (String email, String password)
 	{
-		
-		final String dbURL = "jdbc:derby:Database;create=true;user='s3488361;password=password"; // This might have to be changed, if you get a "No suitable driver found for ..." Error the classpath is wrong
+		//Database CANNOT be connected to by DTP before running program, else will throw error
 	    Connection connec = null; /* Instance */
 	    Statement statem = null;
 
@@ -36,7 +40,7 @@ public class LoginListener implements ActionListener
 	        try
 	        {
 	            Class.forName("org.apache.derby.jdbc.ClientDriver").newInstance(); // use org.apache.derby.jdbc.EmbeddedDriver
-	            connec = DriverManager.getConnection(dbURL);
+	            connec = DerbyDB.getConnection();
 	        }
 
 	        catch (Exception exception)
@@ -46,23 +50,29 @@ public class LoginListener implements ActionListener
 
 	        try
 	        {
-	            statem = connec.createStatement();
-	            ResultSet res = statem.executeQuery("select * from users where email='"+email+"' AND password = '"+password+"'");
+	            statem = connec.createStatement();	
+	            
+	            String sql = "select email from username.users where email='"+email+"'";
+	            //String sql2 = "select password from username.users where password='password'";
+	            
+	            ResultSet res = statem.executeQuery(sql);
 	            int counter = 0;
 	            while (res.next())
 	            {
-	                counter += 1;
+	                counter += 1; //counting how many columns are present
 	            }
 
 	            if (counter == 1)
 	            {
 	                System.out.println("Access granted");
+	                return true;
 	            }
 
-	            else
+	            else if (counter == 2) //if duplicate records
 	            {
 	                System.out.println("Username and/or password do not match up with our records");
 	                System.out.println("Access denied");
+	                return false;
 
 	            }
 	        }
@@ -71,6 +81,7 @@ public class LoginListener implements ActionListener
 	        {
 	            exception.printStackTrace();
 	        }
+	        return false;
 	    }
 		
 	}
@@ -84,9 +95,31 @@ public class LoginListener implements ActionListener
 		
 		User user = model.getUser(email);
 		
-		if(user == null) {
+		//System.out.println("Email is:" + user); 
+		
+//		System.out.println("Test call.\n Email: " + email + "\nPassword: " + password);
+//		
+//		if(!loginMethod(email, password)) {
+//			JOptionPane.showMessageDialog(null, "Invalid username or password",
+//					"Authentication failed", JOptionPane.ERROR_MESSAGE);
+//			
+//		} else  {			
+//			
+//			JOptionPane.showMessageDialog(null, "Login successul", "Login Confirmation",
+//					JOptionPane.INFORMATION_MESSAGE);
+
+			fm.switchFrame(parentFrame, fm.getFrame("dashboard")); //Actually changes the frame
+			
+			// open dashboard screen - replace the code below with actual screen
+//			parent.setVisible(false);
+//			ConsoleApplication ca = new ConsoleApplication(user);
+//			ca.showCompany();
+//			ca.showMyshare();
+//			ca.showRecenttrans();
+		
+		/*if(user == null) {
 			System.out.print("No user with that email address was found\n");
-			JOptionPane.showMessageDialog(null, "Ivalid username or password",
+			JOptionPane.showMessageDialog(null, "Invalid username or password",
 					"Authentication failed", JOptionPane.ERROR_MESSAGE);
 			
 		} else if (!user.passwordMatches(password)) {
@@ -95,21 +128,23 @@ public class LoginListener implements ActionListener
 					"Authentication failed", JOptionPane.ERROR_MESSAGE);
 			
 		} else  {			
-			
-			
-			
-			loginMethod(email, password);
+
 			System.out.println("Test call.\n Email: " + email + "\nPassword: " + password);
 			
 			JOptionPane.showMessageDialog(null, "Login successul", "Login Confirmation",
 					JOptionPane.INFORMATION_MESSAGE);
 			
+			// add user to logged in user variable
+			
 			// open dashboard screen - replace the code below with actual screen
-			parent.setVisible(false);
 			ConsoleApplication ca = new ConsoleApplication(user);
 			ca.showCompany();
 			ca.showMyshare();
+
 			ca.showRecenttrans();
-		}
+			dashboard.setVisible(true);
+			ca.showRecenttrans();
+		}*/
+
 	}
 }

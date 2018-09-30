@@ -1,8 +1,12 @@
-package view;
-
-import controller.FrameManager;
+package view.forgotpass;
 
 import javax.swing.*;
+
+import controller.FrameManager;
+import view.AbstractFrame;
+import view.TitlePanel;
+
+import controller.FrameManager;
 
 public class ForgotPasswordFrame extends AbstractFrame
 {
@@ -12,7 +16,7 @@ public class ForgotPasswordFrame extends AbstractFrame
 		super(fm, title);
 
 		//Upper panel
-		this.add(new TitlePanel());
+		this.add(new TitlePanel(this));
 
 		//Centre panel
 		this.add(new ForgotPasswordPanel(this));

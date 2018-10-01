@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/Capstone-Project-2018/Capstone-Project-2018.iml" filepath="$PROJECT_DIR$/Capstone-Project-2018/Capstone-Project-2018.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Capstone-Project-2018/derby-10.14.2.0/demo/demo.iml" filepath="$PROJECT_DIR$/Capstone-Project-2018/derby-10.14.2.0/demo/demo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Capstone-Project-2018/derby-10.14.2.0/demo/programs/programs.iml" filepath="$PROJECT_DIR$/Capstone-Project-2018/derby-10.14.2.0/demo/programs/programs.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Capstone-Project-2018/derby-10.14.2.0/demo/programs/scores/java/scores.iml" filepath="$PROJECT_DIR$/Capstone-Project-2018/derby-10.14.2.0/demo/programs/scores/java/scores.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Capstone-Project-2018/derby-10.14.2.0/demo/programs/vtis/vtis.iml" filepath="$PROJECT_DIR$/Capstone-Project-2018/derby-10.14.2.0/demo/programs/vtis/vtis.iml" />
+    </modules>
+  </component>
+</project>

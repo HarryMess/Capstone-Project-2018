@@ -1,18 +1,11 @@
 ----------------------------------------------------------------
-<<<<<<< HEAD
-Tue Sep 25 19:05:50 AEST 2018:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-0166-0ffa-3ec6-00000f70aa00 
-on database directory C:\Users\quick\GitHub\Capstone-Project-2018\Capstone-Project-2018\Capstone-Project-2018\derby-10.14.2.0\bin\Database with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@f5bd909 
+Wed Oct 03 19:29:02 AEST 2018:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-0166-3942-5b42-00000f26f8f0 
+on database directory C:\Users\quick\GitHub\Capstone-Project-2018\Capstone-Project-2018\Capstone-Project-2018\derby-10.14.2.0\bin\Database with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@16910979 
 Loaded from file:/C:/Users/quick/GitHub/Capstone-Project-2018/Capstone-Project-2018/Capstone-Project-2018/derby-10.14.2.0/lib/derby.jar
-=======
-Wed Sep 26 20:09:40 AEST 2018:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-0166-155b-0c27-0000063d2d10 
-on database directory C:\RMIT\Programming Project\Project Source\Capstone-Project-2018\derby-10.14.2.0\bin\Database with class loader sun.misc.Launcher$AppClassLoader@2a139a55 
-Loaded from file:/C:/RMIT/Programming%20Project/Project%20Source/Capstone-Project-2018/derby-10.14.2.0/lib/derby.jar
->>>>>>> 903a25f49cb3d84d5753baf4d59c3c87fba5093d
 java.vendor=Oracle Corporation
-java.runtime.version=1.8.0_181-b13
-user.dir=C:\RMIT\Programming Project\Project Source\Capstone-Project-2018
+java.runtime.version=10.0.1+10
+user.dir=C:\Users\quick\GitHub\Capstone-Project-2018\Capstone-Project-2018\Capstone-Project-2018
 os.name=Windows 10
 os.arch=amd64
 os.version=10.0

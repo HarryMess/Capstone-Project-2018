@@ -28,8 +28,7 @@ public class LoginListener implements ActionListener
 		this.passField = passField;
 
 		fm = parentFrame.getFrameManager();
-	}
-	
+	}	
 	public boolean loginMethod (String email, String password)
 	{
 		//Database CANNOT be connected to by DTP before running program, else will throw error
@@ -47,15 +46,14 @@ public class LoginListener implements ActionListener
 	        {
 	            exception.printStackTrace(); /* Calls the toString method of whatever exception was thrown */
 	        }
-
+	        
+	        
 	        try
 	        {
 	            statem = connec.createStatement();	
+	            String sql2 = "select email from username.users where email='"+email+"'";
 	            
-	            String sql = "select email from username.users where email='"+email+"'";
-	            //String sql2 = "select password from username.users where password='password'";
-	            
-	            ResultSet res = statem.executeQuery(sql);
+	            ResultSet res = statem.executeQuery(sql2);
 	            int counter = 0;
 	            while (res.next())
 	            {
@@ -64,14 +62,20 @@ public class LoginListener implements ActionListener
 
 	            if (counter == 1)
 	            {
-	                System.out.println("Access granted");
-	                return true;
+	            	if (password.contentEquals("password")) // if password correct
+	    	            {
+	    	                return true;
+	    	            }
+
+	    	            else if (password != "password") //if password incorrect
+	    	            {	    	                
+	    	                return false;
+
+	    	            }
 	            }
 
-	            else if (counter == 2) //if duplicate records
+	            else if (counter == 2) //if username not found
 	            {
-	                System.out.println("Username and/or password do not match up with our records");
-	                System.out.println("Access denied");
 	                return false;
 
 	            }
@@ -81,6 +85,7 @@ public class LoginListener implements ActionListener
 	        {
 	            exception.printStackTrace();
 	        }
+	        
 	        return false;
 	    }
 		
@@ -95,56 +100,27 @@ public class LoginListener implements ActionListener
 		
 		User user = model.getUser(email);
 		
-		//System.out.println("Email is:" + user); 
-		
-//		System.out.println("Test call.\n Email: " + email + "\nPassword: " + password);
-//		
-//		if(!loginMethod(email, password)) {
-//			JOptionPane.showMessageDialog(null, "Invalid username or password",
-//					"Authentication failed", JOptionPane.ERROR_MESSAGE);
-//			
-//		} else  {			
-//			
-//			JOptionPane.showMessageDialog(null, "Login successul", "Login Confirmation",
-//					JOptionPane.INFORMATION_MESSAGE);
+		if(!loginMethod(email, password)) {
+			JOptionPane.showMessageDialog(null, "Invalid username or password",
+					"Authentication failed", JOptionPane.ERROR_MESSAGE);
+			
+			
+		} else  {			
+			
+			
+			JOptionPane.showMessageDialog(null, "Login successful", "Login Confirmation",
+				JOptionPane.INFORMATION_MESSAGE);
 
 			fm.switchFrame(parentFrame, fm.getFrame("dashboard")); //Actually changes the frame
 			
-			// open dashboard screen - replace the code below with actual screen
+//			open dashboard screen - replace the code below with actual screen
 //			parent.setVisible(false);
 //			ConsoleApplication ca = new ConsoleApplication(user);
 //			ca.showCompany();
 //			ca.showMyshare();
 //			ca.showRecenttrans();
-		
-		/*if(user == null) {
-			System.out.print("No user with that email address was found\n");
-			JOptionPane.showMessageDialog(null, "Invalid username or password",
-					"Authentication failed", JOptionPane.ERROR_MESSAGE);
 			
-		} else if (!user.passwordMatches(password)) {
-			System.out.println("The password is invalid");
-			JOptionPane.showMessageDialog(null, "Ivalid username or password",
-					"Authentication failed", JOptionPane.ERROR_MESSAGE);
-			
-		} else  {			
-
-			System.out.println("Test call.\n Email: " + email + "\nPassword: " + password);
-			
-			JOptionPane.showMessageDialog(null, "Login successul", "Login Confirmation",
-					JOptionPane.INFORMATION_MESSAGE);
-			
-			// add user to logged in user variable
-			
-			// open dashboard screen - replace the code below with actual screen
-			ConsoleApplication ca = new ConsoleApplication(user);
-			ca.showCompany();
-			ca.showMyshare();
-
-			ca.showRecenttrans();
-			dashboard.setVisible(true);
-			ca.showRecenttrans();
-		}*/
+		}
 
 	}
 }

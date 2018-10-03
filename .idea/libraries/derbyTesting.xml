@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="derbyTesting">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/Capstone-Project-2018/derby-10.14.2.0/test/derbyTesting.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

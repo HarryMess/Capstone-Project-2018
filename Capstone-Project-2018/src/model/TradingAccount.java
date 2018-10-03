@@ -1,5 +1,7 @@
 package model;
 
+import database.DerbyDB;
+
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -49,16 +51,26 @@ public class TradingAccount {
 		return balance;
 	}
 
-	public void addFunds(float amount) {
+	public void addFunds(float amount)
+	{
 		balance += amount;
 	}
 
-	public void removeFunds(float amount) {
+	public void removeFunds(float amount)
+	{
 		balance -= amount;
 	}
 
-	public void BuyStock(Stock stock) {
+	public void BuyStock(Stock stock)
+	{
+		/*
+		if (balance >= Stock.amount() * Stock.quantity)
+		{
+		    removeFunds("stock amount() * Stock.quantity");
+		    DerbyDB.getConnection();
+		*/
 		stocksOwned.add(stock);
+
 	}
 
 	public void sellStock(Stock stock, float price) {

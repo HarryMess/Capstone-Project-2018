@@ -38,7 +38,7 @@ public class LoginListener implements ActionListener
 		{
 	        try
 	        {
-	            Class.forName("org.apache.derby.jdbc.ClientDriver").newInstance(); // use org.apache.derby.jdbc.EmbeddedDriver
+	            Class.forName("org.apache.derby.jdbc.EmbeddedDriver").newInstance(); // use org.apache.derby.jdbc.EmbeddedDriver
 	            connec = DerbyDB.getConnection();
 	        }
 

@@ -2,29 +2,19 @@ package junit;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-<<<<<<< HEAD
-import java.time.LocalDateTime;
-import java.util.List;
 
-import org.junit.Before;
-import org.junit.jupiter.api.Test;
-
-=======
 import java.sql.Timestamp;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
 import database.StockMarket;
->>>>>>> 903a25f49cb3d84d5753baf4d59c3c87fba5093d
+
 import main.DataGenerator;
 import model.Company;
 import model.Model;
 import model.Stock;
-<<<<<<< HEAD
-import model.StockMarket;
-=======
->>>>>>> 903a25f49cb3d84d5753baf4d59c3c87fba5093d
+
 import model.TradingAccount;
 import model.Transaction;
 import model.User;

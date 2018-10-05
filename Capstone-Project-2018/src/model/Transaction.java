@@ -61,13 +61,9 @@ public class Transaction {
 		Model model = Model.getInstance();		
 		// transfer the funds
 		StockMarket market;
-		try {
-			market = StockMarket.getInstance();
-			market.transferFunds(buyer, seller, price);	
-		} catch (InstantiationException | IllegalAccessException | ClassNotFoundException | SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}		
+		
+		market = StockMarket.getInstance();
+		market.transferFunds(buyer, seller, price);		
 			
 	}
 

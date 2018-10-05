@@ -7,10 +7,8 @@ package database;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-<<<<<<< HEAD
-=======
+
 import java.sql.PreparedStatement;
->>>>>>> 903a25f49cb3d84d5753baf4d59c3c87fba5093d
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -189,8 +187,9 @@ public class StockMarket {
 	public void transferFunds(int sender, int receiver) {
 		// TODO - implement StockMarketSystem.transferFunds
 	
+	}
 	
-	public voidtransferFunds(TradingAccount sender, TradingAccount receiver, float amount) {
+	public void transferFunds(TradingAccount sender, TradingAccount receiver, float amount) {
 		sender.removeFunds(amount);
 		receiver.addFunds(amount);
 	}

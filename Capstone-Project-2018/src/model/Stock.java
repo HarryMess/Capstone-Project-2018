@@ -3,17 +3,17 @@ package model;
 public class Stock {
 
 	private String code;
-	private int ownerId;
+	private String ownerId;
 	private int quantity;
 	
-	public Stock(String code, int ownerId, int quantity) {
+	public Stock(String code, String ownerId, int quantity) {
 	
 		this.code = code;
 		this.ownerId = ownerId;	
 		this.quantity = quantity;
 	}
 
-	public int getOwner() {
+	public String getOwner() {
 		return ownerId;
 	}
 

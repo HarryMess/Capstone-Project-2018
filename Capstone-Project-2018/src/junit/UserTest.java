@@ -4,10 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-<<<<<<< HEAD
-=======
 import java.sql.ResultSet;
->>>>>>> 903a25f49cb3d84d5753baf4d59c3c87fba5093d
 import java.sql.Statement;
 
 import org.junit.jupiter.api.Test;

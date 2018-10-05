@@ -11,11 +11,7 @@ import java.awt.event.ActionListener;
 public class RegisterListener implements ActionListener
 {	
 	private JTextField emailField, firstNameField, lastNameField, passField, confirmPassField;
-<<<<<<< HEAD
-=======
-	
-	
->>>>>>> 903a25f49cb3d84d5753baf4d59c3c87fba5093d
+
 	public RegisterListener(JTextField userField, JPasswordField passField, JPasswordField confirmPassField,
 							JTextField firstNameField, JTextField lastNameField)
 	{

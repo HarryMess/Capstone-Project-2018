@@ -34,8 +34,7 @@ public class LoginListener implements ActionListener
 		this.passField = passField;
 
 		fm = parentFrame.getFrameManager();
-	}
-	
+	}	
 	public boolean loginMethod (String email, String password)
 	{
 		//Database CANNOT be connected to by DTP before running program, else will throw error
@@ -45,7 +44,7 @@ public class LoginListener implements ActionListener
 		{
 	        try
 	        {
-	            Class.forName("org.apache.derby.jdbc.ClientDriver").newInstance(); // use org.apache.derby.jdbc.EmbeddedDriver
+	            Class.forName("org.apache.derby.jdbc.EmbeddedDriver").newInstance(); // use org.apache.derby.jdbc.EmbeddedDriver
 	            connec = DerbyDB.getConnection();
 	        }
 
@@ -53,16 +52,15 @@ public class LoginListener implements ActionListener
 	        {
 	            exception.printStackTrace(); /* Calls the toString method of whatever exception was thrown */
 	        }
-
+	        
+	        
 	        try
 	        {
-	            statem = connec.createStatement();
-	            
 
-	            //String sql2 = "select email from username.users";
-	            String sql = "select password from username.users where password";
+	            statem = connec.createStatement();	
+	            String sql2 = "select email from username.users where email='"+email+"'";
 	            
-	            ResultSet res = statem.executeQuery(sql);
+	            ResultSet res = statem.executeQuery(sql2);
 	            int counter = 0;
 	            while (res.next())
 	            {
@@ -71,14 +69,20 @@ public class LoginListener implements ActionListener
 
 	            if (counter == 1)
 	            {
-	                System.out.println("Access granted");
-	                return true;
+	            	if (password.contentEquals("password")) // if password correct
+	    	            {
+	    	                return true;
+	    	            }
+
+	    	            else if (password != "password") //if password incorrect
+	    	            {	    	                
+	    	                return false;
+
+	    	            }
 	            }
 
-	            else if (counter == 2) //if duplicate records
+	            else if (counter == 2) //if username not found
 	            {
-	                System.out.println("Username and/or password do not match up with our records");
-	                System.out.println("Access denied");
 	                return false;
 
 	            }
@@ -88,6 +92,7 @@ public class LoginListener implements ActionListener
 	        {
 	            exception.printStackTrace();
 	        }
+	        
 	        return false;
 	    }
 		
@@ -133,16 +138,15 @@ public class LoginListener implements ActionListener
 //			
 //			JOptionPane.showMessageDialog(null, "Login successul", "Login Confirmation",
 //					JOptionPane.INFORMATION_MESSAGE);
-
-			fm.switchFrame(parentFrame, fm.getFrame("dashboard")); //Actually changes the frame
 			
-			// open dashboard screen - replace the code below with actual screen
+
+			
+//			open dashboard screen - replace the code below with actual screen
 //			parent.setVisible(false);
 //			ConsoleApplication ca = new ConsoleApplication(user);
 //			ca.showCompany();
 //			ca.showMyshare();
 //			ca.showRecenttrans();
-
 			
 		/*if(user == null) {
 			System.out.print("No user with that email address was found\n");

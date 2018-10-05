@@ -135,8 +135,8 @@ public class DataGenerator {
 	public void addstockowned() {
 		String admin = "Username";
 
-//		Stock stock = new Stock("XRO", "admin@asx.com.au", 10);	
-//		Stock stock2 = new Stock("WEB", "admin@asx.com.au", 10);
+		Stock stock = new Stock("XRO", "admin@asx.com.au", 10);	
+		Stock stock2 = new Stock("WEB", "admin@asx.com.au", 10);
 		
 		model.getTradingAccount(admin).BuyStock(stock);
 		model.getTradingAccount(admin).BuyStock(stock2);	

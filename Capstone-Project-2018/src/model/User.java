@@ -12,6 +12,7 @@ public class User
 	private String password;
 	private final TradingAccount account;
 	
+
 	public User(String email, String password, String name)
 	{
 		this.email = email;
@@ -21,6 +22,7 @@ public class User
 		account = new TradingAccount(name);
 	}
 	
+
 	public String getEmail()
 	{
 		return email;

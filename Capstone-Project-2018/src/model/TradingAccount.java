@@ -10,7 +10,9 @@ public class TradingAccount {
 
 	private final String name;
 	private double balance;
-	private List<Float> valueHistory;
+
+	private int hoursActive;
+	private List<ValueTimeStamp> valueHistory;
 	private List<Stock> stocksOwned;	
 	private List<Transaction> transactionHistory;
 
@@ -18,11 +20,24 @@ public class TradingAccount {
 		
 		this.name = name;
 		balance = STARTING_MONEY;
+		hoursActive = 0;
 		stocksOwned = new ArrayList<Stock>();
-		valueHistory = new LinkedList<Float>();
+		valueHistory = new LinkedList<ValueTimeStamp>();
 		transactionHistory = new ArrayList<Transaction>();
 	}
 	
+	// new constructor	
+	public TradingAccount(String name, double balance, int hoursActive, List<ValueTimeStamp> valueHistory,
+			List<Stock> stocksOwned, List<Transaction> transactionHistory) {
+		
+		this.name = name;
+		this.balance = balance;
+		this.hoursActive = hoursActive;
+		this.valueHistory = valueHistory;
+		this.stocksOwned = stocksOwned;
+		this.transactionHistory = transactionHistory;
+	}
+
 	public String getName() {
 		return name;
 	}
@@ -61,8 +76,19 @@ public class TradingAccount {
 		return transactionHistory;
 	}
 
-	public List<Float> getValueHistory() {
+	public List<ValueTimeStamp> getValueHistory() {
 		return valueHistory;
+	}
+	
+	public String toString() {
+		return "Account Details\n" +	
+			   "---------------\n" +
+			   "Name: " + name +
+			   "\nBalance: " + balance + 
+			   "\nHours active: "+ hoursActive +
+			   "\nValues" + valueHistory.toString() +
+			   "\nStocks" + stocksOwned.toString() +
+			   "\nTransactions" + transactionHistory.toString();
 	}
 
 }

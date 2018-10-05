@@ -25,12 +25,17 @@ public class Stock {
 		return quantity;
 	}
 	
+	public void addShares(int amount) {
+		quantity = amount;
+	}
+	
 	public void removeShares(int amount) {
 		quantity -= amount;
 	}
 	
 	@Override
 	public String toString() {
+
 		return "Code: " + code + ", Owner: " + ownerId + ", Quantity: " + quantity;
 	}
 

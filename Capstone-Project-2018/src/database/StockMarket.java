@@ -12,6 +12,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -126,10 +127,9 @@ public class StockMarket {
 		
 		// create new user based on its type		
 		if(isAdmin)
-			user = new Admin(email, password, account.getName());
+			user = new Admin(email, password, account);
 		else
-			user = new User(email, password, account.getName());
-		
+			user = new User(email, password, account);		
 		return user;
 	}
 	
@@ -144,7 +144,7 @@ public class StockMarket {
 		result.next(); // gets the matching result
 		
 		// get values from table
-		String name = result.getString("Name");
+		String name = result.getString("Email");
 		double balance = (double) result.getFloat("Balance");
 		int hours = result.getInt("Hours_active");
 		
@@ -156,7 +156,7 @@ public class StockMarket {
 		result.close();		
 		
 		// return new trading account object containing all matching values
-		return new TradingAccount(name, balance, hours, valueHistory, stocksOwned, transactions);
+		return new TradingAccount(user, name, balance, hours, valueHistory, stocksOwned, transactions);
 	}
 
 	// returns a transaction based on an id
@@ -170,28 +170,82 @@ public class StockMarket {
 		
 	}
 	
+	// transfers stock ownership from onw account to the next
+	public boolean transferStock(TradingAccount buyer, TradingAccount seller,  Stock stock, 
+			int amount, float price) {
+		
+		try {
+			
+			PreparedStatement statement = connec.prepareStatement("UPDATE TABLE stock "
+																+ "SET Trade_Account_id = ? "
+																+ "WHERE Owner = ? AND Company = ?");											
+			statement.setString(1, buyer.getEmail());
+			statement.setString(2, seller.getEmail());
+			statement.setString(3, stock.getCompany().getCode());
+			
+			// run the querey
+			statement.execute();
+			statement.close();
+			
+			transferFunds(buyer, seller, price);
+			addTransaction(
+					new Transaction(new Timestamp(System.currentTimeMillis()), buyer, seller, stock, price)
+			);
+			
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}
+			
+		return false;
+	}
 
-	public void buyStockFromMarket(TradingAccount account, Stock stock, int amount) {
-		// TODO - implement StockMarketSystem.buyStockFromMarket
+	public boolean transferFunds(TradingAccount sender, TradingAccount receiver, float amount) {
+		
+		try {
+			PreparedStatement statement = connec.prepareStatement("UPDATE TABLE Trade_Accounts"
+																+ "SET balance = balance - ?"
+																+ "WHERE email = ?"
+																+ "SET balance = balance + ?"
+																+ "WHERE email = ?");
+			
+			// attempt to execute the query
+			if(statement.execute()) {
+				statement.close();
+				return true;
+			}
+						
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}
+		return false;
 		
 	}
-
-
-	public void sellStock(TradingAccount sellAccount, TradingAccount buyAccount, Stock stock, 
-			int amount, float pricePerStock) {
-		// TODO - implement StockMarketSystem.sellStock
+	
+	public boolean addTransaction(Transaction transaction) {
+		try {
+			PreparedStatement statement = connec.prepareStatement("INSERT INTO TRANSACTION Transaction VALUES (?, ?, ?, ?, ?, ?)");
+			
+			statement.setTimestamp(1, transaction.getTimestamp());
+			statement.setString(2, transaction.getBuyerId());
+			statement.setString(3, transaction.getSellerId());
+			statement.setString(4, transaction.getStockId());
+			statement.setFloat(5, transaction.getPrice());
+			
+			// attempt to execute the query
+			if(statement.execute()) {
+				statement.close();			
+				return true;
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			
+		}
+		return false;
 		
-	}
-
-
-	public void transferFunds(int sender, int receiver) {
-		// TODO - implement StockMarketSystem.transferFunds
-	
-	}
-	
-	public void transferFunds(TradingAccount sender, TradingAccount receiver, float amount) {
-		sender.removeFunds(amount);
-		receiver.addFunds(amount);
 	}
 
 }

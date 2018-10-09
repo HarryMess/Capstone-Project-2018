@@ -3,6 +3,7 @@ package controller;
 import javax.swing.*;
 
 import model.Model;
+import model.TradingAccount;
 import model.User;
 
 import java.awt.event.ActionEvent;
@@ -43,7 +44,7 @@ public class RegisterListener implements ActionListener
 //		} else {
 
 			//registerMethod(email, password, confirmPassword, firstName, lastName);
-			model.addUser(new User(email, password, firstName+" "+lastName));
+			model.addUser(new User(email, password, new TradingAccount(0, firstName+" "+lastName)));
 			
 //			System.out.println("Test call.\nEmail: " + email + "\nName: " + firstName + " " + lastName + "\nPassword: " + password
 //			+ " and confirmed: " + confirmPassword);

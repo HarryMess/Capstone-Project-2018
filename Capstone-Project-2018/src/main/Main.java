@@ -22,11 +22,11 @@ public class Main
 			{
 				FrameManager fm = new FrameManager("Stock Market Simulator");
 				
-				DataGenerator dg = new DataGenerator();
-				dg.addUsers();
-				dg.createCompanies();
-				dg.addStockToCompanies();
-				dg.addstockowned();
+//				DataGenerator dg = new DataGenerator();
+//				dg.addUsers();
+//				dg.createCompanies();
+//				dg.addStockToCompanies();
+//				dg.addstockowned();
 			}
 		});
 	}

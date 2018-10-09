@@ -7,7 +7,7 @@ import java.sql.Statement;
 
 public abstract class DatabaseManager {
 	
-	private String dbURL = "jdbc:derby:Database;create=true;user='s3488361;password=password"; /* This needs to be changed */
+	private String dbURL = "jdbc:derby:C:\\RMIT\\Programming Project\\Project Source\\Database;create=true;upgrade=true";
     private Connection connec = null; /* Instance */
     private Statement statem = null;
 	

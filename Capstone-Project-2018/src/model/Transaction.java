@@ -41,15 +41,15 @@ public class Transaction {
 		stock = null;
 	}
 	
-	public Transaction(TradingAccount buyer, TradingAccount seller,
-			Stock stock, Timestamp dateTime, float price) {
+	public Transaction(Timestamp dateTime, TradingAccount buyer, TradingAccount seller,
+			Stock stock, float price) {
 		
 //		this.id = id;
+		this.dateTime = dateTime;
 		this.price = price;
 		this.buyer = buyer;
 		this.seller = seller;
 		this.stock = stock;
-		this.dateTime = dateTime;
 
 		this.amount = stock.getQuantity();
 	}
@@ -69,6 +69,10 @@ public class Transaction {
 
 	public int getTranasctionId() {
 		return this.id;
+	}
+	
+	public Timestamp getTimestamp() {
+		return dateTime;
 	}
 
 	public String getBuyerId() {

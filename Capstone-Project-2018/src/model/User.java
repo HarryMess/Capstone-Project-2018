@@ -9,7 +9,7 @@ import java.security.NoSuchAlgorithmException;
 
 public class User
 {
-	private String email;
+	private final String email;
 	private String password;
 	private final TradingAccount account;
 	
@@ -20,16 +20,16 @@ public class User
 		this.account = account;
 	}
 	
-	public User(String email, String password, String name)
-	{
-		this.email = email;
-		this.password = password;
-		hashPassword(password);		
-		
-		account = new TradingAccount(name);
-	}
+//	public User(String email, String password, String name)
+//	{
+//		this.email = email;
+//		this.password = password;
+//		hashPassword(password);		
+//		
+//		account = new TradingAccount(name);
+//	}
 	
-	
+
 	public String getEmail()
 	{
 		return email;
@@ -37,11 +37,6 @@ public class User
 	
 	public TradingAccount getTradingAccount() {
 		return account;
-	}
-	
-	public void setEmail(String email)
-	{
-		this.email = email;
 	}
 	
 	public String getPassword()

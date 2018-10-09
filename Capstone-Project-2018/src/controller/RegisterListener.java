@@ -44,7 +44,7 @@ public class RegisterListener implements ActionListener
 //		} else {
 
 			//registerMethod(email, password, confirmPassword, firstName, lastName);
-			model.addUser(new User(email, password, new TradingAccount(0, firstName+" "+lastName)));
+			model.addUser(new User(email, password, new TradingAccount(email, firstName+" "+lastName)));
 			
 //			System.out.println("Test call.\nEmail: " + email + "\nName: " + firstName + " " + lastName + "\nPassword: " + password
 //			+ " and confirmed: " + confirmPassword);

@@ -6,7 +6,7 @@ import java.sql.SQLException;
 
 public class DerbyDB {
 	
-	public static final String dbUrl = "jdbc:derby:C:\\RMIT\\Programming Project\\Project Source\\Database;create=true;upgrade=true";  // Enter your local URL after the second colon
+	public static final String dbUrl = "jdbc:derby:C:\\RMIT\\Programming Project\\Project Source\\Database;user=username";  // Enter your local URL after the second colon
 	private static Connection connection;
 	
 	public static Connection getConnection() {

@@ -5,6 +5,8 @@ package model;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+import javax.xml.bind.DatatypeConverter;
+
 //import javax.xml.bind.DatatypeConverter;
 
 public class User
@@ -51,18 +53,18 @@ public class User
 	
 	public void hashPassword(String password) {
 		
-//		String hashedPassword;
+		String hashedPassword;
 		
 		try {
-			MessageDigest md = MessageDigest.getInstance("SHA-256");
+			MessageDigest md = MessageDigest.getInstance("SHA1");
 			md.update(password.getBytes());
 			
 			// create a string format of hash
-//			byte[] digest = md.digest();			
-//			hashedPassword = DatatypeConverter.printHexBinary(digest);
+			byte[] digest = md.digest();			
+			hashedPassword = DatatypeConverter.printHexBinary(digest);
 			
-//			System.out.println("Password: " + password);
-//			System.out.println("Hashed password: " + hashedPassword);
+			// update the password
+			this.password = hashedPassword;
 			
 		} catch (NoSuchAlgorithmException e) {
 			// TODO Auto-generated catch block

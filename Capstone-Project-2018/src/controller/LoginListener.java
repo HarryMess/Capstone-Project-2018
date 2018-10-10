@@ -6,6 +6,7 @@ import java.io.*;
 import java.sql.*;
 import java.util.*;
 import view.AbstractFrame;
+import view.dashboard.DashboardFrame;
 
 import javax.swing.*;
 
@@ -51,12 +52,10 @@ public class LoginListener implements ActionListener
 	        catch (Exception exception)
 	        {
 	            exception.printStackTrace(); /* Calls the toString method of whatever exception was thrown */
-	        }
-	        
+	        }	        
 	        
 	        try
 	        {
-
 	            statem = connec.createStatement();	
 	            String sql2 = "select email from username.users where email='"+email+"'";
 	            
@@ -70,15 +69,15 @@ public class LoginListener implements ActionListener
 	            if (counter == 1)
 	            {
 	            	if (password.contentEquals("password")) // if password correct
-	    	            {
-	    	                return true;
-	    	            }
+    	            {
+    	                return true;
+    	            }
 
-	    	            else if (password != "password") //if password incorrect
-	    	            {	    	                
-	    	                return false;
+    	            else if (password != "password") //if password incorrect
+    	            {	    	                
+    	                return false;
 
-	    	            }
+    	            }
 	            }
 
 	            else if (counter == 2) //if username not found
@@ -121,62 +120,9 @@ public class LoginListener implements ActionListener
 					JOptionPane.INFORMATION_MESSAGE);
 			
 			// open dashboard screen - replace the code below with actual screen
-//			parent.setVisible(false);
-			ConsoleApplication ca = new ConsoleApplication(user);
-			ca.showCompany();
-			ca.showMyshare();
-			ca.showRecenttrans();
+			new DashboardFrame(fm ,"Dashboard");
+			parentFrame.setVisible(false);			
 		}
-
-//		System.out.println("Test call.\n Email: " + email + "\nPassword: " + password);
-//		
-//		if(!loginMethod(email, password)) {
-//			JOptionPane.showMessageDialog(null, "Invalid username or password",
-//					"Authentication failed", JOptionPane.ERROR_MESSAGE);
-//			
-//		} else  {			
-//			
-//			JOptionPane.showMessageDialog(null, "Login successul", "Login Confirmation",
-//					JOptionPane.INFORMATION_MESSAGE);
-			
-
-			
-//			open dashboard screen - replace the code below with actual screen
-//			parent.setVisible(false);
-//			ConsoleApplication ca = new ConsoleApplication(user);
-//			ca.showCompany();
-//			ca.showMyshare();
-//			ca.showRecenttrans();
-			
-		/*if(user == null) {
-			System.out.print("No user with that email address was found\n");
-			JOptionPane.showMessageDialog(null, "Invalid username or password",
-					"Authentication failed", JOptionPane.ERROR_MESSAGE);
-			
-		} else if (!user.passwordMatches(password)) {
-			System.out.println("The password is invalid");
-			JOptionPane.showMessageDialog(null, "Ivalid username or password",
-					"Authentication failed", JOptionPane.ERROR_MESSAGE);
-			
-		} else  {			
-
-			System.out.println("Test call.\n Email: " + email + "\nPassword: " + password);
-			
-			JOptionPane.showMessageDialog(null, "Login successul", "Login Confirmation",
-					JOptionPane.INFORMATION_MESSAGE);
-			
-			// add user to logged in user variable
-			
-			// open dashboard screen - replace the code below with actual screen
-			ConsoleApplication ca = new ConsoleApplication(user);
-			ca.showCompany();
-			ca.showMyshare();
-
-			ca.showRecenttrans();
-			dashboard.setVisible(true);
-
-			ca.showRecenttrans();
-		}*/
 
 	}
 }

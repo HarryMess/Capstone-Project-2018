@@ -13,8 +13,8 @@ public class TradingAccount {
 	private final String email;
 	private String name;
 	private double balance;
-
 	private int hoursActive;
+	
 	private List<ValueTimeStamp> valueHistory;
 	private List<Stock> stocksOwned;	
 	private List<Transaction> transactionHistory;
@@ -50,6 +50,10 @@ public class TradingAccount {
 	public String getName() {
 		return name;
 	}
+	
+	public int getHoursActive() {
+		return hoursActive;
+	}
 
 	public List<Stock> getStocksOwned() {
 		return this.stocksOwned;
@@ -57,6 +61,12 @@ public class TradingAccount {
 
 	public double getBalance() {
 		return balance;
+	}
+	
+	/** end of Accessors **/
+	
+	public void incrementHours() {
+		hoursActive++;
 	}
 
 	public void addFunds(float amount)

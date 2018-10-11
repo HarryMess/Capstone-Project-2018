@@ -82,10 +82,9 @@ public class Users {
 		
 		try {
 			// add data to the database tables
-			if(addUser(user)) {
-				if(addTradingAccount(user))
-					return true;
-			}
+			addUser(user);
+			addTradingAccount(user);
+			return true;
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

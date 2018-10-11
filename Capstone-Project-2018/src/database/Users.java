@@ -1,10 +1,14 @@
 package database;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+
+import javax.xml.bind.DatatypeConverter;
 
 import model.Admin;
 import model.TradingAccount;
@@ -31,9 +35,12 @@ public class Users {
             Statement statem = null;
         }
         
-        
         try
         {
+        	
+        	// hash the email before adding it to the sql statement
+        	String hashedPassword = hashPassword(password);
+        	
             Statement statem = connec.createStatement();	
             String sql2 = "select email from username.users where email='"+email+"'";
             
@@ -46,12 +53,12 @@ public class Users {
 
             if (counter == 1)
             {
-            	if (password.contentEquals("password")) // if password correct
+            	if (hashedPassword.contentEquals("password")) // if password correct
 	            {
 	                return true;
 	            }
 
-	            else if (password != "password") //if password incorrect
+	            else if (hashedPassword != "password") //if password incorrect
 	            {	    	                
 	                return false;
 
@@ -103,7 +110,7 @@ public class Users {
 			System.out.println("Old Users table:");
 			showUsersTable();
 			
-			statement = connection.prepareStatement("INSERT INTO Users VALUES (?, ?, ?)");
+			statement = connection.prepareStatement("INSERT INTO Users (EMAIL, PASSWORD, ISADMIN) VALUES (?, ?, ?)");
 			
 			statement.setString(1, user.getEmail());
 			statement.setString(2, user.getPassword());
@@ -136,23 +143,36 @@ public class Users {
 		
 		TradingAccount account = user.getTradingAccount();
 		
-		PreparedStatement statement = connection.prepareStatement("INSERT INTO TRADE_ACCOUNTS (ID, EMAIL, NAME, BALANCE, HOURS_ACTIVE)"
-																+ "VALUES (6, ?, ?, ?, ?)");			
-		statement.setString(1, account.getEmail());
-		statement.setString(2, account.getName());			
-		statement.setDouble(3, account.getBalance());
-		statement.setInt(4, account.getHoursActive());
+		// get the id from the email address
+		PreparedStatement statement1 = connection.prepareStatement("SELECT ID FROM USERS WHERE EMAIL = ?");
+		statement1.setString(1, user.getEmail());
+		ResultSet result = statement1.executeQuery();
 		
-		statement.close();
+		int user_id = 0;
+		
+		while(result.next()) {
+			user_id = result.getInt("ID");
+		}
+		
+		statement1.close();
+		
+		// add the trading account to the database
+		PreparedStatement statement2 = connection.prepareStatement("INSERT INTO TRADING_ACCOUNTS (USER_ID, NAME, BALANCE, HOURS_ACTIVE)"
+																+ "VALUES (?, ?, ?, ?)");	
+		statement2.setInt(1, user_id);
+		statement2.setString(2, account.getName());			
+		statement2.setDouble(3, account.getBalance());
+		statement2.setInt(4, account.getHoursActive());
 		
 		System.out.println("New Trading Account table:");
 		showTradeAccountsTable();
 			
+		statement2.execute();
+		statement2.close();
 		
 		System.out.println("New Trading Account table:");
-		showTradeAccountsTable();
+		showTradeAccountsTable();	
 		
-		statement.close();
 	}
 	
 	public static void Logout()
@@ -181,22 +201,44 @@ public class Users {
 	public static void showTradeAccountsTable() throws SQLException {
 		
 		Statement statement = connection.createStatement();
-		ResultSet results = statement.executeQuery("SELECT * FROM TRADE_ACCOUNTS");
+		ResultSet results = statement.executeQuery("SELECT * FROM TRADING_ACCOUNTS");
 		
 		System.out.println();
 		
 		// iterate through the table
 		while(results.next()) {
 			
-			int id = results.getInt("ID");
-			String email = results.getString("EMAIL");
+			int id = results.getInt("User_ID");
 			String name = results.getString("NAME");
 			double balance = results.getDouble("BALANCE");
 			int hours = results.getInt("HOURS_ACTIVE");
 			
-			System.out.println(id + " | " + email + " | " + name + " | " + balance + " | " + hours);
+			System.out.println(id + " | " + name + " | " + balance + " | " + hours);
     	}
 		
 		statement.close();
+	}
+	
+	private static String hashPassword(String password) {
+		
+		String hashedPassword;
+		
+		try {
+			MessageDigest md = MessageDigest.getInstance("SHA1");
+			md.update(password.getBytes());
+			
+			// create a string format of hash
+			byte[] digest = md.digest();			
+			hashedPassword = DatatypeConverter.printHexBinary(digest);
+			
+			// update the password
+			return hashedPassword;
+			
+		} catch (NoSuchAlgorithmException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return password;
 	}
 }

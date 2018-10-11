@@ -1,13 +1,18 @@
 package view.dashboard;
 
+import controller.LinkListener;
+import view.AbstractFrame;
+
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
 
-public class BuyStockPanel extends JPanel
+public class BuyStockPanel extends AbstractTablePanel
 {
-	public BuyStockPanel()
+	public BuyStockPanel(AbstractFrame parentFrame)
 	{
+		super(parentFrame);
+		String linkedFrame = "buystocks";
 		setLayout(new BorderLayout());
 		setBorder(new LineBorder(Color.BLACK));
 
@@ -19,8 +24,9 @@ public class BuyStockPanel extends JPanel
 				{"DEF", "Stock 2", 4.00},
 				{"GHI", "Stock 3", 3.00}
 		};
-		StockTable buyStocks = new StockTable(rowData, columnNames); //TODO: Add search?
-
+		StockTableModel model = new StockTableModel(rowData, columnNames);
+		StockTable buyStocks = new StockTable(linkedFrame, this, model); //TODO: Add search?
+		setTable(buyStocks.getTable());
 
 		//Add components
 		add(title, BorderLayout.NORTH);

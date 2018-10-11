@@ -12,11 +12,8 @@ import java.awt.*;
 
 public class LoginPanel extends JPanel
 {
-	AbstractFrame parentFrame;
-	JTextField emailText, passText;
-	public LoginPanel(LoginFrame parentFrame)
+	public LoginPanel(AbstractFrame parentFrame)
 	{
-		this.parentFrame = parentFrame;
 
 		//Layout stuff
 		this.setLayout(new GridBagLayout());
@@ -34,8 +31,8 @@ public class LoginPanel extends JPanel
 				new LinkListener(parentFrame.getFrameManager(), parentFrame, "register"));
 
 		//Login text fields
-		emailText = new CustomTextField("Username");
-		passText = new CustomPasswordField("Password");
+		JTextField emailText = new CustomTextField("Username");
+		JTextField passText = new CustomPasswordField("Password");
 
 		//Login button
 		JButton loginButton = new JButton("Login");

@@ -1,13 +1,16 @@
 package view.dashboard;
 
+import view.AbstractFrame;
+
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
 
-public class TransactionsPanel extends JPanel
+public class TransactionsPanel extends AbstractTablePanel
 {
-	public TransactionsPanel()
+	public TransactionsPanel(AbstractFrame parentFrame)
 	{
+		super(parentFrame);
 		setLayout(new BorderLayout());
 		setBorder(new LineBorder(Color.BLACK));
 
@@ -18,7 +21,9 @@ public class TransactionsPanel extends JPanel
 				{"DEF", "-", 4.00},
 				{"GHI", "+", 3.00}
 		};
-		StockTable transactions = new StockTable(rowData, columnNames);
+		StockTableModel model = new StockTableModel(rowData, columnNames);
+		StockTable transactions = new StockTable("transactions", this, model);
+		setTable(transactions.getTable());
 		JLabel title = new JLabel("Recent Transactions:", SwingConstants.CENTER);
 
 

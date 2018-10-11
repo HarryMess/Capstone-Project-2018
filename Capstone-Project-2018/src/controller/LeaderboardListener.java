@@ -26,10 +26,12 @@ public class LeaderboardListener implements ActionListener
 	public String getLeaderboard()
 	{
 		StringBuilder sb = new StringBuilder();
-		String[] names = {"Harry", "Josh", "Paul", "Frank", "Melissa", "Fiona", "Kathleen", "Michael", "Chris", "Sam"};
+		String[][] names = {{"Harry", "1,000,000"}, {"Josh", "900,000"}, {"Paul", "800,000"},
+				{"Frank", "700,000"}, {"Melissa", "600,000"}, {"Fiona", "500,000"}, {"Kathleen", "400,000"},
+				{"Michael", "300,000"}, {"Chris", "200,000"}, {"Sam", "100,000"}};
 		for(int i=0;i<10;i++)
 		{
-			sb.append(i+1 + ". " + names[i] + '\n');
+			sb.append(i+1 + ". " + names[i][0] + " - $" + names[i][1] + '\n');
 		}
 
 		return sb.toString();

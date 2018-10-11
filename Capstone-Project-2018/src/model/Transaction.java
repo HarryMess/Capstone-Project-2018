@@ -78,7 +78,6 @@ public class Transaction {
 	public String getStockId() {
 		return stockId;
 	}
-
 	
 	public float getPrice() {
 		return price;

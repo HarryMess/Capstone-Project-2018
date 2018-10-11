@@ -15,19 +15,6 @@ CREATE TABLE Trade_Accounts (
 	FOREIGN KEY (Email) REFERENCES Users(Email)
 );
 
-CREATE TABLE Client_Transaction (
-	date_time TIMESTAMP NOT NULL,
-	buyer int NOT NULL,
-	seller int NOT NULL,
-	stock int NOT NULL,
-	price float NOT NULL,
-	amount int,
-	PRIMARY KEY (date_time, buyer, seller),
-	FOREIGN KEY (buyer) REFERENCES TRADE_Accounts(id),
-	FOREIGN KEY (seller) REFERENCES Trade_Accounts(id),
-	FOREIGN KEY (stock) REFERENCES Stock(company_id)
-);
-
 CREATE TABLE Stock (
 	Code varchar(5) NOT NULL,
 	Name varchar (255) NOT NULL,
@@ -45,15 +32,17 @@ CREATE TABLE Stock_History(
 	FOREIGN KEY (company_id) REFERENCES Stock(company_id)
 );
 
-CREATE TABLE Company_Transaction(
+CREATE TABLE Stock_Transaction(
 	date_time TIMESTAMP NOT NULL,
-	client int NOT NULL,
-	company_id int NOT NULL,
+	buyer int NOT NULL,
+	seller int NOT NULL,
+	company_code varchar(5) NOT NULL,
 	price float NOT NULL,
 	amount int,
-	PRIMARY KEY (date_time,client,company_id),
-	FOREIGN KEY (client) REFERENCES Trade_Accounts(id),
-	FOREIGN KEY (company_id) REFERENCES Stock(company_id)
+	PRIMARY KEY (date_time, buyer, seller),
+	FOREIGN KEY (buyer) REFERENCES Trade_Accounts(id),
+	FOREIGN KEY (seller) REFERENCES Trade_Accounts(id),
+	FOREIGN KEY (company_code) REFERENCES Stock(code)
 );
 
 CREATE TABLE Trade_History(

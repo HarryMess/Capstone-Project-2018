@@ -21,7 +21,7 @@ public class Main
 			public void run()
 			{
 				FrameManager fm = new FrameManager("Stock Market Simulator");
-
+				
 
 			}
 		});

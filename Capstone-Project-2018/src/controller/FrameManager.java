@@ -2,10 +2,12 @@ package controller;
 
 import view.*;
 import view.account.AccountFrame;
+import view.dashboard.AbstractTablePanel;
 import view.dashboard.DashboardFrame;
 import view.forgotpass.ForgotPasswordFrame;
 import view.login.LoginFrame;
 import view.register.RegisterFrame;
+import view.stockinfo.StockInfoFrame;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,7 +15,8 @@ import java.awt.*;
 public class FrameManager
 {
 	private String frameTitle;
-	private AbstractFrame loginFrame, registerFrame, forgotPassFrame, dashboardFrame, accountFrame;
+	private AbstractFrame loginFrame, registerFrame, forgotPassFrame, dashboardFrame, accountFrame,
+			myStocksFrame, buyStocksFrame, transactionsFrame;
 	public FrameManager(String frameTitle)
 	{
 		loginFrame = new LoginFrame(this, frameTitle);
@@ -54,6 +57,19 @@ public class FrameManager
 					accountFrame = new AccountFrame(this, frameTitle);
 				}
 				return accountFrame;
+			case("mystocks"):
+				if(myStocksFrame == null)
+				{
+					myStocksFrame = new StockInfoFrame("mystocks", this, frameTitle);
+				}
+				return myStocksFrame;
+			case("buystocks"):
+				if(buyStocksFrame == null)
+				{
+					buyStocksFrame = new StockInfoFrame("buystocks", this, frameTitle);
+				}
+				return buyStocksFrame;
+			case("transactions"):
 			default:
 				return loginFrame; //If something goes wrong, return user to login
 				//TODO: Add error screen?
@@ -69,8 +85,20 @@ public class FrameManager
 		newFrame.setLocation(currentPoint);
 		newFrame.setExtendedState(oldFrame.getExtendedState());
 
+		//System.out.println("Switching from " + oldFrame.getClass().getName() + " to " + newFrame.getClass().getName());
+
 		//Switch visible frame
 		newFrame.setVisible(true);
 		oldFrame.setVisible(false);
 	}
+
+//	public AbstractTablePanel getTable(AbstractFrame stockFrame)
+//	{
+//		if(stockFrame.equals(myStocksFrame)) System.out.println("My Stocks");
+//		else if(stockFrame.equals(buyStocksFrame)) System.out.println("Buy stocks");
+//		else System.out.println("neither");
+//
+//		return new AbstractTablePanel(stockFrame); //TODO: obvs fix
+//	}
+
 }

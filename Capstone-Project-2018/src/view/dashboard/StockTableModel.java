@@ -14,4 +14,6 @@ public class StockTableModel extends DefaultTableModel
 	{
 		return false;
 	}
+
+
 }

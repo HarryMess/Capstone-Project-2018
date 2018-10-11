@@ -2,6 +2,7 @@ package view.account;
 
 import controller.FrameManager;
 import view.AbstractFrame;
+import view.BackToDashboardPanel;
 
 import javax.swing.*;
 
@@ -11,6 +12,6 @@ public class AccountFrame extends AbstractFrame
 	{
 		super(fm, title);
 
-		add(new JLabel("ACCOUNT"));
+		add(new BackToDashboardPanel(this, "My Account"));
 	}
 }

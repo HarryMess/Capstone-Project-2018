@@ -64,7 +64,7 @@ public class Model {
 	public Stock getStock(String code, String ownerId) throws NotFoundException {
 		
 		for(Stock s : stocks) {
-			if(s.getCompanyByCode() == code && s.getOwner() == ownerId)
+			if(s.getCompany().equals(code) && s.getOwner().equals(ownerId))
 				return s;
 		}
 		

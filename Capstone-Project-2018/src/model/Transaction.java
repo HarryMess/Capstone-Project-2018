@@ -1,12 +1,12 @@
 package model;
 
 import java.sql.Time;
+
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
 
 import database.StockMarket;
-
 import java.sql.Date;
+import java.sql.SQLException;
 
 public class Transaction {
 
@@ -20,6 +20,7 @@ public class Transaction {
 	private final TradingAccount buyer;
 	private final TradingAccount seller;
 	private final Stock stock;
+
 	private final Timestamp dateTime;
 	
 	private final float price;
@@ -40,15 +41,16 @@ public class Transaction {
 		stock = null;
 	}
 	
-	public Transaction(TradingAccount buyer, TradingAccount seller,
-			Stock stock, Timestamp dateTime, float price) {
+	public Transaction(Timestamp dateTime, TradingAccount buyer, TradingAccount seller,
+			Stock stock, float price) {
 		
 //		this.id = id;
+		this.dateTime = dateTime;
 		this.price = price;
 		this.buyer = buyer;
 		this.seller = seller;
 		this.stock = stock;
-		this.dateTime = dateTime;
+
 		this.amount = stock.getQuantity();
 	}
 	
@@ -58,13 +60,19 @@ public class Transaction {
 		@SuppressWarnings("unused")
 		Model model = Model.getInstance();		
 		// transfer the funds
-		StockMarket market = StockMarket.getInstance();		
+		StockMarket market;
 		
+		market = StockMarket.getInstance();
 		market.transferFunds(buyer, seller, price);		
+			
 	}
 
 	public int getTranasctionId() {
 		return this.id;
+	}
+	
+	public Timestamp getTimestamp() {
+		return dateTime;
 	}
 
 	public String getBuyerId() {

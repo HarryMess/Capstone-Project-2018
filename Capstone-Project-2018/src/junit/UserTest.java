@@ -10,6 +10,7 @@ import java.sql.Statement;
 import org.junit.jupiter.api.Test;
 
 class UserTest {
+
 	
 	private static String dbURL = "jdbc:derby:"; // Enter your local URL here
 	private static Connection connection = null; /* Instance */
@@ -27,7 +28,7 @@ class UserTest {
 	    } catch (Exception e) {    		
 	    	e.printStackTrace();
 	    	fail(e.getMessage());
-	    }		
+	    }
 	}
 	
 	@Test

@@ -1,22 +1,25 @@
 package controller;
 
-import view.*;
+
 import view.account.AccountFrame;
-import view.dashboard.AbstractTablePanel;
 import view.dashboard.DashboardFrame;
-import view.forgotpass.ForgotPasswordFrame;
-import view.login.LoginFrame;
-import view.register.RegisterFrame;
+
 import view.stockinfo.StockInfoFrame;
 
 import javax.swing.*;
 import java.awt.*;
+
+import view.AbstractFrame;
+import view.ForgotPasswordFrame;
+import view.LoginFrame;
+import view.RegisterFrame;
 
 public class FrameManager
 {
 	private String frameTitle;
 	private AbstractFrame loginFrame, registerFrame, forgotPassFrame, dashboardFrame, accountFrame,
 			myStocksFrame, buyStocksFrame, transactionsFrame;
+
 	public FrameManager(String frameTitle)
 	{
 		loginFrame = new LoginFrame(this, frameTitle);
@@ -91,14 +94,5 @@ public class FrameManager
 		newFrame.setVisible(true);
 		oldFrame.setVisible(false);
 	}
-
-//	public AbstractTablePanel getTable(AbstractFrame stockFrame)
-//	{
-//		if(stockFrame.equals(myStocksFrame)) System.out.println("My Stocks");
-//		else if(stockFrame.equals(buyStocksFrame)) System.out.println("Buy stocks");
-//		else System.out.println("neither");
-//
-//		return new AbstractTablePanel(stockFrame); //TODO: obvs fix
-//	}
 
 }

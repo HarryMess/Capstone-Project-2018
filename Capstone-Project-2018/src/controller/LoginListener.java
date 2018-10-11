@@ -1,12 +1,19 @@
 package controller;
 
+import javax.swing.*;
+
+import java.io.*;
+import java.sql.*;
+import java.util.*;
 import view.AbstractFrame;
+import view.dashboard.DashboardFrame;
 
 import javax.swing.*;
 
 import database.DerbyDB;
 
 import java.sql.*;
+
 
 import main.ConsoleApplication;
 import model.Model;
@@ -32,7 +39,7 @@ public class LoginListener implements ActionListener
 	public boolean loginMethod (String email, String password)
 	{
 		//Database CANNOT be connected to by DTP before running program, else will throw error
-	    Connection connec = null; /* Instance */
+		Connection connec = null; /* Instance */
 	    Statement statem = null;
 
 		{
@@ -45,8 +52,7 @@ public class LoginListener implements ActionListener
 	        catch (Exception exception)
 	        {
 	            exception.printStackTrace(); /* Calls the toString method of whatever exception was thrown */
-	        }
-	        
+	        }	        
 	        
 	        try
 	        {
@@ -63,15 +69,15 @@ public class LoginListener implements ActionListener
 	            if (counter == 1)
 	            {
 	            	if (password.contentEquals("password")) // if password correct
-	    	            {
-	    	                return true;
-	    	            }
+    	            {
+    	                return true;
+    	            }
 
-	    	            else if (password != "password") //if password incorrect
-	    	            {	    	                
-	    	                return false;
+    	            else if (password != "password") //if password incorrect
+    	            {	    	                
+    	                return false;
 
-	    	            }
+    	            }
 	            }
 
 	            else if (counter == 2) //if username not found
@@ -100,26 +106,22 @@ public class LoginListener implements ActionListener
 		
 		User user = model.getUser(email);
 		
+		//System.out.println("Email is:" + user); 
+		
+		System.out.println("Test call.\n Email: " + email + "\nPassword: " + password);
+		
 		if(!loginMethod(email, password)) {
 			JOptionPane.showMessageDialog(null, "Invalid username or password",
 					"Authentication failed", JOptionPane.ERROR_MESSAGE);
 			
-			
 		} else  {			
 			
+			JOptionPane.showMessageDialog(null, "Login successul", "Login Confirmation",
+					JOptionPane.INFORMATION_MESSAGE);
 			
-			JOptionPane.showMessageDialog(null, "Login successful", "Login Confirmation",
-				JOptionPane.INFORMATION_MESSAGE);
-
-			fm.switchFrame(parentFrame, fm.getFrame("dashboard")); //Actually changes the frame
-			
-//			open dashboard screen - replace the code below with actual screen
-//			parent.setVisible(false);
-//			ConsoleApplication ca = new ConsoleApplication(user);
-//			ca.showCompany();
-//			ca.showMyshare();
-//			ca.showRecenttrans();
-			
+			// open dashboard screen - replace the code below with actual screen
+			new DashboardFrame(fm ,"Dashboard");
+			parentFrame.setVisible(false);			
 		}
 
 	}

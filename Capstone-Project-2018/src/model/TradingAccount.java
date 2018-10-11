@@ -10,15 +10,18 @@ public class TradingAccount {
 	
 	public final double STARTING_MONEY = 1000000.00;
 
-	private final String name;
+	private final String email;
+	private String name;
 	private double balance;
 	private int hoursActive;
+	
 	private List<ValueTimeStamp> valueHistory;
 	private List<Stock> stocksOwned;	
 	private List<Transaction> transactionHistory;
 
-	public TradingAccount(String name) {
+	public TradingAccount(String email, String name) {
 		
+		this.email = email;
 		this.name = name;
 		balance = STARTING_MONEY;
 		hoursActive = 0;
@@ -28,9 +31,10 @@ public class TradingAccount {
 	}
 	
 	// new constructor	
-	public TradingAccount(String name, double balance, int hoursActive, List<ValueTimeStamp> valueHistory,
+	public TradingAccount(String email, String name, double balance, int hoursActive, List<ValueTimeStamp> valueHistory,
 			List<Stock> stocksOwned, List<Transaction> transactionHistory) {
 		
+		this.email = email;
 		this.name = name;
 		this.balance = balance;
 		this.hoursActive = hoursActive;
@@ -38,9 +42,17 @@ public class TradingAccount {
 		this.stocksOwned = stocksOwned;
 		this.transactionHistory = transactionHistory;
 	}
+	
+	public String getEmail() {
+		return email;
+	}
 
 	public String getName() {
 		return name;
+	}
+	
+	public int getHoursActive() {
+		return hoursActive;
 	}
 
 	public List<Stock> getStocksOwned() {
@@ -49,6 +61,12 @@ public class TradingAccount {
 
 	public double getBalance() {
 		return balance;
+	}
+	
+	/** end of Accessors **/
+	
+	public void incrementHours() {
+		hoursActive++;
 	}
 
 	public void addFunds(float amount)

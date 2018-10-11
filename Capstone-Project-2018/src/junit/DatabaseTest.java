@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -25,7 +26,6 @@ class DatabaseTest {
        {
 		   Class.forName("org.apache.derby.jdbc.EmbeddedDriver").newInstance();
 		   connec = DerbyDB.getConnection();
-           
 
            /* Old method of mapping driver to URL, refer to
             * https://docs.oracle.com/javase/6/docs/api/java/sql/DriverManager.html
@@ -41,6 +41,7 @@ class DatabaseTest {
            fail(e.getMessage());
        }
 	}
+
 	
 	@Test
 	void getAdminTradingAccount() {

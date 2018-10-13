@@ -11,6 +11,7 @@ public class TransactionsPanel extends AbstractTablePanel
 	public TransactionsPanel(AbstractFrame parentFrame)
 	{
 		super(parentFrame);
+		String linkedFrame = "transactions";
 		setLayout(new BorderLayout());
 		setBorder(new LineBorder(Color.BLACK));
 
@@ -22,7 +23,7 @@ public class TransactionsPanel extends AbstractTablePanel
 				{"GHI", "+", 3.00}
 		};
 		StockTableModel model = new StockTableModel(rowData, columnNames);
-		StockTable transactions = new StockTable("transactions", this, model);
+		StockTable transactions = new StockTable(linkedFrame, this, model);
 		setTable(transactions.getTable());
 		JLabel title = new JLabel("Recent Transactions:", SwingConstants.CENTER);
 

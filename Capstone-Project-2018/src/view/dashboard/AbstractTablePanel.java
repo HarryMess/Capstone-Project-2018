@@ -11,7 +11,6 @@ public abstract class AbstractTablePanel extends JPanel
 	public AbstractTablePanel(AbstractFrame parentFrame)
 	{
 		this.parentFrame = parentFrame;
-		this.table = table;
 	}
 
 	public AbstractFrame getParentFrame()

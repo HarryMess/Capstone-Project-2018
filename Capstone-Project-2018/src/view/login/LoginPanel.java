@@ -31,7 +31,7 @@ public class LoginPanel extends JPanel
 				new LinkListener(parentFrame.getFrameManager(), parentFrame, "register"));
 
 		//Login text fields
-		JTextField emailText = new CustomTextField("Username");
+		JTextField emailText = new CustomTextField("Email");
 		JTextField passText = new CustomPasswordField("Password");
 
 		//Login button

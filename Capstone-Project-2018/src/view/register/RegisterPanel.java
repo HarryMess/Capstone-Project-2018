@@ -35,7 +35,7 @@ public class RegisterPanel extends JPanel
 		loginLabel.addMouseListener(new LinkListener(parentFrame.getFrameManager(), parentFrame, "login"));
 
 		//Register text fields
-		emailText = new CustomTextField("Username");
+		emailText = new CustomTextField("Email");
 		passText = new CustomPasswordField("Password");
 		confirmPassText = new CustomPasswordField("Confirm Password");
 		firstNameText = new CustomTextField("First Name");

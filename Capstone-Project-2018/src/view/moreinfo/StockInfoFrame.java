@@ -1,4 +1,4 @@
-package view.stockinfo;
+package view.moreinfo;
 
 import controller.FrameManager;
 import view.AbstractFrame;
@@ -13,7 +13,6 @@ import java.awt.event.ComponentEvent;
 
 public class StockInfoFrame extends AbstractFrame
 {
-	private String frameType = "";
 	private JTable table;
 	private Object[][] rowData;
 	private Object[] columnNames;
@@ -21,6 +20,16 @@ public class StockInfoFrame extends AbstractFrame
 	public StockInfoFrame(String frameType, FrameManager fm, String title)
 	{
 		super(fm, title);
+		String pageTitle;
+
+		switch(frameType)
+		{
+			case("transactions"):
+				pageTitle = "Transaction Info";
+				break;
+			default:
+				pageTitle = "Company Info";
+		}
 
 		DashboardFrame dashboardFrame = (DashboardFrame)fm.getFrame("dashboard");
 		table = dashboardFrame.getTable(frameType);
@@ -39,10 +48,11 @@ public class StockInfoFrame extends AbstractFrame
 		setLayout(new BorderLayout());
 
 		//Create components
-		BackToDashboardPanel upperPanel = new BackToDashboardPanel(this, "Company Details");
+		BackToDashboardPanel upperPanel = new BackToDashboardPanel(this, pageTitle);
 		JPanel mainPanel = new JPanel(new BorderLayout());
 		JPanel tablePanel = new JPanel(new BorderLayout());
 		JLabel companyName = new JLabel("COMPANY NAME HERE");
+
 		JButton buyButton = new JButton("Buy");
 		JButton sellButton = new JButton("Sell");
 		JPanel buttonPanel = new JPanel();
@@ -66,16 +76,21 @@ public class StockInfoFrame extends AbstractFrame
 
 
 		//Add components
-		buttonPanel.add(buyButton);
-		buttonPanel.add(sellButton);
-		upperPanel.add(companyName, BorderLayout.SOUTH);
+		if(!frameType.equals("transactions"))
+		{
+			buttonPanel.add(buyButton);
+			buttonPanel.add(sellButton);
+			upperPanel.add(companyName, BorderLayout.SOUTH);
+			mainPanel.add(graph, BorderLayout.SOUTH);
+		}
+
 		graph.add(temp);
 		tablePanel.add(stockTable.getTableHeader(), BorderLayout.NORTH);
 		tablePanel.add(stockTable, BorderLayout.CENTER);
 		tablePanel.add(buttonPanel, BorderLayout.SOUTH);
 
 		mainPanel.add(tablePanel, BorderLayout.NORTH);
-		mainPanel.add(graph, BorderLayout.SOUTH);
+
 
 		add(upperPanel, BorderLayout.NORTH);
 		add(mainPanel, BorderLayout.CENTER);

@@ -4,15 +4,15 @@ package controller;
 import view.account.AccountFrame;
 import view.dashboard.DashboardFrame;
 
-import view.stockinfo.StockInfoFrame;
+import view.forgotpass.ForgotPasswordFrame;
+import view.login.LoginFrame;
+import view.register.RegisterFrame;
+import view.moreinfo.StockInfoFrame;
+import view.*;
+
 
 import javax.swing.*;
 import java.awt.*;
-
-import view.AbstractFrame;
-import view.ForgotPasswordFrame;
-import view.LoginFrame;
-import view.RegisterFrame;
 
 public class FrameManager
 {
@@ -73,6 +73,11 @@ public class FrameManager
 				}
 				return buyStocksFrame;
 			case("transactions"):
+				if(transactionsFrame == null)
+				{
+					transactionsFrame = new StockInfoFrame("transactions", this, frameTitle);
+				}
+				return transactionsFrame;
 			default:
 				return loginFrame; //If something goes wrong, return user to login
 				//TODO: Add error screen?

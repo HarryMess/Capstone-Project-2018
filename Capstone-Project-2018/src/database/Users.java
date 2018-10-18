@@ -19,47 +19,41 @@ public class Users {
 	private static Connection connection = DerbyDB.getConnection();
 	
 	public static boolean login(String email, String password)
-	{
-		Connection connec = null;
-		
-		//Database CANNOT be connected to by DTP before running program, else will throw error
-        try
-        {
-            Class.forName("org.apache.derby.jdbc.EmbeddedDriver").newInstance(); // use org.apache.derby.jdbc.EmbeddedDriver
-            connec = DerbyDB.getConnection();
-        }
-
-        catch (Exception exception)
-        {
-            exception.printStackTrace(); /* Calls the toString method of whatever exception was thrown */
-        }
-        
+	{        
         try
         {
         	// hash the email before adding it to the sql statement
         	String hashedPassword = hashPassword(password);
+        	String correctPassword = null;
         	
-            Statement statem = connec.createStatement();	
-            String sql2 = "select email from username.users where email='"+email+"'";
+        	PreparedStatement statement = connection.prepareStatement("select * from users where email = ?");
+        	
+//            Statement statem = connec.createStatement();	
+//            String sql2 = "select * from users where email = '"+email+"' ";
             
-            ResultSet res = statem.executeQuery(sql2);
+        	statement.setString(1, email);
+        	
+            ResultSet res = statement.executeQuery(); // statem.executeQuery(sql2);
             int counter = 0;
             while (res.next())
             {
                 counter += 1; //counting how many columns are present
+                correctPassword = res.getString("password");
             }
 
-            if (counter == 1)
-            {
-            	if (hashedPassword.contentEquals("password")) // if password correct
+            if (counter == 1) // ensures that there is only one copy in the database
+            {            	
+            	System.out.println("Hashed password entered = " + hashedPassword);            	
+            	System.out.println("Correct Hashed Password = " + correctPassword);
+            	
+            	if (hashedPassword.contentEquals(correctPassword)) // if password correct
 	            {
 	                return true;
 	            }
 
-	            else if (hashedPassword != "password") //if password incorrect
+	            else if (hashedPassword != correctPassword) //if password incorrect
 	            {	    	                
 	                return false;
-
 	            }
             }
 

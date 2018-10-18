@@ -20,13 +20,7 @@ public class Main
 			@Override
 			public void run()
 			{
-				FrameManager fm = new FrameManager("Stock Market Simulator");
-				
-//				DataGenerator dg = new DataGenerator();
-//				dg.addUsers();
-//				dg.createCompanies();
-//				dg.addStockToCompanies();
-//				dg.addstockowned();
+				FrameManager fm = new FrameManager("Stock Market Simulator");				
 			}
 		});
 	}

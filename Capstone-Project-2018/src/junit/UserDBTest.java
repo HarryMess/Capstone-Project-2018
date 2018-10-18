@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 
 import database.DerbyDB;
 
-class UserTest {
+class UserDBTest {
 
 	
 	private static Connection connection = DerbyDB.getConnection(); /* Instance */
@@ -68,25 +68,4 @@ class UserTest {
 	    }		
 	}
 	
-	@Test
-	void loginUser(){
-		fail("Not yet implemented");
-	}
-	
-	
-//	@Test
-//	void test() {
-//		try {
-//			connection = DriverManager.getConnection(dbURL);
-//			
-//			statement = connection.createStatement();
-//			
-//    		statement.close();
-//			
-//	    } catch (Exception e) {    		
-//	    	e.printStackTrace();
-//	    	fail(e.getMessage());
-//	    }		
-//	}
-
 }

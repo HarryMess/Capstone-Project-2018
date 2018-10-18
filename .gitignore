@@ -2,4 +2,5 @@
 .recommenders/
 .recommenders/caches/
 Capstone-Project-2018/.classpath
-Database/
+Capstone-Project-2018/derby.log
+/Database/

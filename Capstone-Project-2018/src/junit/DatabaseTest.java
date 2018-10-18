@@ -44,14 +44,13 @@ class DatabaseTest {
 
 	
 	@Test
-	void getAdminTradingAccount() {
+	void getAdminUser() {
 		
 		String user = "admin@asx.com.au";
-		DecimalFormat currency = new DecimalFormat("$.##");
 		
 		try {
 		PreparedStatement statement = connec.prepareStatement(
-				"SELECT * FROM Trade_Accounts WHERE Email = ?");
+				"SELECT * FROM Users WHERE Email = ?");
 		
 		statement.setString(1, user);
 		ResultSet result = statement.executeQuery();
@@ -59,16 +58,18 @@ class DatabaseTest {
 		result.next(); // gets the matching result
 		
 		// get values from table
-		String name = result.getString("Name");
-		float balance =  result.getFloat("Balance");
-		int hours = result.getInt("Hours_active");
+		int id = result.getInt("ID");
+		String email = result.getString("Email");
+		String password = result.getString("Password");
+		boolean isAdmin = result.getBoolean("isAdmin");
 		
 		result.close();
 		statement.close();
 		
-		System.out.println("Name: "+name);
-		System.out.println("Balance: " +currency.format(balance));
-		System.out.println("Hours active: "+hours);
+		System.out.println("Id: "+ id);
+		System.out.println("Email: " + email);
+		System.out.println("password: "+ password);
+		System.out.println("Admin: " + isAdmin);
 		System.out.println();
 		
 		} catch(SQLException e) {
@@ -77,39 +78,39 @@ class DatabaseTest {
 		}
 	}
 	
-	@Test
-	void getPaulTradingAccount() {
-		
-		DecimalFormat currency = new DecimalFormat("$.##");
-		
-		String user = "s3449513@student.rmit.edu.au";
-		
-		try {
-		PreparedStatement statement = connec.prepareStatement(
-				"SELECT * FROM Trade_Accounts WHERE Email = ?");
-		
-		statement.setString(1, user);
-		ResultSet result = statement.executeQuery();
-		
-		result.next(); // gets the matching result
-		
-		// get values from table
-		String name = result.getString("Name");
-		float balance =  result.getFloat("Balance");
-		int hours = result.getInt("Hours_active");
-		
-		result.close();
-		statement.close();
-		
-		System.out.println("Name: "+name);
-		System.out.println("Balance: "+ currency.format(balance));
-		System.out.println("Hours active: "+hours);
-		System.out.println();
-		
-		} catch(SQLException e) {
-			e.printStackTrace();
-			fail(e.getMessage());
-		}
-	}
+//	@Test
+//	void getPaulTradingAccount() {
+//		
+//		DecimalFormat currency = new DecimalFormat("$.##");
+//		
+//		String user = "s3449513@student.rmit.edu.au";
+//		
+//		try {
+//		PreparedStatement statement = connec.prepareStatement(
+//				"SELECT * FROM Trading_Accounts WHERE Email = ?");
+//		
+//		statement.setString(1, user);
+//		ResultSet result = statement.executeQuery();
+//		
+//		result.next(); // gets the matching result
+//		
+//		// get values from table
+//		String name = result.getString("Name");
+//		float balance =  result.getFloat("Balance");
+//		int hours = result.getInt("Hours_active");
+//		
+//		result.close();
+//		statement.close();
+//		
+//		System.out.println("Name: "+name);
+//		System.out.println("Balance: "+ currency.format(balance));
+//		System.out.println("Hours active: "+hours);
+//		System.out.println();
+//		
+//		} catch(SQLException e) {
+//			e.printStackTrace();
+//			fail(e.getMessage());
+//		}
+//	}
 
 }

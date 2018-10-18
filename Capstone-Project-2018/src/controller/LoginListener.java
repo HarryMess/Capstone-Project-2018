@@ -2,24 +2,14 @@ package controller;
 
 import javax.swing.*;
 
-import java.io.*;
 import java.sql.*;
-import java.util.*;
 import view.AbstractFrame;
 import view.dashboard.DashboardFrame;
 
-import javax.swing.*;
 
 import database.DerbyDB;
+import database.Users;
 
-import java.sql.*;
-
-
-import main.ConsoleApplication;
-import model.Model;
-import model.User;
-
-import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -98,19 +88,15 @@ public class LoginListener implements ActionListener
 	}
 
 	public void actionPerformed(ActionEvent e)
-	{
-		Model model = Model.getInstance();
-		
+	{		
 		String email = userField.getText();
 		String password = passField.getText();
-		
-		User user = model.getUser(email);
 		
 		//System.out.println("Email is:" + user); 
 		
 		System.out.println("Test call.\n Email: " + email + "\nPassword: " + password);
 		
-		if(!loginMethod(email, password)) {
+		if(Users.login(email, password)) {
 			JOptionPane.showMessageDialog(null, "Invalid username or password",
 					"Authentication failed", JOptionPane.ERROR_MESSAGE);
 			

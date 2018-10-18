@@ -3,26 +3,25 @@ package junit;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
 import org.junit.jupiter.api.Test;
 
+import database.DerbyDB;
+
 class UserTest {
 
 	
-	private static String dbURL = "jdbc:derby:"; // Enter your local URL here
-	private static Connection connection = null; /* Instance */
+	private static Connection connection = DerbyDB.getConnection(); /* Instance */
     private static Statement statement = null;
 	
 	@Test
-	void registerUser() {
+	void addUser() {
 		try {
-			connection = DriverManager.getConnection(dbURL);
 			
 			statement = connection.createStatement();
-			statement.execute("INSERT INTO USERS VALUES('user1@gmail.com', 'abc123', 'false')");
+			statement.execute("INSERT INTO USERS (email, password, isadmin) VALUES('user1@gmail.com', 'abc123', 'false')");
     		statement.close();
 			
 	    } catch (Exception e) {    		
@@ -34,9 +33,7 @@ class UserTest {
 	@Test
 	void showUsers() {
 		
-		try {
-			connection = DriverManager.getConnection(dbURL);
-			
+		try {			
 			statement = connection.createStatement();
 			ResultSet results = statement.executeQuery("select * from USERS");
 			
@@ -59,10 +56,8 @@ class UserTest {
 	}
     
     @Test
-	void DeleteUser() {
-		try {
-			connection = DriverManager.getConnection(dbURL);
-			
+	void deleteUser() {
+		try {			
 			statement = connection.createStatement();
 			statement.execute("DELETE FROM Users WHERE email='user1@gmail.com'");
     		statement.close();
@@ -77,7 +72,6 @@ class UserTest {
 	void loginUser(){
 		fail("Not yet implemented");
 	}
-	
 	
 	
 //	@Test

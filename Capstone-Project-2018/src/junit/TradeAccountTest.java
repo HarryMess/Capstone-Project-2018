@@ -17,6 +17,26 @@ class TradeAccountTest {
     private Connection connec = DerbyDB.getConnection(); /* Instance */
     private Statement statem = null;
 	
+    @Test
+	void getAccount1() {
+		StockMarket market;
+		TradingAccount account;
+		
+		try {
+			market = StockMarket.getInstance();
+			account = market.getTradingAccount(1);
+			
+			assert(account != null);
+			
+			System.out.println(account.toString());
+			
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+			fail(e.getMessage());
+		}	
+	}
+    
 	@Test
 	void getAccountStockMarket() {
 		
@@ -83,6 +103,7 @@ class TradeAccountTest {
 				+ " was found.");
 				
 			} else {
+				
 				e.printStackTrace();
 				fail(e.getMessage());
 			}

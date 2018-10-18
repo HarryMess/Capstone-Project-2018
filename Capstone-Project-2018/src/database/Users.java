@@ -18,7 +18,7 @@ public class Users {
 
 	private static Connection connection = DerbyDB.getConnection();
 	
-	public static boolean Login(String email, String password)
+	public static boolean login(String email, String password)
 	{
 		Connection connec = null;
 		
@@ -32,12 +32,10 @@ public class Users {
         catch (Exception exception)
         {
             exception.printStackTrace(); /* Calls the toString method of whatever exception was thrown */
-            Statement statem = null;
         }
         
         try
         {
-        	
         	// hash the email before adding it to the sql statement
         	String hashedPassword = hashPassword(password);
         	
@@ -80,7 +78,7 @@ public class Users {
         return false;
     }
 	
-	public static boolean Register(User user) 
+	public static boolean register(User user) 
 	{
 		// has the password before adding the user
 		user.hashPassword(user.getPassword());

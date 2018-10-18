@@ -56,10 +56,6 @@ public class Transaction {
 	
 	public void makeTransaction() {
 		
-		// get the Stock Market object
-		@SuppressWarnings("unused")
-		Model model = Model.getInstance();		
-		// transfer the funds
 		StockMarket market;
 		
 		market = StockMarket.getInstance();

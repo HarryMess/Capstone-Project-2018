@@ -3,8 +3,6 @@ package controller;
 import javax.swing.*;
 
 import database.Users;
-import model.Model;
-import model.TradingAccount;
 import model.User;
 
 import java.awt.event.ActionEvent;
@@ -26,9 +24,7 @@ public class RegisterListener implements ActionListener
 
 	public void actionPerformed(ActionEvent e)
 	{
-		// get the model
-		Model model = Model.getInstance();
-		
+		// get the model		
 		String email = emailField.getText();
 		String password = passField.getText();
 		String confirmPassword = confirmPassField.getText();
@@ -44,9 +40,9 @@ public class RegisterListener implements ActionListener
 		
 //		} else {
 		
-			User user = new User(email, password, new TradingAccount(email, firstName+" "+lastName));
+			User user = new User(email, password);
 			
-			if(Users.Register(user))// calls method to talk to database
+			if(Users.register(user))// calls method to talk to database
 			
 //				System.out.println("Test call.\nEmail: " + email + "\nName: " + firstName + " " + lastName + "\nPassword: " + password
 //				+ " and confirmed: " + confirmPassword);

@@ -4,13 +4,13 @@ public class Stock {
 
 	private String code;
 	private Company company;
-	private String owner;
+	private int ownerId;
 	private int quantity;
 
-	public Stock(String code, String owner, int quantity) {
+	public Stock(String code, int ownerId, int quantity) {
 	
 		this.code = code;
-		this.owner = owner;	
+		this.ownerId = ownerId;	
 		this.quantity = quantity;
 	}
 	
@@ -19,9 +19,10 @@ public class Stock {
 		this.quantity = quantity;
 	}
 
-	public String getOwner() {
-		return owner;
+	public int getOwner() {
+		return ownerId;
 	}
+	
 	
 	public Company getCompany() {
 		return company;
@@ -39,13 +40,17 @@ public class Stock {
 		quantity = amount;
 	}
 	
+	public void setOwner(int ownerId) {
+		this.ownerId = ownerId;
+	}
+	
 	public void removeShares(int amount) {
 		quantity -= amount;
 	}
 	
 	@Override
 	public String toString() {
-		return "Code: " + code + ", Owner: " + owner + ", Quantity: " + quantity;
+		return "Code: " + code + ", Owner: " + ownerId + ", Quantity: " + quantity;
 	}
 
 }

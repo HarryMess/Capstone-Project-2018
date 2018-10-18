@@ -6,14 +6,12 @@
 package database;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -22,8 +20,6 @@ import model.*;
 public class StockMarket {
 
 	private static StockMarket market; // singleton object
-	
-	private String dbURL = ""; 
 	
 	/* replace with your own connection string */
     private Connection connec = null; /* Instance */
@@ -45,9 +41,7 @@ public class StockMarket {
     // constructor
 	private StockMarket() throws InstantiationException, IllegalAccessException, ClassNotFoundException,
 	SQLException {
-		//Class.forName("org.apache.derby.jdbc.ClientDriver").newInstance();
-        connec = DerbyDB.getConnection();
-			
+        connec = DerbyDB.getConnection();			
 	}
     
 	// This method gets called as soon as the game begins
@@ -55,14 +49,11 @@ public class StockMarket {
     	
     	Random random  = new Random(); // random number generator object
     	
-    	List<Company> companies = new ArrayList<Company>();
-    	
     	try {
     	
 	    	// code to get stocks from database goes here
     		statem = connec.createStatement();
     		ResultSet results = statem.executeQuery("SELECT * FROM Stock");
-	    	// iterate through list generating a new price for each stock
     		
     		// iterate through the table
     		while(results.next()) {
@@ -73,7 +64,7 @@ public class StockMarket {
 	    		// SQL update transaction goes here 
 				statem = connec.createStatement();
 				statem.execute("INSERT INTO Stock_History (COMPANY_ID, DATE_TIME, MARKET_PRICE) \n" +
-								"VALUES (" + results.getString(1) + ", CURRENT_TIMESTAMP, "+ price + ")");
+								"VALUES (" + companyCode + ", CURRENT_TIMESTAMP, "+ price + ")");
 				statem.close();
 	    	}
 				
@@ -105,15 +96,15 @@ public class StockMarket {
 	}
 
 
-	// returns a user object based on the the username
-	public User getUser(String username) throws SQLException {
+	// returns a user object based on the the user name
+	public User getUser(int id) throws SQLException {
 		
 		User user;
 		
 		PreparedStatement statement = connec.prepareStatement(
-				"SELECT * FROM Users WHERE Email = ?");
+				"SELECT * FROM Users WHERE id = ?");
 		
-		statement.setString(1, username);
+		statement.setInt(1, id);
 		ResultSet result = statement.executeQuery();
 		
 		result.next(); // gets the matching result
@@ -123,7 +114,7 @@ public class StockMarket {
 		boolean isAdmin = result.getBoolean("isAdmin");
 		
 		// get the player name from the trading account
-		TradingAccount account = getTradingAccount(username);
+		TradingAccount account = getTradingAccount(id);
 		
 		// create new user based on its type		
 		if(isAdmin)
@@ -133,30 +124,60 @@ public class StockMarket {
 		return user;
 	}
 	
-	public TradingAccount getTradingAccount(String user) throws SQLException {
+	// 
+	public TradingAccount getTradingAccount(int userId) throws SQLException {
 		
 		PreparedStatement statement = connec.prepareStatement(
-				"SELECT * FROM Trade_Accounts WHERE Email = ?");
+				"SELECT * FROM Trading_Accounts WHERE User_id = ?");
 		
-		statement.setString(1, user);
+		statement.setInt(1, userId);
 		ResultSet result = statement.executeQuery();
 		
 		result.next(); // gets the matching result
 		
 		// get values from table
-		String name = result.getString("Email");
+		String name = result.getString("Name");
 		double balance = (double) result.getFloat("Balance");
 		int hours = result.getInt("Hours_active");
 		
 		// run additional queries for other tables
-		List<Stock> stocksOwned = TradeAccounts.getStocksOwned(user);
-		List<ValueTimeStamp> valueHistory = TradeAccounts.getValueHistory(user);
-		List<Transaction> transactions = TradeAccounts.getTransactionHistory(user);
+		List<Stock> stocksOwned = TradeAccounts.getStocksOwned(userId);
+		List<ValueTimeStamp> valueHistory = TradeAccounts.getValueHistory(userId);
+		List<Transaction> transactions = TradeAccounts.getTransactionHistory(userId);
 		
 		result.close();		
 		
 		// return new trading account object containing all matching values
-		return new TradingAccount(user, name, balance, hours, valueHistory, stocksOwned, transactions);
+		return new TradingAccount(userId, name, balance, hours, valueHistory, stocksOwned, transactions);
+	}
+	
+	// 
+	public TradingAccount getTradingAccount(String email) throws SQLException {
+		
+		PreparedStatement statement = connec.prepareStatement(
+				"SELECT User_Id, Name, Balance, Hours_active FROM Trading_Accounts, Users\n" + 
+				"WHERE Trading_accounts.user_id = Users.id\n" + 
+				"AND Users.email = ?");
+		
+		statement.setString(1, email);
+		ResultSet result = statement.executeQuery();
+		
+		result.next(); // gets the matching result
+		
+		// get values from table
+		int userId = result.getInt("user_id");
+		double balance = (double) result.getFloat("Balance");
+		int hours = result.getInt("Hours_active");
+		
+		// run additional queries for other tables
+		List<Stock> stocksOwned = TradeAccounts.getStocksOwned(userId);
+		List<ValueTimeStamp> valueHistory = TradeAccounts.getValueHistory(userId);
+		List<Transaction> transactions = TradeAccounts.getTransactionHistory(userId);
+		
+		result.close();		
+		
+		// return new trading account object containing all matching values
+		return new TradingAccount(userId, email, balance, hours, valueHistory, stocksOwned, transactions);		
 	}
 
 	// returns a transaction based on an id
@@ -170,20 +191,19 @@ public class StockMarket {
 		
 	}
 	
-	// transfers stock ownership from onw account to the next
+	// Transfers stock ownership from one account to the next
 	public boolean transferStock(TradingAccount buyer, TradingAccount seller,  Stock stock, 
 			int amount, float price) {
 		
-		try {
-			
+		try {			
 			PreparedStatement statement = connec.prepareStatement("UPDATE TABLE stock "
 																+ "SET Trade_Account_id = ? "
 																+ "WHERE Owner = ? AND Company = ?");											
-			statement.setString(1, buyer.getEmail());
-			statement.setString(2, seller.getEmail());
+			statement.setInt(1, buyer.getId());
+			statement.setInt(2, seller.getId());
 			statement.setString(3, stock.getCompany().getCode());
 			
-			// run the querey
+			// run the query
 			statement.execute();
 			statement.close();
 			
@@ -200,6 +220,7 @@ public class StockMarket {
 		return false;
 	}
 
+	// 
 	public boolean transferFunds(TradingAccount sender, TradingAccount receiver, float amount) {
 		
 		try {
@@ -207,8 +228,7 @@ public class StockMarket {
 																+ "SET balance = balance - ?"
 																+ "WHERE email = ?"
 																+ "SET balance = balance + ?"
-																+ "WHERE email = ?");
-			
+																+ "WHERE email = ?");			
 			// attempt to execute the query
 			if(statement.execute()) {
 				statement.close();
@@ -223,6 +243,7 @@ public class StockMarket {
 		
 	}
 	
+	// 
 	public boolean addTransaction(Transaction transaction) {
 		try {
 			PreparedStatement statement = connec.prepareStatement("INSERT INTO TRANSACTION Transaction VALUES (?, ?, ?, ?, ?, ?)");

@@ -13,7 +13,14 @@ public class User
 {
 	private final String email;
 	private String password;
-	private final TradingAccount account;
+	private TradingAccount account;
+	
+	public User(String email, String password)
+	{
+		this.email = email;;
+		this.password = password;
+		this.account = null;
+	}
 	
 	public User(String email, String password, TradingAccount account)
 	{
@@ -21,16 +28,6 @@ public class User
 		this.password = password;
 		this.account = account;
 	}
-	
-//	public User(String email, String password, String name)
-//	{
-//		this.email = email;
-//		this.password = password;
-//		hashPassword(password);		
-//		
-//		account = new TradingAccount(name);
-//	}
-	
 
 	public String getEmail()
 	{
@@ -71,6 +68,12 @@ public class User
 			e.printStackTrace();
 		}
 	}
+	
+	public void setTradingAccount(TradingAccount account)
+	{
+		this.account = account;
+	}
+	
 	
 	public boolean passwordMatches(String passwordEntered) {
 		

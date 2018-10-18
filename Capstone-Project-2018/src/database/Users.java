@@ -26,7 +26,7 @@ public class Users {
         	String hashedPassword = hashPassword(password);
         	String correctPassword = null;
         	
-        	PreparedStatement statement = connection.prepareStatement("select * from users where email = ?");
+        	PreparedStatement statement = connection.prepareStatement("select * from users where lower(email) = lower(?)");
         	
 //            Statement statem = connec.createStatement();	
 //            String sql2 = "select * from users where email = '"+email+"' ";
@@ -42,9 +42,7 @@ public class Users {
             }
 
             if (counter == 1) // ensures that there is only one copy in the database
-            {            	
-            	System.out.println("Hashed password entered = " + hashedPassword);            	
-            	System.out.println("Correct Hashed Password = " + correctPassword);
+            {
             	
             	if (hashedPassword.contentEquals(correctPassword)) // if password correct
 	            {
@@ -60,7 +58,6 @@ public class Users {
             else if (counter == 2) //if username not found
             {
                 return false;
-
             }
         }
 
@@ -72,17 +69,35 @@ public class Users {
         return false;
     }
 	
-	public static boolean register(User user) 
+	public static boolean register(String email, String password, String name) 
 	{
+		User user = new User(email, password);
+		
 		// has the password before adding the user
 		user.hashPassword(user.getPassword());
 		
-		System.out.println("Hashed password: "+ user.getPassword());
+		// System.out.println("Hashed password: "+ user.getPassword());
+		
+		// create a new trading account object
 		
 		try {
 			// add data to the database tables
 			addUser(user);
-			addTradingAccount(user);
+			
+			// get the id generated from the new user
+//			PreparedStatement statement = connection.prepareStatement("SELECT id FROM Users WHERE email = ?");			
+//			statement.setString(1, user.getEmail());
+//			
+//			ResultSet result = statement.executeQuery();			
+//			result.next(); // gets the first result			
+//			int id = result.getInt("id");
+//			
+//			// add trading account to user object
+//			user.setTradingAccount(new TradingAccount(id, name));
+			
+			// add the trading account to the trading account table			
+			addTradingAccount(user, name);
+			
 			return true;
 			
 		} catch (SQLException e) {
@@ -128,30 +143,32 @@ public class Users {
 	}
 	
 	// called in the method to add a new trading acount to the trade accounts table
-	private static void addTradingAccount(User user) throws SQLException{
+	private static void addTradingAccount(User user, String name) throws SQLException{
 		
 		System.out.println("Old Trading Account table:");
 		showTradeAccountsTable();
-		
-		TradingAccount account = user.getTradingAccount();
-		
+
 		// get the id from the email address
 		PreparedStatement statement1 = connection.prepareStatement("SELECT ID FROM USERS WHERE EMAIL = ?");
 		statement1.setString(1, user.getEmail());
 		ResultSet result = statement1.executeQuery();
 		
-		int user_id = 0;
+		int userId = 0;
 		
 		while(result.next()) {
-			user_id = result.getInt("ID");
+			userId = result.getInt("ID");
 		}
 		
 		statement1.close();
 		
+		TradingAccount account = new TradingAccount(userId, name);
+		
 		// add the trading account to the database
-		PreparedStatement statement2 = connection.prepareStatement("INSERT INTO TRADING_ACCOUNTS (USER_ID, NAME, BALANCE, HOURS_ACTIVE)"
-																+ "VALUES (?, ?, ?, ?)");	
-		statement2.setInt(1, user_id);
+		PreparedStatement statement2 =connection.prepareStatement("INSERT INTO TRADING_ACCOUNTS (USER_ID, NAME, BALANCE, HOURS_ACTIVE)"
+																 + "VALUES (?, ?, ?, ?)");
+		
+		// add parameters to sql statement
+		statement2.setInt(1, userId);
 		statement2.setString(2, account.getName());			
 		statement2.setDouble(3, account.getBalance());
 		statement2.setInt(4, account.getHoursActive());
@@ -163,8 +180,7 @@ public class Users {
 		statement2.close();
 		
 		System.out.println("New Trading Account table:");
-		showTradeAccountsTable();	
-		
+		showTradeAccountsTable();		
 	}
 	
 	public static void Logout()

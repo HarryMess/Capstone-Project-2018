@@ -39,10 +39,8 @@ public class RegisterListener implements ActionListener
 //		} else if (!nameAlreadyTaken(email) ) {
 		
 //		} else {
-		
-			User user = new User(email, password);
 			
-			if(Users.register(user))// calls method to talk to database
+			if(Users.register(email, password, firstName + " " + lastName)) // calls method to talk to database
 			
 //				System.out.println("Test call.\nEmail: " + email + "\nName: " + firstName + " " + lastName + "\nPassword: " + password
 //				+ " and confirmed: " + confirmPassword);

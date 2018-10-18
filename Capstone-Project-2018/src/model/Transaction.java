@@ -1,7 +1,6 @@
 package model;
 
 import java.sql.Time;
-
 import java.sql.Timestamp;
 
 import database.StockMarket;
@@ -59,8 +58,7 @@ public class Transaction {
 		StockMarket market;
 		
 		market = StockMarket.getInstance();
-		market.transferFunds(buyer, seller, price);		
-			
+		market.transferFunds(buyer, seller, price);			
 	}
 
 	public int getTranasctionId() {

@@ -69,8 +69,6 @@ public class TradeAccounts {
     	while(results.next()) {
     		
     		String code = results.getString("Code");
-    		String name = results.getString("Name");
-    		String owner = results.getString("Owner_id");
     		
     		stocksOwned.add(new Stock(code, userId, 1));
     	}
@@ -97,17 +95,17 @@ public class TradeAccounts {
     		
     		String code = results.getString("Code");
     		String name = results.getString("Name");
-    		int totalShares = 0;
+    		int totalShares = 1;
     		
     		Company company = new Company(code, name, totalShares);
     		
-//    		stocksOwned.add(new Stock(code, id, company));
+    		stocksOwned.add(new Stock(company, totalShares));
     	}
     	
     	return stocksOwned;
     }
     
-    // Get the transaction histroy for a particular user using the id 
+    // Get the transaction history for a particular user using the id 
     public static List<Transaction> getTransactionHistory(int userId) throws SQLException {
 		
     	connec = DerbyDB.getConnection();

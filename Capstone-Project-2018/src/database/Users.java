@@ -17,6 +17,7 @@ import model.User;
 public class Users {
 
 	private static Connection connection = DerbyDB.getConnection();
+	private static User currentUser = null;
 	
 	public static boolean login(String email, String password)
 	{        
@@ -46,6 +47,7 @@ public class Users {
             	
             	if (hashedPassword.contentEquals(correctPassword)) // if password correct
 	            {
+            		currentUser = getUser(email);
 	                return true;
 	            }
 
@@ -183,11 +185,6 @@ public class Users {
 		showTradeAccountsTable();		
 	}
 	
-	public static void Logout()
-	{
-		
-	}
-	
 	public static void showUsersTable() throws SQLException {
 		
 		Statement statement = connection.createStatement();
@@ -248,5 +245,66 @@ public class Users {
 		}
 		
 		return password;
+	}
+	
+	// returns a user object based on the id
+	public User getUser(int id) throws SQLException {
+		
+		User user;
+		
+		PreparedStatement statement = connection.prepareStatement(
+				"SELECT * FROM Users WHERE id = ?");
+		
+		statement.setInt(1, id);
+		ResultSet result = statement.executeQuery();
+		
+		result.next(); // gets the matching result
+		
+		String email = result.getString("email");
+		String password = result.getString("password");
+		boolean isAdmin = result.getBoolean("isAdmin");
+		
+		// get the player name from the trading account
+		TradingAccount account = TradeAccounts.getTradingAccount(id);
+		
+		// create new user based on its type		
+		if(isAdmin)
+			user = new Admin(email, password, account);
+		else
+			user = new User(email, password, account);		
+		return user;
+	}
+	
+	// returns a user object based on the Username
+	public static User getUser(String email) throws SQLException {
+		
+		User user;
+		
+		PreparedStatement statement = connection.prepareStatement(
+				"SELECT * FROM Users WHERE email = ?");
+		
+		statement.setString(1, email);
+		ResultSet result = statement.executeQuery();
+		
+		result.next(); // gets the matching result
+		
+		String password = result.getString("password");
+		boolean isAdmin = result.getBoolean("isAdmin");
+		
+		// get the player name from the trading account
+		TradingAccount account = TradeAccounts.getTradingAccount(email);
+		
+		// create new user based on its type		
+		if(isAdmin)
+			user = new Admin(email, password, account);
+		else
+			user = new User(email, password, account);		
+		return user;
+	}
+	
+	// sets the state of the program to logged out
+	public static void Logout()
+	{
+		currentUser = null;
 	}
 }

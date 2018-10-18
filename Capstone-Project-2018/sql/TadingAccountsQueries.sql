@@ -1,9 +1,14 @@
+SELECT * FROM Trading_Accounts WHERE user_id = 1;
+
+SELECT * FROM Trading_Accounts
+INNER JOIN Users ON Trading_Accounts.user_id = Users.id
+WHERE Users.email = 'admin@asx.com.au';
+
 SELECT * FROM Stocks
 INNER JOIN Trading_Accounts ON Stocks.owner_id = Trading_Accounts.user_id
 INNER JOIN USERS ON Users.id = TRADING_ACCOUNTS.USER_ID
 WHERE users.email = 'admin@asx.com.au';
 
-SELECT * FROM Trading_Accounts WHERE user_id = 1;
 
 SELECT * FROM Account_History 
 INNER JOIN Trading_Accounts ON Account_History.account_id = Trading_Accounts.user_id

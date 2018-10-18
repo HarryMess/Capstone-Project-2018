@@ -12,15 +12,73 @@ import java.util.List;
 
 import model.Company;
 import model.Stock;
+import model.TradingAccount;
 import model.Transaction;
 import model.ValueTimeStamp;
 
 public class TradeAccounts {
 	
 	/* replace with your own connection string */
-    private static Connection connec = null; /* Instance */
+    private static Connection connec = DerbyDB.getConnection(); /* Instance */
     private static Statement statem = null;
     
+    // returns the entire trading account matching a user id
+ 	public static TradingAccount getTradingAccount(int userId) throws SQLException {
+ 		
+ 		PreparedStatement statement = connec.prepareStatement(
+ 				"SELECT * FROM Trading_Accounts WHERE User_id = ?");
+ 		
+ 		statement.setInt(1, userId);
+ 		ResultSet result = statement.executeQuery();
+ 		
+ 		result.next(); // gets the matching result
+ 		
+ 		// get values from table
+ 		String name = result.getString("Name");
+ 		double balance = (double) result.getFloat("Balance");
+ 		int hours = result.getInt("Hours_active");
+ 		
+ 		// run additional queries for other tables
+ 		List<Stock> stocksOwned = getStocksOwned(userId);
+ 		List<ValueTimeStamp> valueHistory = getValueHistory(userId);
+ 		List<Transaction> transactions = getTransactionHistory(userId);
+ 		
+ 		result.close();		
+ 		
+ 		// return new trading account object containing all matching values
+ 		return new TradingAccount(userId, name, balance, hours, valueHistory, stocksOwned, transactions);
+ 	}
+ 	
+ 	// returns the entire trading account matching an email address	
+ 	public static TradingAccount getTradingAccount(String email) throws SQLException {
+ 		
+ 		PreparedStatement statement = connec.prepareStatement(
+ 				"SELECT * FROM Trading_Accounts \n"
+ 			  + "INNER JOIN Users ON Trading_Accounts.user_id = Users.id \n"
+ 			  + "WHERE Users.email = ?");
+ 		
+ 		statement.setString(1, email);
+ 		ResultSet result = statement.executeQuery();
+ 		
+ 		result.next(); // gets the matching result
+ 		
+ 		// get values from table
+ 		int userId = result.getInt("Id");
+ 		String name = result.getString("Name");
+ 		double balance = (double) result.getFloat("Balance");
+ 		int hours = result.getInt("Hours_active");
+ 		
+ 		// run additional queries for other tables
+ 		List<Stock> stocksOwned = getStocksOwned(userId);
+ 		List<ValueTimeStamp> valueHistory = getValueHistory(userId);
+ 		List<Transaction> transactions = getTransactionHistory(userId);
+ 		
+ 		result.close();		
+ 		
+ 		// return new trading account object containing all matching values
+ 		return new TradingAccount(userId, name, balance, hours, valueHistory, stocksOwned, transactions);
+ 	}
+ 	
     public static List<ValueTimeStamp> getValueHistory(int userId) throws SQLException {
     	
     	connec = DerbyDB.getConnection();

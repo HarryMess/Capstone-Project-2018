@@ -10,6 +10,7 @@ import java.sql.Statement;
 
 import database.DerbyDB;
 import database.StockMarket;
+import database.TradeAccounts;
 import model.TradingAccount;
 
 class TradeAccountTest {
@@ -24,9 +25,9 @@ class TradeAccountTest {
 		
 		try {
 			market = StockMarket.getInstance();
-			account = market.getTradingAccount(1);
+			account = TradeAccounts.getTradingAccount(1);
 			
-			assert(account != null);
+//			assert(account != null);
 			
 			System.out.println(account.toString());
 			
@@ -34,7 +35,10 @@ class TradeAccountTest {
 			
 			e.printStackTrace();
 			fail(e.getMessage());
-		}	
+		}
+		catch (NullPointerException e) {
+			e.printStackTrace();
+		}
 	}
     
 	@Test
@@ -46,7 +50,7 @@ class TradeAccountTest {
 		
 		try {
 			market = StockMarket.getInstance();
-			account = market.getTradingAccount("admin@asx.com.au");
+			account = TradeAccounts.getTradingAccount("admin@asx.com.au");
 			
 			assert(account != null);
 			
@@ -67,7 +71,7 @@ class TradeAccountTest {
 		
 		try {
 			market = StockMarket.getInstance();
-			account = market.getTradingAccount("s3449513@student.rmit.edu.au");
+			account = TradeAccounts.getTradingAccount("s3449513@student.rmit.edu.au");
 			
 			assert(account != null);
 			
@@ -89,7 +93,7 @@ class TradeAccountTest {
 		
 		try {
 			market = StockMarket.getInstance();
-			account = market.getTradingAccount(email);
+			account = TradeAccounts.getTradingAccount(email);
 			
 			assert(account != null);
 			

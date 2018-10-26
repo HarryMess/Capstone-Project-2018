@@ -11,6 +11,7 @@ import javax.xml.bind.DatatypeConverter;
 
 public class User
 {
+	private int id;
 	private final String email;
 	private String password;
 	private TradingAccount account;
@@ -27,6 +28,17 @@ public class User
 		this.email = email;;
 		this.password = password;
 		this.account = account;
+	}
+	
+	public User(int id, String email, String password, TradingAccount account) {
+		this.id = id;
+		this.email = email;;
+		this.password = password;
+		this.account = account;
+	}
+	
+	public int getId() {
+		return id;
 	}
 
 	public String getEmail()

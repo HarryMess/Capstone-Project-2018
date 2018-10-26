@@ -7,28 +7,26 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.sql.SQLException;
 
 import model.TradingAccount;
-import model.database.TradingAccounts;
+import model.database.TradingAccountsTable;
 
 class TradeAccountTest {
 	
     @Test
 	void getAccount1() {
 		TradingAccount account;
+		TradingAccountsTable tradingAccounts = TradingAccountsTable.getInstance();
 		
 		try {
-			account = TradingAccounts.getTradingAccount(1);
+			account = tradingAccounts.getTradingAccount(1);
 			
-//			assert(account != null);
+			assert(account != null);
 			
 			System.out.println(account.toString());
 			
-		} catch (SQLException e) {
+		} catch (SQLException | NullPointerException e) {
 			
 			e.printStackTrace();
 			fail(e.getMessage());
-		}
-		catch (NullPointerException e) {
-			e.printStackTrace();
 		}
 	}
     
@@ -37,9 +35,10 @@ class TradeAccountTest {
 		
 		// get the main market trading account
 		TradingAccount account;
+		TradingAccountsTable tradingAccounts = TradingAccountsTable.getInstance();
 		
 		try {
-			account = TradingAccounts.getTradingAccount("admin@asx.com.au");
+			account = tradingAccounts.getTradingAccount("admin@asx.com.au");
 			
 			assert(account != null);
 			
@@ -56,9 +55,10 @@ class TradeAccountTest {
 	void getAccountPaul() {
 		// get the main market trading account
 		TradingAccount account;
+		TradingAccountsTable tradingAccounts = TradingAccountsTable.getInstance();
 		
 		try {
-			account = TradingAccounts.getTradingAccount("s3449513@student.rmit.edu.au");
+			account = tradingAccounts.getTradingAccount("s3449513@student.rmit.edu.au");
 			
 			assert(account != null);
 			
@@ -73,12 +73,14 @@ class TradeAccountTest {
 	
 	@Test
 	void getNonExistantAccount() {
+		TradingAccountsTable tradingAccounts = TradingAccountsTable.getInstance();
+		
 		// get the main market trading account
 		TradingAccount account;
 		String email = "aaa@somewhere.com";
 		
 		try {;
-			account = TradingAccounts.getTradingAccount(email);
+			account = tradingAccounts.getTradingAccount(email);
 			
 			assert(account != null);
 			
@@ -97,6 +99,10 @@ class TradeAccountTest {
 				fail(e.getMessage());
 			}
 		}	
+		catch(NullPointerException e) {
+			e.printStackTrace();
+			fail(e.getMessage());
+		}
 	}
 
 }

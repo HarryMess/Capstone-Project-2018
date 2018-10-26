@@ -10,9 +10,17 @@ import java.util.List;
 
 import model.Transaction;
 
-public class Transactions extends DatabaseTable {
+public class TransactionsTable extends DatabaseTable {
 	
-	private static Connection connec = DatabaseTable.getConnection();
+	private static TransactionsTable transactions;	
+	private Connection connection = DatabaseTable.getConnection();
+	
+	public static TransactionsTable getInstance() {
+		if(transactions == null)
+			transactions = new TransactionsTable();
+		
+		return transactions;
+	}
 	
 	@Override
 	public List<Transaction> getAll() throws SQLException {
@@ -26,13 +34,11 @@ public class Transactions extends DatabaseTable {
 	}
 	
 	// Get the transaction history for a particular user using the id 
-    public static List<Transaction> getTransactionHistory(int userId) throws SQLException {
-		
-    	connec = DerbyDB.getConnection();
+    public List<Transaction> getTransactionHistory(int userId) throws SQLException {
     	
     	List<Transaction> transactions = new ArrayList<Transaction>();
     	
-    	PreparedStatement statement = connec.prepareStatement(
+    	PreparedStatement statement = connection.prepareStatement(
     			"SELECT * FROM Transactions\n" + 
     			"INNER JOIN Trading_Accounts ON Transactions.buyer = Trading_Accounts.user_id\r\n" + 
     			"OR Transactions.seller = Trading_Accounts.user_id\n" + 
@@ -56,9 +62,9 @@ public class Transactions extends DatabaseTable {
     }
     
     // Adds a new transaction record to the transactions table
- 	public static boolean addTransaction(Transaction transaction) {
+ 	public boolean addTransaction(Transaction transaction) {
  		try {
- 			PreparedStatement statement = connec.prepareStatement("INSERT INTO TRANSACTION Transaction VALUES (?, ?, ?, ?, ?, ?)");
+ 			PreparedStatement statement = connection.prepareStatement("INSERT INTO TRANSACTION Transaction VALUES (?, ?, ?, ?, ?, ?)");
  			
  			statement.setTimestamp(1, transaction.getTimestamp());
  			statement.setString(2, transaction.getBuyerId());

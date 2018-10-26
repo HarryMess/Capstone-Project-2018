@@ -16,13 +16,26 @@ import model.Admin;
 import model.TradingAccount;
 import model.User;
 
-public class Users extends DatabaseTable {
-
-	private static Connection connection = DatabaseTable.getConnection();
-	private static User currentUser = null;
+public class UsersTable extends DatabaseTable {
+	
+	private static UsersTable users;
+	private Connection connection;
+	private TradingAccountsTable tradingAccounts;
+	
+	public static UsersTable getInstance() {
+		if(users == null)
+			users = new UsersTable();
+		
+		return users;
+	}
+	
+	private UsersTable() {
+		connection = super.getConnection();
+		tradingAccounts = TradingAccountsTable.getInstance();
+	}
 	
 	// This method handles the login by comparing credentials with the database
-	public static boolean login(String email, String password)
+	public boolean login(String email, String password)
 	{        
         try
         {
@@ -50,7 +63,7 @@ public class Users extends DatabaseTable {
             	
             	if (hashedPassword.contentEquals(correctPassword)) // if password correct
 	            {
-            		currentUser = getUser(email);
+            		super.setCurrentUser(getUser(email)); // set the logged in user
 	                return true;
 	            }
 
@@ -74,7 +87,7 @@ public class Users extends DatabaseTable {
         return false;
     }
 	
-	public static boolean register(String email, String password, String name) 
+	public boolean register(String email, String password, String name) 
 	{
 		User user = new User(email, password);
 		
@@ -101,7 +114,7 @@ public class Users extends DatabaseTable {
 //			user.setTradingAccount(new TradingAccount(id, name));
 			
 			// add the trading account to the trading account table			
-			TradingAccounts.addTradingAccount(user, name);
+			tradingAccounts.addTradingAccount(user, name);
 			
 			return true;
 			
@@ -114,7 +127,7 @@ public class Users extends DatabaseTable {
 	}
 	
 	// called in the register method to add a new user to the user table
-	private static boolean addUser(User user) {
+	private boolean addUser(User user) {
 		
 		PreparedStatement statement = null;
 		
@@ -147,7 +160,7 @@ public class Users extends DatabaseTable {
 		}		
 	}
 	
-	public static void showUsersTable() throws SQLException {
+	public void showUsersTable() throws SQLException {
 		
 		Statement statement = connection.createStatement();
 		ResultSet results = statement.executeQuery("SELECT * FROM USERS");
@@ -165,7 +178,7 @@ public class Users extends DatabaseTable {
 		statement.close();
 	}
 	
-	private static String hashPassword(String password) {
+	private String hashPassword(String password) {
 		
 		String hashedPassword;
 		
@@ -206,7 +219,7 @@ public class Users extends DatabaseTable {
 		boolean isAdmin = result.getBoolean("isAdmin");
 		
 		// get the player name from the trading account
-		TradingAccount account = TradingAccounts.getTradingAccount(id);
+		TradingAccount account = tradingAccounts.getTradingAccount(id);
 		
 		// create new user based on its type		
 		if(isAdmin)
@@ -217,7 +230,7 @@ public class Users extends DatabaseTable {
 	}
 	
 	// returns a user object based on the Username
-	public static User getUser(String email) throws SQLException {
+	public User getUser(String email) throws SQLException {
 		
 		User user;
 		
@@ -233,7 +246,7 @@ public class Users extends DatabaseTable {
 		boolean isAdmin = result.getBoolean("isAdmin");
 		
 		// get the player name from the trading account
-		TradingAccount account = TradingAccounts.getTradingAccount(email);
+		TradingAccount account = tradingAccounts.getTradingAccount(email);
 		
 		// create new user based on its type		
 		if(isAdmin)
@@ -244,9 +257,9 @@ public class Users extends DatabaseTable {
 	}
 	
 	// sets the state of the program to logged out
-	public static void Logout()
+	public void Logout()
 	{
-		currentUser = null;
+		super.setCurrentUser(null);
 	}
 
 	@Override

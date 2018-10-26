@@ -10,11 +10,24 @@ import java.util.List;
 
 import model.ValueTimeStamp;
 
-public class AccountHistory extends DatabaseTable {
+public class AccountHistoryTable extends DatabaseTable {
 	
-	private static Connection connec = DatabaseTable.getConnection(); 
+	private static AccountHistoryTable accountHistory;
+	private static Connection connec; 
 	
-	public static List<ValueTimeStamp> getValueHistory(int userId) throws SQLException {
+	public static AccountHistoryTable getInstance() {
+		
+		if(accountHistory == null)
+			accountHistory = new AccountHistoryTable();
+		
+		return accountHistory;
+	}
+	
+	private AccountHistoryTable() {
+		connec = super.getConnection();
+	}
+	
+	public List<ValueTimeStamp> getValueHistory(int userId) throws SQLException {
     	
     	List<ValueTimeStamp> valueHistory = new LinkedList<ValueTimeStamp>();    	
     	

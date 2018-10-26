@@ -5,10 +5,13 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.List;
 
+import model.User;
+
 public abstract class DatabaseTable {
 
-	private static final String dbUrl = ""; 
+	private static final String dbUrl = "jdbc:derby:C:\\RMIT\\Programming Project\\Project Source\\Database;create=true;upgrade=true;user=username"; 
 	private static Connection connection;
+	private static User currentUser = null;
 	
 	public static Connection getConnection() {
 		
@@ -32,6 +35,14 @@ public abstract class DatabaseTable {
 		return null;
 	}
 	
+	public void setCurrentUser(User user) {
+		currentUser = user;
+	}
+	
+	public User getCurrentUser() {
+		return currentUser;
+	}
+	
 	/* Abstract Methods */
 	public abstract List<?> getAll() throws SQLException;
 //	public abstract List<?> getAllById(int id) throws SQLException;
@@ -40,5 +51,5 @@ public abstract class DatabaseTable {
 //	public abstract void add(Object obj) throws SQLException;
 //	public abstract void update(int id, Object obj) throws SQLException;
 //	public abstract void delete(int id) throws SQLException;
-	public abstract String toString();
+//	public abstract void printTable() throws SQLException;
 }

@@ -6,10 +6,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 
 import org.junit.jupiter.api.Test;
 
-import model.database.DerbyDB;
+import model.database.DatabaseTable;
 
 class DatabaseTest {
 
@@ -19,8 +20,7 @@ class DatabaseTest {
 	void testConnection() {
 	 try
        {
-		   Class.forName("org.apache.derby.jdbc.EmbeddedDriver").newInstance();
-		   connec = DerbyDB.getConnection();
+		   connec = DatabaseTable.getConnection();
 
            /* Old method of mapping driver to URL, refer to
             * https://docs.oracle.com/javase/6/docs/api/java/sql/DriverManager.html
@@ -41,6 +41,7 @@ class DatabaseTest {
 	@Test
 	void getAdminUser() {
 		
+		connec = DatabaseTable.getConnection();		
 		String user = "admin@asx.com.au";
 		
 		try {
@@ -73,39 +74,40 @@ class DatabaseTest {
 		}
 	}
 	
-//	@Test
-//	void getPaulTradingAccount() {
-//		
-//		DecimalFormat currency = new DecimalFormat("$.##");
-//		
-//		String user = "s3449513@student.rmit.edu.au";
-//		
-//		try {
-//		PreparedStatement statement = connec.prepareStatement(
-//				"SELECT * FROM Trading_Accounts WHERE Email = ?");
-//		
-//		statement.setString(1, user);
-//		ResultSet result = statement.executeQuery();
-//		
-//		result.next(); // gets the matching result
-//		
-//		// get values from table
-//		String name = result.getString("Name");
-//		float balance =  result.getFloat("Balance");
-//		int hours = result.getInt("Hours_active");
-//		
-//		result.close();
-//		statement.close();
-//		
-//		System.out.println("Name: "+name);
-//		System.out.println("Balance: "+ currency.format(balance));
-//		System.out.println("Hours active: "+hours);
-//		System.out.println();
-//		
-//		} catch(SQLException e) {
-//			e.printStackTrace();
-//			fail(e.getMessage());
-//		}
-//	}
+	@Test
+	void getPaulTradingAccount() {
+		
+		DecimalFormat currency = new DecimalFormat("$.##");
+		
+		String user = "s3449513@student.rmit.edu.au";
+		
+		try {
+		PreparedStatement statement = connec.prepareStatement(
+				"SELECT * FROM Users, Trading_Accounts WHERE Users.Email = ?"
+				+ "AND Trading_Accounts.user_id = Users.id");
+		
+		statement.setString(1, user);
+		ResultSet result = statement.executeQuery();
+		
+		result.next(); // gets the matching result
+		
+		// get values from table
+		String name = result.getString("Name");
+		float balance =  result.getFloat("Balance");
+		int hours = result.getInt("Hours_active");
+		
+		result.close();
+		statement.close();
+		
+		System.out.println("Name: "+name);
+		System.out.println("Balance: "+ currency.format(balance));
+		System.out.println("Hours active: "+hours);
+		System.out.println();
+		
+		} catch(SQLException e) {
+			e.printStackTrace();
+			fail(e.getMessage());
+		}
+	}
 
 }

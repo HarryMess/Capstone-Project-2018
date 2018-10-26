@@ -15,9 +15,23 @@ import model.Stock;
 import model.TradingAccount;
 import model.Transaction;
 
-public class Stocks extends DatabaseTable {
+public class StocksTable extends DatabaseTable {
 	
-	private static Connection connection = DatabaseTable.getConnection();
+	private static StocksTable stocks;
+	private Connection connection;
+	private TransactionsTable transactions;
+	
+	public static StocksTable getInstance() {
+		if(stocks == null) {
+			stocks = new StocksTable();			
+		}		
+		return stocks;
+	}
+	
+	private StocksTable() {
+		connection = super.getConnection();
+		transactions = TransactionsTable.getInstance();
+	}
 	
 	@Override
 	public List<Stock> getAll() throws SQLException {
@@ -36,7 +50,7 @@ public class Stocks extends DatabaseTable {
 	}
 	
 	// get stocks owned for specific user by the id
-    public static List<Stock> getStocksOwned(int userId) throws SQLException {
+    public List<Stock> getStocksOwned(int userId) throws SQLException {
     	
     	List<Stock> stocksOwned = new ArrayList<Stock>();
     	
@@ -57,7 +71,7 @@ public class Stocks extends DatabaseTable {
     }
     
     // get stocks owned for specific user by the user email address
-    public static List<Stock> getStocksOwned(String email) throws SQLException {
+    public List<Stock> getStocksOwned(String email) throws SQLException {
     	
     	List<Stock> stocksOwned = new ArrayList<Stock>();
     	
@@ -87,6 +101,8 @@ public class Stocks extends DatabaseTable {
  	public boolean transferStock(TradingAccount buyer, TradingAccount seller,  Stock stock, 
  			int amount, float price) {
  		
+ 		TradingAccountsTable accounts = TradingAccountsTable.getInstance();
+ 		
  		try {			
  			PreparedStatement statement = connection.prepareStatement("UPDATE TABLE stock "
  																+ "SET Trade_Account_id = ? "
@@ -99,8 +115,8 @@ public class Stocks extends DatabaseTable {
  			statement.execute();
  			statement.close();
  			
- 			TradingAccounts.transferFunds(buyer, seller, price);
- 			Transactions.addTransaction(
+ 			accounts.transferFunds(buyer, seller, price);
+ 			transactions.addTransaction(
  					new Transaction(new Timestamp(System.currentTimeMillis()), buyer, seller, stock, price)
  			);
  			

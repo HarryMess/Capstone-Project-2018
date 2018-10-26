@@ -3,7 +3,7 @@ package controller;
 import javax.swing.*;
 
 import model.User;
-import model.database.Users;
+import model.database.UsersTable;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,6 +11,7 @@ import java.awt.event.ActionListener;
 public class RegisterListener implements ActionListener
 {	
 	private JTextField emailField, firstNameField, lastNameField, passField, confirmPassField;
+	private UsersTable users;
 
 	public RegisterListener(JTextField userField, JPasswordField passField, JPasswordField confirmPassField,
 							JTextField firstNameField, JTextField lastNameField)
@@ -20,6 +21,8 @@ public class RegisterListener implements ActionListener
 		this.confirmPassField = confirmPassField;
 		this.firstNameField = firstNameField;
 		this.lastNameField = lastNameField;
+		
+		users = UsersTable.getInstance();
 	}
 
 	public void actionPerformed(ActionEvent e)
@@ -40,7 +43,7 @@ public class RegisterListener implements ActionListener
 		
 //		} else {
 			
-			if(Users.register(email, password, firstName + " " + lastName)) // calls method to talk to database
+			if(users.register(email, password, firstName + " " + lastName)) // calls method to talk to database
 			
 //				System.out.println("Test call.\nEmail: " + email + "\nName: " + firstName + " " + lastName + "\nPassword: " + password
 //				+ " and confirmed: " + confirmPassword);

@@ -1,4 +1,4 @@
-package database;
+package model.database;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -7,6 +7,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.xml.bind.DatatypeConverter;
 
@@ -14,11 +16,12 @@ import model.Admin;
 import model.TradingAccount;
 import model.User;
 
-public class Users {
+public class Users extends DatabaseTable {
 
-	private static Connection connection = DerbyDB.getConnection();
+	private static Connection connection = DatabaseTable.getConnection();
 	private static User currentUser = null;
 	
+	// This method handles the login by comparing credentials with the database
 	public static boolean login(String email, String password)
 	{        
         try
@@ -98,7 +101,7 @@ public class Users {
 //			user.setTradingAccount(new TradingAccount(id, name));
 			
 			// add the trading account to the trading account table			
-			addTradingAccount(user, name);
+			TradingAccounts.addTradingAccount(user, name);
 			
 			return true;
 			
@@ -144,47 +147,6 @@ public class Users {
 		}		
 	}
 	
-	// called in the method to add a new trading acount to the trade accounts table
-	private static void addTradingAccount(User user, String name) throws SQLException{
-		
-		System.out.println("Old Trading Account table:");
-		showTradeAccountsTable();
-
-		// get the id from the email address
-		PreparedStatement statement1 = connection.prepareStatement("SELECT ID FROM USERS WHERE EMAIL = ?");
-		statement1.setString(1, user.getEmail());
-		ResultSet result = statement1.executeQuery();
-		
-		int userId = 0;
-		
-		while(result.next()) {
-			userId = result.getInt("ID");
-		}
-		
-		statement1.close();
-		
-		TradingAccount account = new TradingAccount(userId, name);
-		
-		// add the trading account to the database
-		PreparedStatement statement2 =connection.prepareStatement("INSERT INTO TRADING_ACCOUNTS (USER_ID, NAME, BALANCE, HOURS_ACTIVE)"
-																 + "VALUES (?, ?, ?, ?)");
-		
-		// add parameters to sql statement
-		statement2.setInt(1, userId);
-		statement2.setString(2, account.getName());			
-		statement2.setDouble(3, account.getBalance());
-		statement2.setInt(4, account.getHoursActive());
-		
-		System.out.println("New Trading Account table:");
-		showTradeAccountsTable();
-			
-		statement2.execute();
-		statement2.close();
-		
-		System.out.println("New Trading Account table:");
-		showTradeAccountsTable();		
-	}
-	
 	public static void showUsersTable() throws SQLException {
 		
 		Statement statement = connection.createStatement();
@@ -198,27 +160,6 @@ public class Users {
 			boolean isAdmin = results.getBoolean("ISADMIN");
 			
 			System.out.println(email + " | " + password + " | " + isAdmin);
-    	}
-		
-		statement.close();
-	}
-	
-	public static void showTradeAccountsTable() throws SQLException {
-		
-		Statement statement = connection.createStatement();
-		ResultSet results = statement.executeQuery("SELECT * FROM TRADING_ACCOUNTS");
-		
-		System.out.println();
-		
-		// iterate through the table
-		while(results.next()) {
-			
-			int id = results.getInt("User_ID");
-			String name = results.getString("NAME");
-			double balance = results.getDouble("BALANCE");
-			int hours = results.getInt("HOURS_ACTIVE");
-			
-			System.out.println(id + " | " + name + " | " + balance + " | " + hours);
     	}
 		
 		statement.close();
@@ -265,7 +206,7 @@ public class Users {
 		boolean isAdmin = result.getBoolean("isAdmin");
 		
 		// get the player name from the trading account
-		TradingAccount account = TradeAccounts.getTradingAccount(id);
+		TradingAccount account = TradingAccounts.getTradingAccount(id);
 		
 		// create new user based on its type		
 		if(isAdmin)
@@ -292,7 +233,7 @@ public class Users {
 		boolean isAdmin = result.getBoolean("isAdmin");
 		
 		// get the player name from the trading account
-		TradingAccount account = TradeAccounts.getTradingAccount(email);
+		TradingAccount account = TradingAccounts.getTradingAccount(email);
 		
 		// create new user based on its type		
 		if(isAdmin)
@@ -306,5 +247,31 @@ public class Users {
 	public static void Logout()
 	{
 		currentUser = null;
+	}
+
+	@Override
+	public List<User> getAll() throws SQLException {
+		List<User> users = new ArrayList<User>();
+		
+		PreparedStatement statement = connection.prepareStatement(
+				"SELECT * FROM Users");
+		ResultSet results = statement.executeQuery();
+		
+		// iterate through the results add each row to the array list
+		while(results.next()) {
+			String email = results.getString("email");
+			String password = results.getString("password");
+			TradingAccount account = null;
+			
+			users.add(new User(email, password, account));
+		}
+		
+		return users; // returns th results as a list
+	}
+	
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

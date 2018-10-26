@@ -2,13 +2,12 @@ package controller;
 
 import javax.swing.*;
 
+import model.database.DerbyDB;
+import model.database.Users;
+
 import java.sql.*;
 import view.AbstractFrame;
 import view.dashboard.DashboardFrame;
-
-
-import database.DerbyDB;
-import database.Users;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

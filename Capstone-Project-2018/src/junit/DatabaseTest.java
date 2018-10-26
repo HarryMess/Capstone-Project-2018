@@ -3,22 +3,17 @@ package junit;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.text.DecimalFormat;
 
 import org.junit.jupiter.api.Test;
 
-import database.DerbyDB;
+import model.database.DerbyDB;
 
 class DatabaseTest {
 
 	private static Connection connec = null; /* Instance */
-    private static Statement statem = null;
 	
 	@Test
 	void testConnection() {

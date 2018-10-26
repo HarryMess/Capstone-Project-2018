@@ -4,28 +4,19 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.sql.Connection;
 import java.sql.SQLException;
-import java.sql.Statement;
 
-import database.DerbyDB;
-import database.StockMarket;
-import database.TradeAccounts;
 import model.TradingAccount;
+import model.database.TradingAccounts;
 
 class TradeAccountTest {
 	
-    private Connection connec = DerbyDB.getConnection(); /* Instance */
-    private Statement statem = null;
-	
     @Test
 	void getAccount1() {
-		StockMarket market;
 		TradingAccount account;
 		
 		try {
-			market = StockMarket.getInstance();
-			account = TradeAccounts.getTradingAccount(1);
+			account = TradingAccounts.getTradingAccount(1);
 			
 //			assert(account != null);
 			
@@ -45,12 +36,10 @@ class TradeAccountTest {
 	void getAccountStockMarket() {
 		
 		// get the main market trading account
-		StockMarket market;
 		TradingAccount account;
 		
 		try {
-			market = StockMarket.getInstance();
-			account = TradeAccounts.getTradingAccount("admin@asx.com.au");
+			account = TradingAccounts.getTradingAccount("admin@asx.com.au");
 			
 			assert(account != null);
 			
@@ -66,12 +55,10 @@ class TradeAccountTest {
 	@Test
 	void getAccountPaul() {
 		// get the main market trading account
-		StockMarket market;
 		TradingAccount account;
 		
 		try {
-			market = StockMarket.getInstance();
-			account = TradeAccounts.getTradingAccount("s3449513@student.rmit.edu.au");
+			account = TradingAccounts.getTradingAccount("s3449513@student.rmit.edu.au");
 			
 			assert(account != null);
 			
@@ -87,13 +74,11 @@ class TradeAccountTest {
 	@Test
 	void getNonExistantAccount() {
 		// get the main market trading account
-		StockMarket market;
 		TradingAccount account;
 		String email = "aaa@somewhere.com";
 		
-		try {
-			market = StockMarket.getInstance();
-			account = TradeAccounts.getTradingAccount(email);
+		try {;
+			account = TradingAccounts.getTradingAccount(email);
 			
 			assert(account != null);
 			

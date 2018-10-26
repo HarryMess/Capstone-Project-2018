@@ -1,12 +1,13 @@
-package database;
+package model.database;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.List;
 
-public class DerbyDB {
-	
-	public static final String dbUrl = "jdbc:derby:C:\\RMIT\\Programming Project\\Project Source\\Database;user=username";  // Enter your local URL after the second colon
+public abstract class DatabaseTable {
+
+	private static final String dbUrl = ""; 
 	private static Connection connection;
 	
 	public static Connection getConnection() {
@@ -31,4 +32,13 @@ public class DerbyDB {
 		return null;
 	}
 	
+	/* Abstract Methods */
+	public abstract List<?> getAll() throws SQLException;
+//	public abstract List<?> getAllById(int id) throws SQLException;
+//	public abstract Object getById(int id) throws SQLException;
+//	public abstract Object getByName(String name) throws SQLException;
+//	public abstract void add(Object obj) throws SQLException;
+//	public abstract void update(int id, Object obj) throws SQLException;
+//	public abstract void delete(int id) throws SQLException;
+	public abstract String toString();
 }

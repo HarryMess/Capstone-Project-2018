@@ -8,7 +8,7 @@ import java.sql.Statement;
 
 import org.junit.jupiter.api.Test;
 
-import database.DerbyDB;
+import model.database.DerbyDB;
 
 class UserDBTest {
 

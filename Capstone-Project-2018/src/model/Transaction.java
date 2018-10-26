@@ -1,11 +1,6 @@
 package model;
 
-import java.sql.Time;
 import java.sql.Timestamp;
-
-import database.StockMarket;
-import java.sql.Date;
-import java.sql.SQLException;
 
 public class Transaction {
 
@@ -51,14 +46,6 @@ public class Transaction {
 		this.stock = stock;
 
 		this.amount = stock.getQuantity();
-	}
-	
-	public void makeTransaction() {
-		
-		StockMarket market;
-		
-		market = StockMarket.getInstance();
-		market.transferFunds(buyer, seller, price);			
 	}
 
 	public int getTranasctionId() {

@@ -2,8 +2,8 @@ package controller;
 
 import javax.swing.*;
 
-import database.Users;
 import model.User;
+import model.database.Users;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

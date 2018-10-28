@@ -4,49 +4,41 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.sql.Connection;
 import java.sql.SQLException;
-import java.sql.Statement;
 
-import database.DerbyDB;
-import database.StockMarket;
 import model.TradingAccount;
+import model.database.TradingAccountsTable;
 
 class TradeAccountTest {
 	
-    private Connection connec = DerbyDB.getConnection(); /* Instance */
-    private Statement statem = null;
-	
     @Test
 	void getAccount1() {
-		StockMarket market;
 		TradingAccount account;
+		TradingAccountsTable tradingAccounts = TradingAccountsTable.getInstance();
 		
 		try {
-			market = StockMarket.getInstance();
-			account = market.getTradingAccount(1);
+			account = tradingAccounts.getTradingAccount(1);
 			
 			assert(account != null);
 			
 			System.out.println(account.toString());
 			
-		} catch (SQLException e) {
+		} catch (SQLException | NullPointerException e) {
 			
 			e.printStackTrace();
 			fail(e.getMessage());
-		}	
+		}
 	}
     
 	@Test
 	void getAccountStockMarket() {
 		
 		// get the main market trading account
-		StockMarket market;
 		TradingAccount account;
+		TradingAccountsTable tradingAccounts = TradingAccountsTable.getInstance();
 		
 		try {
-			market = StockMarket.getInstance();
-			account = market.getTradingAccount("admin@asx.com.au");
+			account = tradingAccounts.getTradingAccount("admin@asx.com.au");
 			
 			assert(account != null);
 			
@@ -62,12 +54,11 @@ class TradeAccountTest {
 	@Test
 	void getAccountPaul() {
 		// get the main market trading account
-		StockMarket market;
 		TradingAccount account;
+		TradingAccountsTable tradingAccounts = TradingAccountsTable.getInstance();
 		
 		try {
-			market = StockMarket.getInstance();
-			account = market.getTradingAccount("s3449513@student.rmit.edu.au");
+			account = tradingAccounts.getTradingAccount("s3449513@student.rmit.edu.au");
 			
 			assert(account != null);
 			
@@ -82,14 +73,14 @@ class TradeAccountTest {
 	
 	@Test
 	void getNonExistantAccount() {
+		TradingAccountsTable tradingAccounts = TradingAccountsTable.getInstance();
+		
 		// get the main market trading account
-		StockMarket market;
 		TradingAccount account;
 		String email = "aaa@somewhere.com";
 		
-		try {
-			market = StockMarket.getInstance();
-			account = market.getTradingAccount(email);
+		try {;
+			account = tradingAccounts.getTradingAccount(email);
 			
 			assert(account != null);
 			
@@ -108,6 +99,10 @@ class TradeAccountTest {
 				fail(e.getMessage());
 			}
 		}	
+		catch(NullPointerException e) {
+			e.printStackTrace();
+			fail(e.getMessage());
+		}
 	}
 
 }

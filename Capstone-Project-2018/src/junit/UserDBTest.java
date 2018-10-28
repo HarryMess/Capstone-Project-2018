@@ -8,12 +8,11 @@ import java.sql.Statement;
 
 import org.junit.jupiter.api.Test;
 
-import database.DerbyDB;
+import model.database.DatabaseTable;
 
 class UserDBTest {
-
 	
-	private static Connection connection = DerbyDB.getConnection(); /* Instance */
+	private static Connection connection = DatabaseTable.getConnection(); /* Instance */
     private static Statement statement = null;
 	
 	@Test

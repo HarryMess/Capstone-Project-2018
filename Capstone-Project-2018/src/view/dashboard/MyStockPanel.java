@@ -4,7 +4,11 @@ import view.AbstractFrame;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
+
+import model.Stock;
+
 import java.awt.*;
+import java.util.ArrayList;
 
 public class MyStockPanel extends AbstractTablePanel
 {
@@ -30,5 +34,10 @@ public class MyStockPanel extends AbstractTablePanel
 		//Add components
 		add(title, BorderLayout.NORTH);
 		add(myStocks, BorderLayout.CENTER);
+	}
+	
+	private ArrayList<Stock> getStockData() {
+		return null;
+		
 	}
 }

@@ -14,14 +14,23 @@ public class Company {
 	private final int MAX_PRICE = 100;
 	private Random randomGen;
 
-	public Company(String code, String name, int totalShares) {
+	public Company(String code, String name, int totalShares, float marketPrice) {
 		
 		this.code = code;
 		this.name = name;
 		this.totalShares = totalShares;
+		this.marketPrice = marketPrice;
 		
-		randomGen = new Random();		
-		setRandomPrice();
+		profitPerStock = 0;
+	}
+	
+	public Company(String code, String name, float marketPrice) {
+		
+		this.code = code;
+		this.name = name;
+		this.totalShares = 1;
+		this.marketPrice = marketPrice;
+		
 		profitPerStock = 0;
 	}
 

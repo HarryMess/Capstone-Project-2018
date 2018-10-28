@@ -28,7 +28,7 @@ public class Stock {
 		return company;
 	}
 	
-	public String getCompanyByCode() {
+	public String getCompanyCode() {
 		return code;
 	}
 

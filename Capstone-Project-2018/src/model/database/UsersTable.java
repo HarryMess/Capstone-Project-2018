@@ -16,23 +16,32 @@ import model.Admin;
 import model.TradingAccount;
 import model.User;
 
-public class UsersTable extends DatabaseTable {
+public class UsersTable extends DatabaseTable{
 	
-	private static UsersTable users;
+//	private static UsersTable users;
 	private Connection connection;
 	private TradingAccountsTable tradingAccounts;
 	
-	public static UsersTable getInstance() {
-		if(users == null)
-			users = new UsersTable();
+//	public static UsersTable getInstance() {
+//		
+//		if(users == null) {		
+//			users = new UsersTable();
+//			System.out.println("Users: "+ users);
+//		}
+//		
+//		return users;
+//	}
+	
+	public UsersTable() {
 		
-		return users;
 	}
 	
-	private UsersTable() {
-		connection = super.getConnection();
-		tradingAccounts = TradingAccountsTable.getInstance();
-	}
+//	public UsersTable() {
+////		connection = super.getConnection();
+////		System.out.println("Connection: " + connection);
+////		tradingAccounts = super.getTradingAccounts();
+////		System.out.println("Tradingaccounts: "+ tradingAccounts);
+//	}
 	
 	// This method handles the login by comparing credentials with the database
 	public boolean login(String email, String password)
@@ -63,7 +72,7 @@ public class UsersTable extends DatabaseTable {
             	
             	if (hashedPassword.contentEquals(correctPassword)) // if password correct
 	            {
-            		super.setCurrentUser(getUser(email)); // set the logged in user
+            		DatabaseTable.setCurrentUser(getUser(email)); // set the logged in user
 	                return true;
 	            }
 
@@ -259,10 +268,10 @@ public class UsersTable extends DatabaseTable {
 	// sets the state of the program to logged out
 	public void Logout()
 	{
-		super.setCurrentUser(null);
+		DatabaseTable.setCurrentUser(null);
 	}
 
-	@Override
+//	@Override
 	public List<User> getAll() throws SQLException {
 		List<User> users = new ArrayList<User>();
 		

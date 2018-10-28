@@ -20,33 +20,80 @@ public class StocksTable extends DatabaseTable {
 	private static StocksTable stocks;
 	private Connection connection;
 	private TransactionsTable transactions;
+	private StockHistoryTable stockHistory;
 	
 	public static StocksTable getInstance() {
 		if(stocks == null) {
-			stocks = new StocksTable();			
+			stocks = new StocksTable();	
+			System.out.println("StocksTable: " + stocks);			
 		}		
+		
+//		System.out.println("StocksTable: " + stocks);
+		
 		return stocks;
 	}
 	
-	private StocksTable() {
+	public StocksTable() {
 		connection = super.getConnection();
 		transactions = TransactionsTable.getInstance();
+		stockHistory = StockHistoryTable.getInstance();
 	}
 	
 	@Override
 	public List<Stock> getAll() throws SQLException {
 		
-		try {
-			Statement statem = connection.createStatement();			
-			statem.execute(""); // insert SQL query here
-			statem.close();
+		List<Stock> stocks = new ArrayList<Stock>();
+		
+		Statement statem = connection.createStatement();			
+		ResultSet results = statem.executeQuery("SELECT * FROM STOCKS");
+		
+		String code = results.getString("code");
+		int ownerId = results.getInt("OwnerId");
+		int quantity = results.getInt("quantity");
+		
+		statem.close();
+		
+		new Stock(code, ownerId, quantity);
         
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		return null;
+	}
+	
+	// returns an individual stock object by finding the matching code in the database
+	public Stock getStock(String code) throws SQLException {
+		
+		PreparedStatement statement = connection.prepareStatement("SELECT * FROM STOCKS\n"
+																+ "WHERE Code = ?");
+		statement.setString(1, code);
+		
+		ResultSet results = statement.executeQuery();
+		
+		results.next(); // get the first match	
+		
+		String name = results.getString("Name");
+		double price = results.getDouble("Current_Price");
+		
+		Company company = new Company(code, name, 1, (float) price);
+		
+		return new Stock(company, 1);
+	}
+	
+	// recieves a list of all companies from the stocks table in the database
+	public List<Company> getCompanies() throws SQLException {
+		List<Company> companies = new ArrayList<Company>();
+		
+		Statement statem = connection.createStatement();			
+		ResultSet results = statem.executeQuery("SELECT * FROM STOCKS");
+		
+		while(results.next()) {
+		
+			String code = results.getString("Code");
+			String name = results.getString("Name");
+			double price = results.getDouble("current_price");
+			
+			companies.add(new Company(code, name, (float) price));
 		}
 		
-		return null;
+		return companies;
 	}
 	
 	// get stocks owned for specific user by the id
@@ -128,39 +175,74 @@ public class StocksTable extends DatabaseTable {
  		return false;
  	}
  	
+ // Transfers stock ownership from one account to the next
+  	public boolean transferStock(TradingAccount buyer, TradingAccount seller,  String stockCode, 
+  			int amount, float price) {
+  		
+  		TradingAccountsTable accounts = TradingAccountsTable.getInstance();
+  		
+  		try {			
+  			PreparedStatement statement = connection.prepareStatement("UPDATE Stocks "
+  																+ "SET Owner_id = ? "
+  																+ "WHERE Owner_id = ? AND Code = ?");											
+  			statement.setInt(1, buyer.getId());
+  			statement.setInt(2, seller.getId());
+  			statement.setString(3, stockCode);
+  			
+  			// run the query
+  			statement.execute();
+  			statement.close();
+  			
+  			Stock stock = new Stock(stockCode, seller.getId(), 1);
+  			
+  			accounts.transferFunds(buyer, seller, price);
+//  			transactions.addTransaction(
+//  					new Transaction(new Timestamp(System.currentTimeMillis()), buyer, seller, stock, price)
+//  			);
+  			
+  			return true;
+  			
+  		} catch (SQLException e) {
+  			
+  			e.printStackTrace();
+  		}
+  			
+  		return false;
+  	}
+ 	
 	public Company getCompany(String id) {
 		return null;
 	}
  	
  	// This method gets called as soon as the game begins
-    public void generateStartingPrices(float lowestCost, float highestCost) {
+    public void generateStartingPrices(float lowestCost, float highestCost) throws SQLException {
     	
     	Random random  = new Random(); // random number generator object
-    	
-    	try {
-    	
-	    	// code to get stocks from database goes here
-    		Statement statem = connection.createStatement();
-    		ResultSet results = statem.executeQuery("SELECT * FROM Stock");
     		
-    		// iterate through the table
-    		while(results.next()) {
-    			
-    			String companyCode = results.getString(1);		
-	    		float price = random.nextInt((int) (highestCost - lowestCost)) + lowestCost;	    		 		
+    	// code to get stocks from database goes here
+		Statement statement1 = connection.createStatement();
+		PreparedStatement statement2;
+		ResultSet results = statement1.executeQuery("SELECT * FROM Stocks");
+		
+		statement2 = connection.prepareStatement("UPDATE Stocks\n"
+			    + "SET current_price = ? WHERE code = ?");
+		
+		// iterate through the table
+		while(results.next()) {
+			
+			String code = results.getString(1);		
+    		float price = random.nextInt((int) (highestCost - lowestCost)) + lowestCost;	    		
     		
-	    		// SQL update transaction goes here 
-				statem = connection.createStatement();
-				statem.execute("INSERT INTO Stock_History (COMPANY_ID, DATE_TIME, MARKET_PRICE) \n" +
-								"VALUES (" + companyCode + ", CURRENT_TIMESTAMP, "+ price + ")");
-				statem.close();
-	    	}
-				
-		} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-		}	
-    	
+    		statement2.setFloat(1, price);
+    		statement2.setString(2, code);
+    		
+    		statement2.execute();
+    		
+    		stockHistory.addValueTimeStamp(code, price);
+    	}
+		
+		statement1.close();
+		statement2.close();				
     }
     
     // This method will be called each hour to update the prices in the stock market

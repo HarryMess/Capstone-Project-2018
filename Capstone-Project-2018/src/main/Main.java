@@ -2,7 +2,6 @@ package main;
 
 import javax.swing.*;
 
-import view.LoginFrame;
 import controller.FrameManager;
 
 public class Main

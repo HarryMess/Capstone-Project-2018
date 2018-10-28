@@ -17,13 +17,15 @@ public class AccountHistoryTable extends DatabaseTable {
 	
 	public static AccountHistoryTable getInstance() {
 		
-		if(accountHistory == null)
+		if(accountHistory == null) {
 			accountHistory = new AccountHistoryTable();
+			System.out.println("accountHistory: " + accountHistory);
+		}
 		
 		return accountHistory;
 	}
 	
-	private AccountHistoryTable() {
+	public AccountHistoryTable() {
 		connec = super.getConnection();
 	}
 	

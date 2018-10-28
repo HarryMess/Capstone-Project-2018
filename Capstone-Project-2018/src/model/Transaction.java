@@ -56,16 +56,16 @@ public class Transaction {
 		return dateTime;
 	}
 
-	public String getBuyerId() {
-		return buyerId;
+	public int getBuyerId() {
+		return buyer.getId();
 	}
 
-	public String getSellerId() {
-		return sellerId;
+	public int getSellerId() {
+		return seller.getId();
 	}
 	
-	public String getStockId() {
-		return stockId;
+	public String getStockCode() {
+		return stock.getCompanyCode();
 	}
 	
 	public float getPrice() {

@@ -26,16 +26,19 @@ public class TradingAccountsTable extends DatabaseTable {
     
     public static TradingAccountsTable getInstance() {
 		if(tradingAccounts == null) {
-			tradingAccounts = new TradingAccountsTable();			
+			tradingAccounts = new TradingAccountsTable();
+			System.out.println("tradingAccounts: " + tradingAccounts);
 		}		
 		return tradingAccounts;
 	}
 	
-	private TradingAccountsTable() {
+	public TradingAccountsTable() {
 		connection = super.getConnection();
+		
  		// reference the other tables
- 		StocksTable stocks = StocksTable.getInstance();
- 		AccountHistoryTable accountHistory = AccountHistoryTable.getInstance();
+// 		StocksTable stocks = StocksTable.getInstance();
+//// 		System.out.println("Stocks: " + stocks.toString());
+// 		AccountHistoryTable accountHistory = AccountHistoryTable.getInstance();
 	}
     
 	@Override
@@ -86,7 +89,7 @@ public class TradingAccountsTable extends DatabaseTable {
  		
  		// get values from table
  		int userId = result.getInt("Id");
- 		System.out.println("id:" + userId);
+// 		System.out.println("id:" + userId);
  		String name = result.getString("Name");
  		double balance = (double) result.getFloat("Balance");
  		int hours = result.getInt("Hours_active");
@@ -168,25 +171,28 @@ public class TradingAccountsTable extends DatabaseTable {
 	}
     
 	// Transfers moneys from one player to another by updating the balance on both players on the database table
-	public boolean transferFunds(TradingAccount sender, TradingAccount receiver, float amount) {
+	public boolean transferFunds(TradingAccount sender, TradingAccount receiver, float amount) throws SQLException {
+	
+		PreparedStatement statement1 = connection.prepareStatement("UPDATE Trading_Accounts\n"
+															+ "SET balance = balance - ?\n"
+															+ "WHERE name = ?");
+		PreparedStatement statement2 = connection.prepareStatement("UPDATE Trading_Accounts\n"
+															+ "SET balance = balance + ?\n"
+															+ "WHERE name = ?");	
+		// add parameters to statement
+		statement1.setFloat(1, amount);
+		statement1.setString(2, sender.getName());
+		statement2.setFloat(1, amount);
+		statement2.setString(2, receiver.getName());
 		
-		try {
-			PreparedStatement statement = connection.prepareStatement("UPDATE TABLE Trade_Accounts"
-																+ "SET balance = balance - ?"
-																+ "WHERE email = ?"
-																+ "SET balance = balance + ?"
-																+ "WHERE email = ?");			
-			// attempt to execute the query
-			if(statement.execute()) {
-				statement.close();
-				return true;
-			}
-						
-		} catch (SQLException e) {
-			
-			e.printStackTrace();
+		// attempt to execute the query
+		if(statement1.execute() && statement2.execute()) {
+			statement1.close();
+			statement2.close();
+			return true;
 		}
+						
 		return false;
 		
-	}    
+	}
 }

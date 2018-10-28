@@ -16,8 +16,10 @@ public class TransactionsTable extends DatabaseTable {
 	private Connection connection = DatabaseTable.getConnection();
 	
 	public static TransactionsTable getInstance() {
-		if(transactions == null)
+		if(transactions == null) {
 			transactions = new TransactionsTable();
+			System.out.println("transactions: " + transactions);
+		}
 		
 		return transactions;
 	}
@@ -64,12 +66,14 @@ public class TransactionsTable extends DatabaseTable {
     // Adds a new transaction record to the transactions table
  	public boolean addTransaction(Transaction transaction) {
  		try {
- 			PreparedStatement statement = connection.prepareStatement("INSERT INTO TRANSACTION Transaction VALUES (?, ?, ?, ?, ?, ?)");
+ 			PreparedStatement statement = connection.prepareStatement(
+ 					"INSERT INTO Transactions (Date_Time, Buyer, Seller, Company_Code, Price)\n"
+ 				  + "VALUES (?, ?, ?, ?, ?)");
  			
  			statement.setTimestamp(1, transaction.getTimestamp());
- 			statement.setString(2, transaction.getBuyerId());
- 			statement.setString(3, transaction.getSellerId());
- 			statement.setString(4, transaction.getStockId());
+ 			statement.setInt(2, transaction.getBuyerId());
+ 			statement.setInt(3, transaction.getSellerId());
+ 			statement.setString(4, transaction.getStockCode());
  			statement.setFloat(5, transaction.getPrice());
  			
  			// attempt to execute the query

@@ -10,7 +10,7 @@ import view.dashboard.StockTable;
 
 public abstract class DatabaseTable {
 
-	private static final String dbUrl = "jdbc:derby:C:\\RMIT\\Programming Project\\Project Source\\Database;create=true;upgrade=true;user=username"; 
+	private static final String dbUrl = "jdbc:derby:;create=true;upgrade=true;user=username"; // add local path after derby:
 	private static Connection connection;
 	private static User currentUser = null;
 	

@@ -28,6 +28,7 @@ public class LoginListener implements ActionListener
 
 		fm = parentFrame.getFrameManager();
 		users = UsersTable.getInstance();
+//		database = Database.getInstance();
 	}	
 
 	public void actionPerformed(ActionEvent e)

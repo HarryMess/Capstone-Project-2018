@@ -1,4 +1,4 @@
-package model.database;
+package model.database.staticmethod;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -16,35 +16,12 @@ import model.Admin;
 import model.TradingAccount;
 import model.User;
 
-public class UsersTable extends DatabaseTable{
+public class Users {
 	
-//	private static UsersTable users;
-	private Connection connection;
-	private TradingAccountsTable tradingAccounts;
-	
-//	public static UsersTable getInstance() {
-//		
-//		if(users == null) {		
-//			users = new UsersTable();
-//			System.out.println("Users: "+ users);
-//		}
-//		
-//		return users;
-//	}
-	
-	public UsersTable() {
-		
-	}
-	
-//	public UsersTable() {
-////		connection = super.getConnection();
-////		System.out.println("Connection: " + connection);
-////		tradingAccounts = super.getTradingAccounts();
-////		System.out.println("Tradingaccounts: "+ tradingAccounts);
-//	}
+	private static Connection connection = Database.getConnection();
 	
 	// This method handles the login by comparing credentials with the database
-	public boolean login(String email, String password)
+	public static boolean login(String email, String password)
 	{        
         try
         {
@@ -72,7 +49,7 @@ public class UsersTable extends DatabaseTable{
             	
             	if (hashedPassword.contentEquals(correctPassword)) // if password correct
 	            {
-            		DatabaseTable.setCurrentUser(getUser(email)); // set the logged in user
+            		Database.setCurrentUser(getUser(email)); // set the logged in user
 	                return true;
 	            }
 
@@ -96,7 +73,7 @@ public class UsersTable extends DatabaseTable{
         return false;
     }
 	
-	public boolean register(String email, String password, String name) 
+	public static boolean register(String email, String password, String name) 
 	{
 		User user = new User(email, password);
 		
@@ -123,7 +100,7 @@ public class UsersTable extends DatabaseTable{
 //			user.setTradingAccount(new TradingAccount(id, name));
 			
 			// add the trading account to the trading account table			
-			tradingAccounts.addTradingAccount(user, name);
+			TradingAccounts.addTradingAccount(user, name);
 			
 			return true;
 			
@@ -136,7 +113,7 @@ public class UsersTable extends DatabaseTable{
 	}
 	
 	// called in the register method to add a new user to the user table
-	private boolean addUser(User user) {
+	private static boolean addUser(User user) {
 		
 		PreparedStatement statement = null;
 		
@@ -169,7 +146,7 @@ public class UsersTable extends DatabaseTable{
 		}		
 	}
 	
-	public void showUsersTable() throws SQLException {
+	public static void showUsersTable() throws SQLException {
 		
 		Statement statement = connection.createStatement();
 		ResultSet results = statement.executeQuery("SELECT * FROM USERS");
@@ -187,7 +164,7 @@ public class UsersTable extends DatabaseTable{
 		statement.close();
 	}
 	
-	private String hashPassword(String password) {
+	private static String hashPassword(String password) {
 		
 		String hashedPassword;
 		
@@ -211,7 +188,7 @@ public class UsersTable extends DatabaseTable{
 	}
 	
 	// returns a user object based on the id
-	public User getUser(int id) throws SQLException {
+	public static User getUser(int id) throws SQLException {
 		
 		User user;
 		
@@ -228,7 +205,7 @@ public class UsersTable extends DatabaseTable{
 		boolean isAdmin = result.getBoolean("isAdmin");
 		
 		// get the player name from the trading account
-		TradingAccount account = tradingAccounts.getTradingAccount(id);
+		TradingAccount account = TradingAccounts.getTradingAccount(id);
 		
 		// create new user based on its type		
 		if(isAdmin)
@@ -239,7 +216,7 @@ public class UsersTable extends DatabaseTable{
 	}
 	
 	// returns a user object based on the Username
-	public User getUser(String email) throws SQLException {
+	public static User getUser(String email) throws SQLException {
 		
 		User user;
 		
@@ -255,7 +232,7 @@ public class UsersTable extends DatabaseTable{
 		boolean isAdmin = result.getBoolean("isAdmin");
 		
 		// get the player name from the trading account
-		TradingAccount account = tradingAccounts.getTradingAccount(email);
+		TradingAccount account = TradingAccounts.getTradingAccount(email);
 		
 		// create new user based on its type		
 		if(isAdmin)
@@ -266,9 +243,9 @@ public class UsersTable extends DatabaseTable{
 	}
 	
 	// sets the state of the program to logged out
-	public void Logout()
+	public static void Logout()
 	{
-		DatabaseTable.setCurrentUser(null);
+		Database.setCurrentUser(null);
 	}
 
 //	@Override
@@ -289,11 +266,5 @@ public class UsersTable extends DatabaseTable{
 		}
 		
 		return users; // returns th results as a list
-	}
-	
-	@Override
-	public String toString() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 }

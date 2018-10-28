@@ -23,6 +23,7 @@ public class RegisterListener implements ActionListener
 		this.lastNameField = lastNameField;
 		
 		users = UsersTable.getInstance();
+//		database = Database.getInstance();
 	}
 
 	public void actionPerformed(ActionEvent e)

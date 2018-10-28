@@ -54,7 +54,7 @@ public abstract class DatabaseTable {
 		return null;
 	}
 	
-	public void setCurrentUser(User user) {
+	public static void setCurrentUser(User user) {
 		currentUser = user;
 	}
 	

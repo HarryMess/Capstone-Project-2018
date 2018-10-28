@@ -24,11 +24,8 @@ public class StocksTable extends DatabaseTable {
 	
 	public static StocksTable getInstance() {
 		if(stocks == null) {
-			stocks = new StocksTable();	
-			System.out.println("StocksTable: " + stocks);			
-		}		
-		
-//		System.out.println("StocksTable: " + stocks);
+			stocks = new StocksTable();				
+		}
 		
 		return stocks;
 	}
@@ -196,9 +193,9 @@ public class StocksTable extends DatabaseTable {
   			Stock stock = new Stock(stockCode, seller.getId(), 1);
   			
   			accounts.transferFunds(buyer, seller, price);
-//  			transactions.addTransaction(
-//  					new Transaction(new Timestamp(System.currentTimeMillis()), buyer, seller, stock, price)
-//  			);
+  			transactions.addTransaction(
+  					new Transaction(new Timestamp(System.currentTimeMillis()), buyer, seller, stock, price)
+  			);
   			
   			return true;
   			

@@ -1,4 +1,4 @@
-package model.database;
+package model.database.staticmethod;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -13,42 +13,17 @@ import model.Transaction;
 import model.User;
 import model.ValueTimeStamp;
 
-public class TradingAccountsTable extends DatabaseTable {
+public class TradingAccounts {
 	
-	private static TradingAccountsTable tradingAccounts;
-	
-    private Connection connection; /* Instance */
-    
-    //references to other tables
-    private StocksTable stocks;
-    private AccountHistoryTable accountHistory;
-    private TransactionsTable transactions;
-    
-    public static TradingAccountsTable getInstance() {
-		if(tradingAccounts == null) {
-			tradingAccounts = new TradingAccountsTable();
-			System.out.println("tradingAccounts: " + tradingAccounts);
-		}		
-		return tradingAccounts;
-	}
-	
-	public TradingAccountsTable() {
-		connection = super.getConnection();
-		
- 		// reference the other tables
-// 		StocksTable stocks = StocksTable.getInstance();
-//// 		System.out.println("Stocks: " + stocks.toString());
-// 		AccountHistoryTable accountHistory = AccountHistoryTable.getInstance();
-	}
-    
-	@Override
-	public List<TradingAccount> getAll() throws SQLException {
+    private static Connection connection = Database.getConnection();
+ 
+	public static List<TradingAccount> getAll() throws SQLException {
 		// TODO Auto-generated method stub
 		return null;
 	}
     
     // returns the entire trading account matching a user id
- 	public TradingAccount getTradingAccount(int userId) throws SQLException {
+ 	public static TradingAccount getTradingAccount(int userId) throws SQLException {
  		
  		PreparedStatement statement = connection.prepareStatement(
  				"SELECT * FROM Trading_Accounts WHERE User_id = ?");
@@ -75,7 +50,7 @@ public class TradingAccountsTable extends DatabaseTable {
  	}
  	
  	// returns the entire trading account matching an email address	
- 	public TradingAccount getTradingAccount(String email) throws SQLException {
+ 	public static TradingAccount getTradingAccount(String email) throws SQLException {
  		
  		PreparedStatement statement = connection.prepareStatement(
  				"SELECT * FROM Trading_Accounts \n"
@@ -94,8 +69,6 @@ public class TradingAccountsTable extends DatabaseTable {
  		double balance = (double) result.getFloat("Balance");
  		int hours = result.getInt("Hours_active");
  		
- 		System.out.println("Stocks: " + stocks);
- 		
  		// run additional queries for other tables
 // 		List<Stock> stocksOwned = stocks.getStocksOwned(userId);
 // 		List<ValueTimeStamp> valueHistory = accountHistory.getValueHistory(userId);
@@ -108,7 +81,7 @@ public class TradingAccountsTable extends DatabaseTable {
  	}
  	
  	// called in the method to add a new trading acount to the trade accounts table
- 	public void addTradingAccount(User user, String name) throws SQLException{
+ 	public static void addTradingAccount(User user, String name) throws SQLException{
  		
  		System.out.println("Old Trading Account table:");
  		showTradeAccountsTable();
@@ -149,7 +122,7 @@ public class TradingAccountsTable extends DatabaseTable {
  	}    
     
     // prints out the trading account table
-    public void showTradeAccountsTable() throws SQLException {
+    public static void showTradeAccountsTable() throws SQLException {
 		
 		Statement statement = connection.createStatement();
 		ResultSet results = statement.executeQuery("SELECT * FROM TRADING_ACCOUNTS");
@@ -171,7 +144,7 @@ public class TradingAccountsTable extends DatabaseTable {
 	}
     
 	// Transfers moneys from one player to another by updating the balance on both players on the database table
-	public boolean transferFunds(TradingAccount sender, TradingAccount receiver, float amount) throws SQLException {
+	public static boolean transferFunds(TradingAccount sender, TradingAccount receiver, float amount) throws SQLException {
 	
 		PreparedStatement statement1 = connection.prepareStatement("UPDATE Trading_Accounts\n"
 															+ "SET balance = balance - ?\n"

@@ -1,4 +1,4 @@
-package model.database;
+package model.database.staticmethod;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -7,38 +7,17 @@ import java.util.List;
 
 import model.Company;
 
-public class StockHistoryTable extends DatabaseTable{
+public class StockHistory{
 	
-	private static StockHistoryTable stockHistory;
-	private Connection connection;
+	private static Connection connection = Database.getConnection();
 	
-	public static StockHistoryTable getInstance() {
-		if(stockHistory == null) {
-			stockHistory = new StockHistoryTable();	
-			System.out.println("stockHistory: " + stockHistory);
-		}	
-		
-		return stockHistory;
-	}
-	
-	public StockHistoryTable() {
-		connection = super.getConnection();
-	}
-	
-	@Override
-	public List<StockHistoryTable> getAll() throws SQLException {
+	public static List<StockHistory> getAll() throws SQLException {
 		// TODO Auto-generated method stub
 		
 		return null;
 	}
-
-	@Override
-	public String toString() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 	
-	public void addValueTimeStamp(Company company) throws SQLException {
+	public static void addValueTimeStamp(Company company) throws SQLException {
 	
 		// SQL update transaction goes here 
 		PreparedStatement statement = connection.prepareStatement(
@@ -52,7 +31,7 @@ public class StockHistoryTable extends DatabaseTable{
 		statement.close();
 	}
 	
-	public void addValueTimeStamp(String code, double price) throws SQLException {
+	public static void addValueTimeStamp(String code, double price) throws SQLException {
 		
 		// SQL update transaction goes here 
 		PreparedStatement statement = connection.prepareStatement(

@@ -19,7 +19,6 @@ public class AccountHistoryTable extends DatabaseTable {
 		
 		if(accountHistory == null) {
 			accountHistory = new AccountHistoryTable();
-			System.out.println("accountHistory: " + accountHistory);
 		}
 		
 		return accountHistory;

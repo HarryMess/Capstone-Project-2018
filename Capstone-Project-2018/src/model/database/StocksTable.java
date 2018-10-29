@@ -43,18 +43,22 @@ public class StocksTable extends DatabaseTable {
 		Statement statem = connection.createStatement();			
 		ResultSet results = statem.executeQuery("SELECT * FROM STOCKS");
 		
-		String code = results.getString("code");
-		String companyName = results.getString("name");
-		int ownerId = results.getInt("owner_Id");
-		int quantity = results.getInt("amount");
-		float marketPrice = (float) results.getDouble("current_price");
-		float profitPerHour = (float) results.getDouble("profit_per_hour");
+		while(results.next()) {
+		
+			String code = results.getString("code");
+			String companyName = results.getString("name");
+			int ownerId = results.getInt("owner_Id");
+			int quantity = results.getInt("amount");
+			float marketPrice = (float) results.getDouble("current_price");
+			float profitPerHour = (float) results.getDouble("profit_per_hour");
+		
+			stocks.add(new Stock(code, companyName, ownerId, marketPrice, quantity, profitPerHour));
+		}
 		
 		statem.close();
-		
-		new Stock(code, companyName, ownerId, marketPrice, quantity, profitPerHour);
+		results.close();
         
-		return null;
+		return stocks;
 	}
 	
 	// returns an individual stock object by finding the matching code in the database
@@ -217,7 +221,7 @@ public class StocksTable extends DatabaseTable {
     		
     		statement2.execute();
     		
-    		stockHistory.addValueTimeStamp(code, price);
+    		stockHistory.addTimeStamp(code, price);
     	}
 		
 		statement1.close();

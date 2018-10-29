@@ -10,6 +10,13 @@ public class StockTimeStamp {
 	private final float marketPrice;
 	private final float profitPerHour;
 	
+	public StockTimeStamp(Timestamp timestamp, String companyCode, float marketPrice) {
+		this.timestamp = timestamp;
+		this.companyCode = companyCode;
+		this.marketPrice = marketPrice;
+		this.profitPerHour = 0;
+	}
+	
 	public StockTimeStamp(Timestamp timestamp, String companyCode, float marketPrice, float profitPerHour) {
 		this.timestamp = timestamp;
 		this.companyCode = companyCode;

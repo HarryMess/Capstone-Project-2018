@@ -28,14 +28,38 @@ public class AccountHistoryTable extends DatabaseTable {
 		connec = super.getConnection();
 	}
 	
-	public List<AccountTimeStamp> getValueHistory(int userId) throws SQLException {
+	@Override
+	public List<?> getAll() throws SQLException {
+		
+		List<AccountTimeStamp> valueHistory = new LinkedList<AccountTimeStamp>();    	
+    	
+    	// create the statement
+    	PreparedStatement statement = connec.prepareStatement("SELECT * FROM Account_History");
+
+		ResultSet results = statement.executeQuery();
+    	
+    	while(results.next()) {
+    		
+    		// get the column values from the result
+    		Timestamp timestamp = results.getTimestamp("date_time");
+    		int accountId = results.getInt("account_id");
+    		float balance = results.getFloat("balance");
+    		float shareValue = results.getFloat("share_value");
+    		
+    		// add the values to the arrayList
+    		valueHistory.add(new AccountTimeStamp(timestamp, accountId, balance, shareValue));
+    	}
+    	
+		return valueHistory;
+	}
+	
+	public List<AccountTimeStamp> getAccountHistory(int userId) throws SQLException {
     	
     	List<AccountTimeStamp> valueHistory = new LinkedList<AccountTimeStamp>();    	
     	
     	// create the statement
     	PreparedStatement statement = connec.prepareStatement(
 				"SELECT * FROM Account_History\n" + 
-				"INNER JOIN Trading_Accounts ON Account_History.account_id = Trading_Accounts.user_id\n" + 
 				"WHERE Trading_accounts.user_id = ?");
 
     	// set variable for parameter
@@ -56,12 +80,6 @@ public class AccountHistoryTable extends DatabaseTable {
     	
 		return valueHistory;
     }
-
-	@Override
-	public List<?> getAll() throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public String toString() {

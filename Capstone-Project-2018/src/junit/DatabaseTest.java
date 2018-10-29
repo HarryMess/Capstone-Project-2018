@@ -14,7 +14,7 @@ import model.database.DatabaseTable;
 
 class DatabaseTest {
 
-	private static Connection connec = null; /* Instance */
+	private static Connection connec = DatabaseTable.getConnection(); /* Instance */
 	
 	@Test
 	void testConnection() {
@@ -41,7 +41,7 @@ class DatabaseTest {
 	@Test
 	void getAdminUser() {
 		
-		connec = DatabaseTable.getConnection();		
+//		connec = DatabaseTable.getConnection();		
 		String user = "admin@asx.com.au";
 		
 		try {

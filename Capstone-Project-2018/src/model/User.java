@@ -7,34 +7,32 @@ import java.security.NoSuchAlgorithmException;
 
 import javax.xml.bind.DatatypeConverter;
 
-//import javax.xml.bind.DatatypeConverter;
-
 public class User
 {
 	private int id;
 	private final String email;
 	private String password;
-	private TradingAccount account;
+//	private TradingAccount account;
 	
 	public User(String email, String password)
 	{
 		this.email = email;;
 		this.password = password;
-		this.account = null;
+//		this.account = null;
 	}
 	
 	public User(String email, String password, TradingAccount account)
 	{
 		this.email = email;;
 		this.password = password;
-		this.account = account;
+//		this.account = account;
 	}
 	
 	public User(int id, String email, String password, TradingAccount account) {
 		this.id = id;
 		this.email = email;;
 		this.password = password;
-		this.account = account;
+//		this.account = account;
 	}
 	
 	public int getId() {
@@ -46,9 +44,9 @@ public class User
 		return email;
 	}
 	
-	public TradingAccount getTradingAccount() {
-		return account;
-	}
+//	public TradingAccount getTradingAccount() {
+//		return account;
+//	}
 	
 	public String getPassword()
 	{
@@ -81,10 +79,10 @@ public class User
 		}
 	}
 	
-	public void setTradingAccount(TradingAccount account)
-	{
-		this.account = account;
-	}
+//	public void setTradingAccount(TradingAccount account)
+//	{
+//		this.account = account;
+//	}
 	
 	
 	public boolean passwordMatches(String passwordEntered) {

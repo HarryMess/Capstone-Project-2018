@@ -6,8 +6,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
-
-import model.Company;
+import model.Stock;
 import model.database.StocksTable;
 
 class GeneratePrices {
@@ -15,17 +14,17 @@ class GeneratePrices {
 	@Test
 	void generateStartingPrices() {
 		
-		StocksTable stocks = StocksTable.getInstance();		
+		StocksTable stocksTable = StocksTable.getInstance();		
 		
-		assert(stocks != null);
+		assert(stocksTable != null);
 		
 		try {
-			stocks.generateStartingPrices(10000, 100000);
+//			stocks.generateStartingPrices(10000, 100000);
 			
-			List<Company> companies = stocks.getCompanies();
+			List<Stock> stocks = stocksTable.getAll();
 			
-			for(Company company : companies) {
-				System.out.println(company.toString());
+			for(Stock stock : stocks) {
+				System.out.println(stock.toString());
 			}
 			
 		} catch(SQLException | NullPointerException e) {

@@ -2,38 +2,57 @@ package model;
 
 public class Stock {
 
+	// columns from stocks table
 	private String code;
-	private Company company;
+	private String companyName;
 	private int ownerId;
 	private int quantity;
-
-	public Stock(String code, int ownerId, int quantity) {
+	private float marketPrice;
+	private float profitPerHour;
 	
+	public Stock(String code, String companyName, int ownerId, float marketPrice) {
+		
 		this.code = code;
-		this.ownerId = ownerId;	
+		this.companyName = companyName;
+		this.quantity = 1;
+		this.ownerId = ownerId;
+		this.marketPrice = marketPrice;
+		this.profitPerHour = 0;
+	}
+
+	public Stock(String code, String companyName, int ownerId, float marketPrice, 
+			int quantity, float profitPerHour) {
+		
+		this.code = code;
+		this.companyName = companyName;
 		this.quantity = quantity;
+		this.ownerId = ownerId;
+		this.marketPrice = marketPrice;
+		this.profitPerHour = profitPerHour;
 	}
 	
-	public Stock(Company company, int quantity)	{
-		this.company = company;
-		this.quantity = quantity;
+	public String getCode() {
+		return code;
+	}
+
+	public String getCompanyName() {
+		return companyName;
 	}
 
 	public int getOwner() {
 		return ownerId;
 	}
 	
-	
-	public Company getCompany() {
-		return company;
-	}
-	
-	public String getCompanyCode() {
-		return code;
-	}
-
 	public int getQuantity() {
 		return quantity;
+	}
+	
+	public float getMarketPrice() {
+		return marketPrice;
+	}
+	
+	public float getProfitPerHour() {
+		return profitPerHour;
 	}
 	
 	public void addShares(int amount) {
@@ -50,7 +69,7 @@ public class Stock {
 	
 	@Override
 	public String toString() {
-		return "Code: " + code + ", Owner: " + ownerId + ", Quantity: " + quantity;
+		return "Code: " + code + ", Name: " + companyName + ", Owner: " + ownerId + ", Price: " + marketPrice + " Quantity: " + quantity;
 	}
 
 }

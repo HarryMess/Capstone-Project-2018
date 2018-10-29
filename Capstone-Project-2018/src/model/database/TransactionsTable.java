@@ -52,11 +52,12 @@ public class TransactionsTable extends DatabaseTable {
     	while(results.next()) {
     		
     		Timestamp dateTime = results.getTimestamp("date_time");
-    		String client = results.getString("client");
-    		String company = results.getString("company_id");
+    		int buyer = results.getInt("buyer");
+    		int seller = results.getInt("seller");
+    		String company = results.getString("company_code");
     		float price = results.getFloat("price");
     		int amount = results.getInt("amount");
-	    	transactions.add(new Transaction(dateTime, client, company, company, price, amount));
+	    	transactions.add(new Transaction(dateTime, buyer, seller, company, price, amount));
     	}
 
     	return transactions;    	
@@ -72,7 +73,7 @@ public class TransactionsTable extends DatabaseTable {
  			statement.setTimestamp(1, transaction.getTimestamp());
  			statement.setInt(2, transaction.getBuyerId());
  			statement.setInt(3, transaction.getSellerId());
- 			statement.setString(4, transaction.getStockCode());
+ 			statement.setString(4, transaction.getCompanyCode());
  			statement.setFloat(5, transaction.getPrice());
  			
  			// attempt to execute the query

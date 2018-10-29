@@ -5,7 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
 
-import model.Company;
+import model.Stock;
 
 public class StockHistoryTable extends DatabaseTable{
 	
@@ -37,15 +37,15 @@ public class StockHistoryTable extends DatabaseTable{
 		return null;
 	}
 	
-	public void addValueTimeStamp(Company company) throws SQLException {
+	public void addValueTimeStamp(Stock stock) throws SQLException {
 	
 		// SQL update transaction goes here 
 		PreparedStatement statement = connection.prepareStatement(
 				"INSERT INTO Stock_History (COMPANY_ID, DATE_TIME, MARKET_PRICE) \n" +
 				"VALUES ( ? , CURRENT_TIMESTAMP, ?)");
 		
-		statement.setString(1, company.getCode());
-		statement.setDouble(2, company.getMarketPrice());
+		statement.setString(1, stock.getCode());
+		statement.setDouble(2, stock.getMarketPrice());
 		
 		statement.execute();
 		statement.close();

@@ -8,7 +8,7 @@ import java.sql.Timestamp;
 import java.util.LinkedList;
 import java.util.List;
 
-import model.ValueTimeStamp;
+import model.AccountTimeStamp;
 
 public class AccountHistoryTable extends DatabaseTable {
 	
@@ -28,9 +28,9 @@ public class AccountHistoryTable extends DatabaseTable {
 		connec = super.getConnection();
 	}
 	
-	public List<ValueTimeStamp> getValueHistory(int userId) throws SQLException {
+	public List<AccountTimeStamp> getValueHistory(int userId) throws SQLException {
     	
-    	List<ValueTimeStamp> valueHistory = new LinkedList<ValueTimeStamp>();    	
+    	List<AccountTimeStamp> valueHistory = new LinkedList<AccountTimeStamp>();    	
     	
     	// create the statement
     	PreparedStatement statement = connec.prepareStatement(
@@ -46,11 +46,12 @@ public class AccountHistoryTable extends DatabaseTable {
     		
     		// get the column values from the result
     		Timestamp timestamp = results.getTimestamp("date_time");
+    		int accountId = results.getInt("account_id");
     		float balance = results.getFloat("balance");
     		float shareValue = results.getFloat("share_value");
     		
     		// add the values to the arrayList
-    		valueHistory.add(new ValueTimeStamp(timestamp, balance, shareValue));
+    		valueHistory.add(new AccountTimeStamp(timestamp, accountId, balance, shareValue));
     	}
     	
 		return valueHistory;

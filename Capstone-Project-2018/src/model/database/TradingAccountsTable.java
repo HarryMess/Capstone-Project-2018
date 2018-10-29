@@ -11,7 +11,7 @@ import model.Stock;
 import model.TradingAccount;
 import model.Transaction;
 import model.User;
-import model.ValueTimeStamp;
+import model.AccountTimeStamp;
 
 public class TradingAccountsTable extends DatabaseTable {
 	

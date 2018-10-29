@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import model.Company;
 import model.Stock;
 import model.TradingAccount;
 import model.Transaction;
@@ -45,12 +44,15 @@ public class StocksTable extends DatabaseTable {
 		ResultSet results = statem.executeQuery("SELECT * FROM STOCKS");
 		
 		String code = results.getString("code");
-		int ownerId = results.getInt("OwnerId");
-		int quantity = results.getInt("quantity");
+		String companyName = results.getString("name");
+		int ownerId = results.getInt("owner_Id");
+		int quantity = results.getInt("amount");
+		float marketPrice = (float) results.getDouble("current_price");
+		float profitPerHour = (float) results.getDouble("profit_per_hour");
 		
 		statem.close();
 		
-		new Stock(code, ownerId, quantity);
+		new Stock(code, companyName, ownerId, marketPrice, quantity, profitPerHour);
         
 		return null;
 	}
@@ -67,30 +69,10 @@ public class StocksTable extends DatabaseTable {
 		results.next(); // get the first match	
 		
 		String name = results.getString("Name");
-		double price = results.getDouble("Current_Price");
+		int ownerId = results.getInt("Owner_Id");
+		float price = (float) results.getDouble("Current_Price");	
 		
-		Company company = new Company(code, name, 1, (float) price);
-		
-		return new Stock(company, 1);
-	}
-	
-	// recieves a list of all companies from the stocks table in the database
-	public List<Company> getCompanies() throws SQLException {
-		List<Company> companies = new ArrayList<Company>();
-		
-		Statement statem = connection.createStatement();			
-		ResultSet results = statem.executeQuery("SELECT * FROM STOCKS");
-		
-		while(results.next()) {
-		
-			String code = results.getString("Code");
-			String name = results.getString("Name");
-			double price = results.getDouble("current_price");
-			
-			companies.add(new Company(code, name, (float) price));
-		}
-		
-		return companies;
+		return new Stock(code, name, ownerId, price);
 	}
 	
 	// get stocks owned for specific user by the id
@@ -107,8 +89,10 @@ public class StocksTable extends DatabaseTable {
     	while(results.next()) {
     		
     		String code = results.getString("Code");
+    		String name = results.getString("name");
+    		float price = (float) results.getDouble("current_price"); 
     		
-    		stocksOwned.add(new Stock(code, userId, 1));
+    		stocksOwned.add(new Stock(code, name, userId, price));
     	}
     	
     	return stocksOwned;
@@ -131,11 +115,12 @@ public class StocksTable extends DatabaseTable {
     		
     		String code = results.getString("Code");
     		String name = results.getString("Name");
-    		int totalShares = 1;
+    		int ownerId = results.getInt("Owner");
+    		float marketPrice = (float) results.getDouble("Current_Price");
+//    		
+//    		Company company = new Company(code, name, totalShares);
     		
-    		Company company = new Company(code, name, totalShares);
-    		
-    		stocksOwned.add(new Stock(company, totalShares));
+    		stocksOwned.add(new Stock(code, name, ownerId, marketPrice));
     	}
     	
     	return stocksOwned;
@@ -153,7 +138,7 @@ public class StocksTable extends DatabaseTable {
  																+ "WHERE Owner = ? AND Company = ?");											
  			statement.setInt(1, buyer.getId());
  			statement.setInt(2, seller.getId());
- 			statement.setString(3, stock.getCompany().getCode());
+ 			statement.setString(3, stock.getCode());
  			
  			// run the query
  			statement.execute();
@@ -161,7 +146,8 @@ public class StocksTable extends DatabaseTable {
  			
  			accounts.transferFunds(buyer, seller, price);
  			transactions.addTransaction(
- 					new Transaction(new Timestamp(System.currentTimeMillis()), buyer, seller, stock, price)
+ 					new Transaction(new Timestamp(System.currentTimeMillis()), 
+ 							buyer.getId(), seller.getId(), stock.getCode(), price, 1)
  			);
  			
  		} catch (SQLException e) {
@@ -173,7 +159,7 @@ public class StocksTable extends DatabaseTable {
  	}
  	
  // Transfers stock ownership from one account to the next
-  	public boolean transferStock(TradingAccount buyer, TradingAccount seller,  String stockCode, 
+  	public boolean transferStock(TradingAccount buyer, TradingAccount seller, String stockCode, 
   			int amount, float price) {
   		
   		TradingAccountsTable accounts = TradingAccountsTable.getInstance();
@@ -190,11 +176,10 @@ public class StocksTable extends DatabaseTable {
   			statement.execute();
   			statement.close();
   			
-  			Stock stock = new Stock(stockCode, seller.getId(), 1);
-  			
   			accounts.transferFunds(buyer, seller, price);
   			transactions.addTransaction(
-  					new Transaction(new Timestamp(System.currentTimeMillis()), buyer, seller, stock, price)
+  					new Transaction(new Timestamp(System.currentTimeMillis()), 
+  							buyer.getId(), seller.getId(), stockCode, price, 1)
   			);
   			
   			return true;
@@ -207,9 +192,6 @@ public class StocksTable extends DatabaseTable {
   		return false;
   	}
  	
-	public Company getCompany(String id) {
-		return null;
-	}
  	
  	// This method gets called as soon as the game begins
     public void generateStartingPrices(float lowestCost, float highestCost) throws SQLException {

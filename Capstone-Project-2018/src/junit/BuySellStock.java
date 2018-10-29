@@ -28,7 +28,7 @@ class BuySellStock {
 //				
 //			Stock stock = stocks.getStock("A2M");
 //			
-//			stocks.transferStock(paul, admin, "A2M", 1, stock.getCompany().getMarketPrice());
+//			stocks.transferStock(paul, admin, "A2M", 1, stock.getMarketPrice());
 //			
 //		} catch (SQLException | NullPointerException e) {			
 //			e.printStackTrace();
@@ -51,7 +51,7 @@ class BuySellStock {
 				
 			Stock stock = stocks.getStock("A2M");
 			
-			stocks.transferStock(admin, paul, "A2M", 1, stock.getCompany().getMarketPrice());
+			stocks.transferStock(admin, paul, "A2M", 1, stock.getMarketPrice());
 			
 		} catch (SQLException | NullPointerException e) {			
 			e.printStackTrace();

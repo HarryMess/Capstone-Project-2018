@@ -96,24 +96,9 @@ public class UsersTable extends DatabaseTable{
 		// has the password before adding the user
 		user.hashPassword(user.getPassword());
 		
-		// System.out.println("Hashed password: "+ user.getPassword());
-		
-		// create a new trading account object
-		
 		try {
 			// add data to the database tables
 			addUser(user);
-			
-			// get the id generated from the new user
-//			PreparedStatement statement = connection.prepareStatement("SELECT id FROM Users WHERE email = ?");			
-//			statement.setString(1, user.getEmail());
-//			
-//			ResultSet result = statement.executeQuery();			
-//			result.next(); // gets the first result			
-//			int id = result.getInt("id");
-//			
-//			// add trading account to user object
-//			user.setTradingAccount(new TradingAccount(id, name));
 			
 			// add the trading account to the trading account table			
 			tradingAccounts.addTradingAccount(user, name);
@@ -220,14 +205,11 @@ public class UsersTable extends DatabaseTable{
 		String password = result.getString("password");
 		boolean isAdmin = result.getBoolean("isAdmin");
 		
-		// get the player name from the trading account
-		TradingAccount account = tradingAccounts.getTradingAccount(id);
-		
 		// create new user based on its type		
 		if(isAdmin)
-			user = new Admin(email, password, account);
+			user = new Admin(email, password);
 		else
-			user = new User(email, password, account);		
+			user = new User(email, password);		
 		return user;
 	}
 	
@@ -247,14 +229,11 @@ public class UsersTable extends DatabaseTable{
 		String password = result.getString("password");
 		boolean isAdmin = result.getBoolean("isAdmin");
 		
-		// get the player name from the trading account
-		TradingAccount account = tradingAccounts.getTradingAccount(email);
-		
 		// create new user based on its type		
 		if(isAdmin)
-			user = new Admin(email, password, account);
+			user = new Admin(email, password);
 		else
-			user = new User(email, password, account);		
+			user = new User(email, password);		
 		return user;
 	}
 	
@@ -276,12 +255,11 @@ public class UsersTable extends DatabaseTable{
 		while(results.next()) {
 			String email = results.getString("email");
 			String password = results.getString("password");
-			TradingAccount account = null;
 			
-			users.add(new User(email, password, account));
+			users.add(new User(email, password));
 		}
 		
-		return users; // returns th results as a list
+		return users; // returns the results as a list
 	}
 	
 	@Override

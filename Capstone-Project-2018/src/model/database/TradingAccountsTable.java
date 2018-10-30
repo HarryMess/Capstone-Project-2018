@@ -10,12 +10,23 @@ import java.util.List;
 import model.TradingAccount;
 import model.User;
 
+/**
+ * Contains methods that run SQL queries relevant to the TradingAccounts Table.
+ * Transfer of money is also handled here
+ * @author Paul King - s3449513
+ * @version 1.0
+ * @since 30/10/2018
+ */
 public class TradingAccountsTable extends DatabaseTable {
 	
-	private static TradingAccountsTable tradingAccounts;
-	
+	private static TradingAccountsTable tradingAccounts;	
     private Connection connection; /* Instance */
     
+    /**
+	 * Used to get the static object of this class
+	 * If the value is null it will be instantiated using a private constructor
+	 * @return gets a singleton instance of this class
+	 */
     public static TradingAccountsTable getInstance() {
 		if(tradingAccounts == null) {
 			tradingAccounts = new TradingAccountsTable();
@@ -23,17 +34,26 @@ public class TradingAccountsTable extends DatabaseTable {
 		return tradingAccounts;
 	}
 	
+    /**
+     * Constructor
+     */
 	private TradingAccountsTable() {
 		connection = super.getConnection();
 	}
     
+	/* Needs to be implemented */
 	@Override
 	public List<TradingAccount> getAll() throws SQLException {
 		// TODO Auto-generated method stub
 		return null;
 	}
     
-    // returns the entire trading account matching a user id
+	/**
+	 * searches the database for a trading account matching a user id
+	 * @param userId accepts the user id found in the user tables
+	 * @return returns a TradingAccount object created from the result set
+	 * @throws SQLException
+	 */
  	public TradingAccount getTradingAccount(int userId) throws SQLException {
  		
  		PreparedStatement statement = connection.prepareStatement(
@@ -55,7 +75,12 @@ public class TradingAccountsTable extends DatabaseTable {
  		return new TradingAccount(userId, name, balance, hours);
  	}
  	
- 	// returns the entire trading account matching an email address	
+ 	/**
+	 * searches the database for a trading account matching an email address
+	 * @param email accepts the email address found in the user tables
+	 * @return returns a TradingAccount object created from the result set
+	 * @throws SQLException
+	 */	
  	public TradingAccount getTradingAccount(String email) throws SQLException {
  		
  		PreparedStatement statement = connection.prepareStatement(
@@ -80,11 +105,16 @@ public class TradingAccountsTable extends DatabaseTable {
  		return new TradingAccount(userId, name, balance, hours);
  	}
  	
- 	// called in the method to add a new trading acount to the trade accounts table
+ 	/**
+ 	 * Adds a new trading account to the database for a specific user account
+ 	 * @param user accepts a user object from the model 
+ 	 * @param name this is the name you wish to give the player who owns the new trading account
+ 	 * @throws SQLException
+ 	 */
  	public void addTradingAccount(User user, String name) throws SQLException{
  		
- 		System.out.println("Old Trading Account table:");
- 		showTradeAccountsTable();
+// 		System.out.println("Old Trading Account table:");
+// 		showTradeAccountsTable();
 
  		// get the id from the email address
  		PreparedStatement statement1 = connection.prepareStatement("SELECT ID FROM USERS WHERE EMAIL = ?");
@@ -111,17 +141,20 @@ public class TradingAccountsTable extends DatabaseTable {
  		statement2.setDouble(3, account.getBalance());
  		statement2.setInt(4, account.getHoursActive());
  		
- 		System.out.println("New Trading Account table:");
- 		showTradeAccountsTable();
+// 		System.out.println("New Trading Account table:");
+// 		showTradeAccountsTable();
  			
  		statement2.execute();
  		statement2.close();
  		
- 		System.out.println("New Trading Account table:");
- 		showTradeAccountsTable();		
+// 		System.out.println("New Trading Account table:");
+// 		showTradeAccountsTable();		
  	}    
     
-    // prints out the trading account table
+ 	/**
+ 	 * prints the entire trading accounts table to the console window
+ 	 * @throws SQLException
+ 	 */
     public void showTradeAccountsTable() throws SQLException {
 		
 		Statement statement = connection.createStatement();
@@ -143,6 +176,14 @@ public class TradingAccountsTable extends DatabaseTable {
 		statement.close();
 	}
     
+    /**
+     * Transfers money from one trading account to another by updating the values on the database table
+     * @param sender This is the account sending the money (used in buying)
+     * @param receiver This is the account receiving the money (used in selling)
+     * @param amount This is the amount of money being transferred between the accounts
+     * @return returns true on success, false on failure
+     * @throws SQLException
+     */
 	// Transfers moneys from one player to another by updating the balance on both players on the database table
 	public boolean transferFunds(TradingAccount sender, TradingAccount receiver, float amount) throws SQLException {
 	

@@ -15,12 +15,23 @@ import javax.xml.bind.DatatypeConverter;
 import model.Admin;
 import model.User;
 
+/**
+ * Contains methods that run SQL queries relevant to the Users Table. Registration and login is also done here.
+ * @author Paul King - s3449513
+ * @version 1.0
+ * @since 30/10/2018
+ */
 public class UsersTable extends DatabaseTable{
 	
 	private static UsersTable users;
 	private Connection connection;
 	private TradingAccountsTable tradingAccounts;
 	
+	/**
+	 * Used to get the static object of this class
+	 * If the value is null it will be instantiated using a private constructor
+	 * @return gets a singleton instance of this class
+	 */
 	public static UsersTable getInstance() {
 		
 		if(users == null) {		
@@ -30,12 +41,20 @@ public class UsersTable extends DatabaseTable{
 		return users;
 	}
 	
-	public UsersTable() {
+	/**
+	 * Constructor
+	 */
+	private UsersTable() {
 		connection = super.getConnection();
 		tradingAccounts = TradingAccountsTable.getInstance();
 	}
 	
-	// This method handles the login by comparing credentials with the database
+	/**
+	 * Handles the login by comparing credentials with the database
+	 * @param email used as the username
+	 * @param password the user's password
+	 * @return returns true of login was successful, fals if it failed
+	 */
 	public boolean login(String email, String password)
 	{        
         try
@@ -85,12 +104,19 @@ public class UsersTable extends DatabaseTable{
         return false;
     }
 	
+	/**
+	 * Runs the registration process by first hashing the password then adding a new user to the database
+	 * @param email This is the username
+	 * @param password this is the un-hashed password
+	 * @param name This is a combination of the first name and last name
+	 * @return returns true if login was successful, false if it failed
+	 */
 	public boolean register(String email, String password, String name) 
 	{
 		User user = new User(email, password);
 		
 		// has the password before adding the user
-		user.hashPassword(user.getPassword());
+		hashPassword(user.getPassword());
 		
 		try {
 			// add data to the database tables
@@ -109,6 +135,11 @@ public class UsersTable extends DatabaseTable{
 		return false;
 	}
 	
+	/**
+	 * Called from register method to add a user to the database
+	 * @param user takes a user object once the user has been created
+	 * @return returns true on success, false on failure
+	 */
 	// called in the register method to add a new user to the user table
 	private boolean addUser(User user) {
 		
@@ -143,6 +174,10 @@ public class UsersTable extends DatabaseTable{
 		}		
 	}
 	
+	/**
+	 * prints the entire Users table to the console
+	 * @throws SQLException
+	 */
 	public void showUsersTable() throws SQLException {
 		
 		Statement statement = connection.createStatement();
@@ -161,6 +196,11 @@ public class UsersTable extends DatabaseTable{
 		statement.close();
 	}
 	
+	/**
+	 * Hases the password during the registration process using the SHA1 algorithm.
+	 * @param password take the unhashed password as an argument
+	 * @return The hashed password
+	 */
 	private String hashPassword(String password) {
 		
 		String hashedPassword;
@@ -184,6 +224,12 @@ public class UsersTable extends DatabaseTable{
 		return password;
 	}
 	
+	/**
+	 * Find a user in the database matching a specific id 
+	 * @param id the id to search the Users table for
+	 * @return returns the user object created from result set
+	 * @throws SQLException
+	 */
 	// returns a user object based on the id
 	public User getUser(int id) throws SQLException {
 		
@@ -209,6 +255,12 @@ public class UsersTable extends DatabaseTable{
 		return user;
 	}
 	
+	/**
+	 * Find a user in the database matching a specific username
+	 * @param email takes an email address as the username to search the users table with
+	 * @return returns the user object created from result set
+	 * @throws SQLException
+	 */
 	// returns a user object based on the Username
 	public User getUser(String email) throws SQLException {
 		
@@ -233,13 +285,23 @@ public class UsersTable extends DatabaseTable{
 		return user;
 	}
 	
+	/**
+	 * Logs out the user by setting the the static current user variable in DatabaseTable to null
+	 */
 	// sets the state of the program to logged out
 	public void Logout()
 	{
 		DatabaseTable.setCurrentUser(null);
 	}
 
-//	@Override
+	/*
+	 * (non-Javadoc)
+	 * @see model.database.DatabaseTable#getAll()
+	 */
+	/**
+	 * Returns all rows in the Users table as one list containing 'User' objects
+	 */
+	@Override
 	public List<User> getAll() throws SQLException {
 		List<User> users = new ArrayList<User>();
 		

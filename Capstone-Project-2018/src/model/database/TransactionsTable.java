@@ -10,6 +10,12 @@ import java.util.List;
 
 import model.Transaction;
 
+/**
+ * 
+ * @author Paul King - s3449513
+ * @version 1.0
+ * @since 30/10/2018
+ */
 public class TransactionsTable extends DatabaseTable {
 	
 	private static TransactionsTable transactions;	

@@ -14,6 +14,13 @@ import model.Stock;
 import model.TradingAccount;
 import model.Transaction;
 
+/**
+ * Contains methods that run SQL queries relevant to the Stocks Table
+ * Buy and selling of stock as well as updating the prices and dividend is also handled here
+ * @author Paul King - s3449513
+ * @version 1.0
+ * @since 30/10/2018
+ */
 public class StocksTable extends DatabaseTable {
 	
 	private static StocksTable stocks;
@@ -21,6 +28,11 @@ public class StocksTable extends DatabaseTable {
 	private TransactionsTable transactions;
 	private StockHistoryTable stockHistory;
 	
+	/**
+	 * Used to get the static object of this class
+	 * If the value is null it will be instantiated using a private constructor
+	 * @return gets a singleton instance of this class
+	 */
 	public static StocksTable getInstance() {
 		if(stocks == null) {
 			stocks = new StocksTable();				
@@ -29,12 +41,19 @@ public class StocksTable extends DatabaseTable {
 		return stocks;
 	}
 	
-	public StocksTable() {
+	/**
+	 * Constructor. Retrieves the connection along with the transactions and stockhistory table classes
+	 */
+	private StocksTable() {
 		connection = super.getConnection();
 		transactions = TransactionsTable.getInstance();
 		stockHistory = StockHistoryTable.getInstance();
 	}
 	
+	/*
+	 * (non-Javadoc)
+	 * @see model.database.DatabaseTable#getAll()
+	 */
 	@Override
 	public List<Stock> getAll() throws SQLException {
 		
@@ -61,7 +80,12 @@ public class StocksTable extends DatabaseTable {
 		return stocks;
 	}
 	
-	// returns an individual stock object by finding the matching code in the database
+	/**
+	 * Queries the Stocks table for an individual stock matching a company code
+	 * @param code takes the company code as an argument. This is unique
+	 * @return returns a stock object created from the result set
+	 * @throws SQLException
+	 */
 	public Stock getStock(String code) throws SQLException {
 		
 		PreparedStatement statement = connection.prepareStatement("SELECT * FROM STOCKS\n"
@@ -79,6 +103,13 @@ public class StocksTable extends DatabaseTable {
 		return new Stock(code, name, ownerId, price);
 	}
 	
+	/**
+	 * Queries the stock table, returning all stocks owned by a particular trading account
+	 * using the user account id
+	 * @param userId this is the id foreign key referencing the trading account
+	 * @return returns a list of the type 'Stock' built from the result set
+	 * @throws SQLException
+	 */
 	// get stocks owned for specific user by the id
     public List<Stock> getStocksOwned(int userId) throws SQLException {
     	
@@ -102,6 +133,13 @@ public class StocksTable extends DatabaseTable {
     	return stocksOwned;
     }
     
+    /**
+     * Queries the stock table, returning all stocks owned by a particular trading account
+	 * using the user account email address/username
+     * @param email takes the name of the user account as an argument for referencing
+     * @return returns a list of the type 'Stock' built from the result set
+     * @throws SQLException
+     */
     // get stocks owned for specific user by the user email address
     public List<Stock> getStocksOwned(String email) throws SQLException {
     	
@@ -121,8 +159,6 @@ public class StocksTable extends DatabaseTable {
     		String name = results.getString("Name");
     		int ownerId = results.getInt("Owner");
     		float marketPrice = (float) results.getDouble("Current_Price");
-//    		
-//    		Company company = new Company(code, name, totalShares);
     		
     		stocksOwned.add(new Stock(code, name, ownerId, marketPrice));
     	}
@@ -130,6 +166,15 @@ public class StocksTable extends DatabaseTable {
     	return stocksOwned;
     }
     
+    /**
+     * Transfers ownership of the stock from one account to the other by updating the owner id in Stocks table
+     * @param buyer The account that is purchasing the stock
+     * @param seller The account that is selling the stock (Note: this can include the company themselves)
+     * @param stock takes a full stock object which contains the company code
+     * @param amount the amount of stocks being purchased of the specified company. Set this argument to 1
+     * @param price the price of the stock determining the amount of money involved in the transaction
+     * @return returns true on success, false on failure
+     */
     // Transfers stock ownership from one account to the next
  	public boolean transferStock(TradingAccount buyer, TradingAccount seller, Stock stock, 
  			int amount, float price) {
@@ -162,7 +207,16 @@ public class StocksTable extends DatabaseTable {
  		return false;
  	}
  	
- // Transfers stock ownership from one account to the next
+ 	/**
+     * Transfers ownership of the stock from one account to the other by updating the owner id in Stocks table
+     * @param buyer The account that is purchasing the stock
+     * @param seller The account that is selling the stock (Note: this can include the company themselves)
+     * @param stockCode takes the company code as a string referencing matching code in the database
+     * @param amount the amount of stocks being purchased of the specified company. Set this argument to 1
+     * @param price the price of the stock determining the amount of money involved in the transaction
+     * @return returns true on success, false on failure
+     */
+ 	// Transfers stock ownership from one account to the next
   	public boolean transferStock(TradingAccount buyer, TradingAccount seller, String stockCode, 
   			int amount, float price) {
   		
@@ -196,7 +250,13 @@ public class StocksTable extends DatabaseTable {
   		return false;
   	}
  	
- 	
+ 	/**
+ 	 * This is called before the start of the game to generating the initial market price of stocks from each
+ 	 * company at random
+ 	 * @param lowestCost sets the minimum cost of a stock
+ 	 * @param highestCost sets the highest cost of a stock
+ 	 * @throws SQLException
+ 	 */
  	// This method gets called as soon as the game begins
     public void generateStartingPrices(float lowestCost, float highestCost) throws SQLException {
     	
@@ -233,11 +293,5 @@ public class StocksTable extends DatabaseTable {
  		// TODO - implement StockMarket.updateMarket
  		
  	}
-
-	@Override
-	public String toString() {
-		// TODO Auto-generated method stub
-		return null;
-	}
  	
 }

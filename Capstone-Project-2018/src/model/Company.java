@@ -1,8 +1,12 @@
 package model;
 
-
 import java.util.Random;
 
+/**
+ * 
+ * @author Paul
+ * @deprecated The variables in the class have all been move to Stock
+ */
 public class Company {
 
 	private String code;

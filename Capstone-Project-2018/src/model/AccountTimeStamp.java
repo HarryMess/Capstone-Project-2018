@@ -1,13 +1,15 @@
-/** ValueTimeStamp.java
- * @author Paul King
- * This class is used to create an object for the Trade_History table which records
- * how much the player was worth over each time interval.
- */
-
 package model;
 
 import java.sql.Timestamp;
 
+/**
+ * This class contains all the variables needed for the Account value history.
+ * It determines how much he player was worth over each time interval.
+ * Contains values from the StockHistory table 
+ * @author Paul King
+ * @version 1.0
+ * @since 30/10/2018 
+ */
 public class AccountTimeStamp {
 
 	// member variables
@@ -16,6 +18,13 @@ public class AccountTimeStamp {
 	private final float balance;
 	private final float shareValue;
 	
+	/**
+	 * 
+	 * @param timestamp
+	 * @param accountId
+	 * @param balance
+	 * @param shareValue
+	 */
 	// constructors
 	public AccountTimeStamp(Timestamp timestamp, int accountId, float balance,
 			float shareValue) {
@@ -26,24 +35,43 @@ public class AccountTimeStamp {
 		this.shareValue = shareValue;
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	// getters	
 	public Timestamp getTimestamp() {
 		return timestamp;
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public float getAccountId() {
 		return accountId;
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public float getBalance() {
 		return balance;
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public float getShareValue() {
 		return shareValue;
 	}
 	
-	// calculate the total worth combine balance and share value
+	/**
+	 * Calculates the total worth of a player by adding balance and share value together
+	 * @return the total value of a player. This value is to be plotted to the graph
+	 */
 	public float getTotalValue() {
 		return balance + shareValue;
 	}

@@ -113,10 +113,7 @@ public class UsersTable extends DatabaseTable{
 	 */
 	public boolean register(String email, String password, String name) 
 	{
-		User user = new User(email, password);
-		
-		// has the password before adding the user
-		hashPassword(user.getPassword());
+		User user = new User(email, hashPassword(password));
 		
 		try {
 			// add data to the database tables
@@ -197,7 +194,7 @@ public class UsersTable extends DatabaseTable{
 	}
 	
 	/**
-	 * Hases the password during the registration process using the SHA1 algorithm.
+	 * Hashes the password during the registration process using the SHA1 algorithm.
 	 * @param password take the unhashed password as an argument
 	 * @return The hashed password
 	 */

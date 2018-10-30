@@ -29,7 +29,7 @@ public class AccountHistoryTable extends DatabaseTable {
 	}
 	
 	@Override
-	public List<?> getAll() throws SQLException {
+	public List<AccountTimeStamp> getAll() throws SQLException {
 		
 		List<AccountTimeStamp> valueHistory = new LinkedList<AccountTimeStamp>();    	
     	

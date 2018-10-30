@@ -131,7 +131,7 @@ public class StocksTable extends DatabaseTable {
     }
     
     // Transfers stock ownership from one account to the next
- 	public boolean transferStock(TradingAccount buyer, TradingAccount seller,  Stock stock, 
+ 	public boolean transferStock(TradingAccount buyer, TradingAccount seller, Stock stock, 
  			int amount, float price) {
  		
  		TradingAccountsTable accounts = TradingAccountsTable.getInstance();

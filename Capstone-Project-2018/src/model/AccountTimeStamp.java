@@ -30,6 +30,10 @@ public class AccountTimeStamp {
 	public Timestamp getTimestamp() {
 		return timestamp;
 	}
+	
+	public float getAccountId() {
+		return accountId;
+	}
 
 	public float getBalance() {
 		return balance;

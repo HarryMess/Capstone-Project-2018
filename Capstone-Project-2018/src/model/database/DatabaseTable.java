@@ -6,30 +6,12 @@ import java.sql.SQLException;
 import java.util.List;
 
 import model.User;
-import view.dashboard.StockTable;
 
 public abstract class DatabaseTable {
 
 	private static final String dbUrl = "jdbc:derby:C:\\RMIT\\Programming Project\\Project Source\\Database;create=true;upgrade=true;user=username";
 	private static Connection connection;
 	private static User currentUser = null;
-	
-	private static UsersTable users; //= new UsersTable();
-	private static TradingAccountsTable tradingAccounts; //= new TradingAccountsTable();
-	private static StocksTable stocks; //= new StocksTable();	
-	private static TransactionsTable transactions; //= new TransactionsTable();
-	private static AccountHistoryTable accountHistory; //= new AccountHistoryTable();
-	private static StockHistoryTable stockHistory; //= new StockHistoryTable();
-	
-	public static void initilize() {
-		users = new UsersTable();
-//		tradingAccounts = new TradingAccountsTable();
-//		stocks = new StocksTable();	
-//		transactions = new TransactionsTable();
-//		accountHistory = new AccountHistoryTable();
-//		stockHistory = new StockHistoryTable();
-		System.out.println("users: " + users);
-	}
 	
 	public static Connection getConnection() {
 		
@@ -60,12 +42,7 @@ public abstract class DatabaseTable {
 	
 	public User getCurrentUser() {
 		return currentUser;
-	}
-	
-	// database table accessors
-	public static UsersTable getUsers() { return users; }	
-	public TradingAccountsTable getTradingAccounts() {	return tradingAccounts;	}
-	
+	}	
 	
 	/* Abstract Methods */
 	public abstract List<?> getAll() throws SQLException;

@@ -13,7 +13,6 @@ import java.util.List;
 import javax.xml.bind.DatatypeConverter;
 
 import model.Admin;
-import model.TradingAccount;
 import model.User;
 
 public class UsersTable extends DatabaseTable{
@@ -46,9 +45,6 @@ public class UsersTable extends DatabaseTable{
         	String correctPassword = null;
         	
         	PreparedStatement statement = connection.prepareStatement("select * from users where lower(email) = lower(?)");
-        	
-//            Statement statem = connec.createStatement();	
-//            String sql2 = "select * from users where email = '"+email+"' ";
             
         	statement.setString(1, email);
         	
@@ -260,11 +256,5 @@ public class UsersTable extends DatabaseTable{
 		}
 		
 		return users; // returns the results as a list
-	}
-	
-	@Override
-	public String toString() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 }

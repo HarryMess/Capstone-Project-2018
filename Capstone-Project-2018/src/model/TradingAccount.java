@@ -17,6 +17,14 @@ public class TradingAccount {
 		hoursActive = 0;
 	}
 	
+public TradingAccount(int userId, String name, double balance, int hoursActive) {
+		
+		this.userId = userId;
+		this.name = name;
+		this.balance = balance;
+		this.hoursActive = hoursActive;
+	}
+	
 	public int getId() {
 		return userId;
 	}

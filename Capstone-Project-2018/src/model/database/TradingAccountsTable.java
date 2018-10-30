@@ -7,22 +7,14 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
 
-import model.Stock;
 import model.TradingAccount;
-import model.Transaction;
 import model.User;
-import model.AccountTimeStamp;
 
 public class TradingAccountsTable extends DatabaseTable {
 	
 	private static TradingAccountsTable tradingAccounts;
 	
     private Connection connection; /* Instance */
-    
-    //references to other tables
-    private StocksTable stocks;
-    private AccountHistoryTable accountHistory;
-    private TransactionsTable transactions;
     
     public static TradingAccountsTable getInstance() {
 		if(tradingAccounts == null) {
@@ -33,10 +25,6 @@ public class TradingAccountsTable extends DatabaseTable {
 	
 	private TradingAccountsTable() {
 		connection = super.getConnection();
-		
- 		// reference the other tables
- 		StocksTable stocks = StocksTable.getInstance();
- 		AccountHistoryTable accountHistory = AccountHistoryTable.getInstance();
 	}
     
 	@Override
@@ -61,15 +49,10 @@ public class TradingAccountsTable extends DatabaseTable {
  		double balance = (double) result.getFloat("Balance");
  		int hours = result.getInt("Hours_active");
  		
- 		// run additional queries for other tables
-// 		List<Stock> stocksOwned = stocks.getStocksOwned(userId);
-// 		List<ValueTimeStamp> valueHistory = accountHistory.getValueHistory(userId);
-// 		List<Transaction> history = transactions.getTransactionHistory(userId);
- 		
  		result.close();		
  		
  		// return new trading account object containing all matching values
- 		return new TradingAccount(userId, name);// balance, hours, valueHistory, stocksOwned, history);
+ 		return new TradingAccount(userId, name, balance, hours);
  	}
  	
  	// returns the entire trading account matching an email address	
@@ -87,20 +70,14 @@ public class TradingAccountsTable extends DatabaseTable {
  		
  		// get values from table
  		int userId = result.getInt("Id");
-// 		System.out.println("id:" + userId);
  		String name = result.getString("Name");
  		double balance = (double) result.getFloat("Balance");
  		int hours = result.getInt("Hours_active");
  		
- 		// run additional queries for other tables
-// 		List<Stock> stocksOwned = stocks.getStocksOwned(userId);
-// 		List<ValueTimeStamp> valueHistory = accountHistory.getValueHistory(userId);
-// 		List<Transaction> history = transactions.getTransactionHistory(userId);
- 		
  		result.close();		
  		
  		// return new trading account object containing all matching values
- 		return new TradingAccount(userId, name); //, balance, hours, valueHistory, stocksOwned, history);
+ 		return new TradingAccount(userId, name, balance, hours);
  	}
  	
  	// called in the method to add a new trading acount to the trade accounts table

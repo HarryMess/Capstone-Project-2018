@@ -246,9 +246,9 @@ public class UsersTable extends DatabaseTable{
 		
 		// create new user based on its type		
 		if(isAdmin)
-			user = new Admin(email, password);
+			user = new Admin(id, email, password);
 		else
-			user = new User(email, password);		
+			user = new User(id, email, password);		
 		return user;
 	}
 	
@@ -271,14 +271,15 @@ public class UsersTable extends DatabaseTable{
 		
 		result.next(); // gets the matching result
 		
+		int id = result.getInt("id");
 		String password = result.getString("password");
 		boolean isAdmin = result.getBoolean("isAdmin");
 		
 		// create new user based on its type		
 		if(isAdmin)
-			user = new Admin(email, password);
+			user = new Admin(id, email, password);
 		else
-			user = new User(email, password);		
+			user = new User(id, email, password);		
 		return user;
 	}
 	
@@ -308,10 +309,12 @@ public class UsersTable extends DatabaseTable{
 		
 		// iterate through the results add each row to the array list
 		while(results.next()) {
+			int id = results.getInt("id");
 			String email = results.getString("email");
 			String password = results.getString("password");
+			boolean isAdmin = results.getBoolean("isAdmin");
 			
-			users.add(new User(email, password));
+			users.add(new User(id, email, password, isAdmin));
 		}
 		
 		return users; // returns the results as a list

@@ -59,7 +59,7 @@ public abstract class DatabaseTable {
 	 * 
 	 * @return gets the user that is currenty logged in
 	 */
-	public User getCurrentUser() {
+	public static User getCurrentUser() {
 		return currentUser;
 	}	
 	

@@ -13,28 +13,28 @@ import model.database.TradingAccountsTable;
 
 class BuySellStock {
 
-//	@Test
-//	void buyFromMarket() {
-//		
-//		TradingAccountsTable accounts = TradingAccountsTable.getInstance();
-//		StocksTable stocks = StocksTable.getInstance();
-//
-//		assert(accounts != null);
-//		assert(stocks != null);
-//		
-//		try {
-//			TradingAccount admin = accounts.getTradingAccount("admin@asx.com.au");
-//			TradingAccount paul = accounts.getTradingAccount("s3449513@student.rmit.edu.au");
-//				
-//			Stock stock = stocks.getStock("A2M");
-//			
-//			stocks.transferStock(paul, admin, "A2M", 1, stock.getMarketPrice());
-//			
-//		} catch (SQLException | NullPointerException e) {			
-//			e.printStackTrace();
-//			fail(e.getMessage());
-//		}
-//	}
+	@Test
+	void buyFromMarket() {
+		
+		TradingAccountsTable accounts = TradingAccountsTable.getInstance();
+		StocksTable stocks = StocksTable.getInstance();
+
+		assert(accounts != null);
+		assert(stocks != null);
+		
+		try {
+			TradingAccount admin = accounts.getTradingAccount("admin@asx.com.au");
+			TradingAccount paul = accounts.getTradingAccount("s3449513@student.rmit.edu.au");
+				
+			Stock stock = stocks.getStock("A2M");
+			
+			stocks.transferStock(paul, admin, "A2M", 1, stock.getMarketPrice());
+			
+		} catch (SQLException | NullPointerException e) {			
+			e.printStackTrace();
+			fail(e.getMessage());
+		}
+	}
 	
 	@Test
 	void sellToMarket() {

@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -77,7 +78,7 @@ public class StockHistoryTable extends DatabaseTable{
 	// 
 	public List<StockTimeStamp> getStockHistory(String companyCode) throws SQLException {
 		
-		List<StockTimeStamp> timestamps = new LinkedList<StockTimeStamp>();
+		List<StockTimeStamp> timestamps = new ArrayList<StockTimeStamp>();
 		
 		PreparedStatement statement = connection.prepareStatement("SELECT * FROM STOCK_HISTORY "
 																+ "WHERE Company_Code = ?");

@@ -3,7 +3,7 @@ package model;
 /**
  * This class contains all the variables needed to stock and company information
  * Contains value from Stocks table
- * @author Paul
+ * @author Paul King
  * @version 1.0
  * @since 30/10/2018
  */
@@ -14,8 +14,11 @@ public class Stock {
 	private String companyName;
 	private int ownerId;
 	private int quantity;
-	private float marketPrice;
+	private double marketPrice;
 	private float profitPerHour;
+	
+	private final int INCREASE_TRESHOLD = 9;
+	private final int DECREASE_TRESHOLD = 4;
 	
 	/**
 	 * The quantity is set to 1 by default and the profitPerHour to 0 in this constructor
@@ -90,7 +93,7 @@ public class Stock {
 	 * 
 	 * @return
 	 */
-	public float getMarketPrice() {
+	public double getMarketPrice() {
 		return marketPrice;
 	}
 	
@@ -124,6 +127,28 @@ public class Stock {
 	 */
 	public void removeShares(int amount) {
 		quantity -= amount;
+	}
+	
+	/**
+	 * Updates the price of the stock by a small amount at random using an algorithm
+	 * This method is to be called on every stock once an hour
+	 */
+	public void updatePrice() {
+		double randomNumber = Math.random();
+//		System.out.println("Random number: " + randomNumber);
+		
+		double adjustment;
+		
+		if(randomNumber > 0.5) {
+			adjustment =  1 + (randomNumber / INCREASE_TRESHOLD);
+//			System.out.println("Price Adjustment: " + adjustment);
+			marketPrice *= adjustment;
+		}
+		else {
+			adjustment = 1 - (randomNumber / DECREASE_TRESHOLD);
+//			System.out.println("Price Adjustment: " + adjustment);
+			marketPrice *= adjustment;
+		}
 	}
 	
 	/*

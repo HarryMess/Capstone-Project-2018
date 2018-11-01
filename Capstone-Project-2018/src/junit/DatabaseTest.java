@@ -3,29 +3,24 @@ package junit;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.text.DecimalFormat;
 
 import org.junit.jupiter.api.Test;
 
-import database.DerbyDB;
+import model.database.DatabaseTable;
 
 class DatabaseTest {
 
-	private static Connection connec = null; /* Instance */
-    private static Statement statem = null;
+	private static Connection connec = DatabaseTable.getConnection(); /* Instance */
 	
 	@Test
 	void testConnection() {
 	 try
        {
-		   Class.forName("org.apache.derby.jdbc.EmbeddedDriver").newInstance();
-		   connec = DerbyDB.getConnection();
-           
+		   connec = DatabaseTable.getConnection();
 
            /* Old method of mapping driver to URL, refer to
             * https://docs.oracle.com/javase/6/docs/api/java/sql/DriverManager.html
@@ -41,16 +36,17 @@ class DatabaseTest {
            fail(e.getMessage());
        }
 	}
+
 	
 	@Test
-	void getAdminTradingAccount() {
+	void getAdminUser() {
 		
+//		connec = DatabaseTable.getConnection();		
 		String user = "admin@asx.com.au";
-		DecimalFormat currency = new DecimalFormat("$.##");
 		
 		try {
 		PreparedStatement statement = connec.prepareStatement(
-				"SELECT * FROM Trade_Accounts WHERE Email = ?");
+				"SELECT * FROM Users WHERE Email = ?");
 		
 		statement.setString(1, user);
 		ResultSet result = statement.executeQuery();
@@ -58,16 +54,18 @@ class DatabaseTest {
 		result.next(); // gets the matching result
 		
 		// get values from table
-		String name = result.getString("Name");
-		float balance =  result.getFloat("Balance");
-		int hours = result.getInt("Hours_active");
+		int id = result.getInt("ID");
+		String email = result.getString("Email");
+		String password = result.getString("Password");
+		boolean isAdmin = result.getBoolean("isAdmin");
 		
 		result.close();
 		statement.close();
 		
-		System.out.println("Name: "+name);
-		System.out.println("Balance: " +currency.format(balance));
-		System.out.println("Hours active: "+hours);
+		System.out.println("Id: "+ id);
+		System.out.println("Email: " + email);
+		System.out.println("password: "+ password);
+		System.out.println("Admin: " + isAdmin);
 		System.out.println();
 		
 		} catch(SQLException e) {
@@ -85,7 +83,8 @@ class DatabaseTest {
 		
 		try {
 		PreparedStatement statement = connec.prepareStatement(
-				"SELECT * FROM Trade_Accounts WHERE Email = ?");
+				"SELECT * FROM Users, Trading_Accounts WHERE Users.Email = ?"
+				+ "AND Trading_Accounts.user_id = Users.id");
 		
 		statement.setString(1, user);
 		ResultSet result = statement.executeQuery();

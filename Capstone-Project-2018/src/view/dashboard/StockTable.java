@@ -1,24 +1,44 @@
 package view.dashboard;
 
+import controller.LinkListener;
+import view.AbstractFrame;
+
 import javax.swing.*;
 import java.awt.*;
 
 public class StockTable extends JPanel
 {
-	public StockTable(Object[][] rowData, Object[] columnNames)
+	private JTable table;
+	public StockTable(String linkedFrame, AbstractTablePanel parentPanel, StockTableModel model)
 	{ //TODO: Actually pull stock data from DataBase
 		setLayout(new BorderLayout());
-		StockTableModel model = new StockTableModel(rowData, columnNames);
-		JTable table = new JTable(model);
+		AbstractFrame parentFrame = parentPanel.getParentFrame();
+
+		//Create components
+		table = new JTable(model); //Actual table
+		JLabel moreInfoLabel = new JLabel("More Info on Selected Item");
 
 		//Table settings
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		table.getTableHeader().setReorderingAllowed(false);
 
+		//Component settings
+		moreInfoLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR)); //Change to hand cursor on hover
+		moreInfoLabel.setForeground(Color.blue);
+		moreInfoLabel.setHorizontalAlignment(JLabel.CENTER);
+
+		//Action listeners
+		moreInfoLabel.addMouseListener(new LinkListener(parentFrame.getFrameManager(), parentFrame, linkedFrame));
+
 		//Add table header, then table itself
 		add(table.getTableHeader(), BorderLayout.NORTH);
 		add(table, BorderLayout.CENTER);
+		add(moreInfoLabel, BorderLayout.SOUTH);
+	}
 
+	public JTable getTable()
+	{
+		return table;
 	}
 }
 

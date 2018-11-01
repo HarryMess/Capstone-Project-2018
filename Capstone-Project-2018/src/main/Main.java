@@ -1,6 +1,5 @@
 package main;
 
-import controller.FrameManager;
 import javax.swing.*;
 
 import controller.FrameManager;
@@ -20,9 +19,7 @@ public class Main
 			@Override
 			public void run()
 			{
-				FrameManager fm = new FrameManager("Stock Market Simulator");
-
-
+				FrameManager fm = new FrameManager("Stock Market Simulator");				
 			}
 		});
 	}

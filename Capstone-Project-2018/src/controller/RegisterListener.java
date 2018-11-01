@@ -2,8 +2,8 @@ package controller;
 
 import javax.swing.*;
 
-import model.Model;
 import model.User;
+import model.database.UsersTable;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,8 +11,8 @@ import java.awt.event.ActionListener;
 public class RegisterListener implements ActionListener
 {	
 	private JTextField emailField, firstNameField, lastNameField, passField, confirmPassField;
-	
-	
+	private UsersTable users;
+
 	public RegisterListener(JTextField userField, JPasswordField passField, JPasswordField confirmPassField,
 							JTextField firstNameField, JTextField lastNameField)
 	{
@@ -21,13 +21,14 @@ public class RegisterListener implements ActionListener
 		this.confirmPassField = confirmPassField;
 		this.firstNameField = firstNameField;
 		this.lastNameField = lastNameField;
+		
+		users = UsersTable.getInstance();
+//		database = Database.getInstance();
 	}
 
 	public void actionPerformed(ActionEvent e)
 	{
-		// get the model
-		Model model = Model.getInstance();
-		
+		// get the model		
 		String email = emailField.getText();
 		String password = passField.getText();
 		String confirmPassword = confirmPassField.getText();
@@ -37,21 +38,28 @@ public class RegisterListener implements ActionListener
 		
 //		if(!validEmailAddress(email)) {
 		
-//		} else if (passwordMatch(password, confirmPassword)) {
+		if (password.equals(confirmPassword)) {
 		
 //		} else if (!nameAlreadyTaken(email) ) {
 		
 //		} else {
-
-			//registerMethod(email, password, confirmPassword, firstName, lastName);
-			model.addUser(new User(email, password, firstName+" "+lastName));
 			
-//			System.out.println("Test call.\nEmail: " + email + "\nName: " + firstName + " " + lastName + "\nPassword: " + password
-//			+ " and confirmed: " + confirmPassword);
+			if(users.register(email, password, firstName + " " + lastName)) // calls method to talk to database
 			
-			JOptionPane.showMessageDialog(null, "The user has been registered", "Registration Confirmation", 
-					JOptionPane.INFORMATION_MESSAGE);
-		
-//		}
+//				System.out.println("Test call.\nEmail: " + email + "\nName: " + firstName + " " + lastName + "\nPassword: " + password
+//				+ " and confirmed: " + confirmPassword);
+				
+				JOptionPane.showMessageDialog(null, "The user has been registered", "Registration Confirmation", 
+						JOptionPane.INFORMATION_MESSAGE);
+			
+			else
+				JOptionPane.showMessageDialog(null, "There was an error registering the user",
+						"Unable To Register Account", JOptionPane.ERROR_MESSAGE);
+		}
+		else {
+			JOptionPane.showMessageDialog(null, "The 'password' and 'confirm password' fields do not match",
+					"Passwords don't match", JOptionPane.WARNING_MESSAGE);
+		}
 	}
+	
 }

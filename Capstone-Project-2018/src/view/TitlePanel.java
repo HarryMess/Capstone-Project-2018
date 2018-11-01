@@ -9,12 +9,10 @@ import java.io.IOException;
 
 public class TitlePanel extends JPanel
 {
-	JFrame parentFrame;
 	private BufferedImage logo;
 
 	public TitlePanel(AbstractFrame parentFrame)
 	{
-		this.parentFrame = parentFrame;
 		//Logo
 		try
 		{ //TODO: Make Logo scale automatically

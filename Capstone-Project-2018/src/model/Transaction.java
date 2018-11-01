@@ -1,92 +1,97 @@
 package model;
 
-import java.sql.Time;
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
 
-import database.StockMarket;
-
-import java.sql.Date;
-
+/**
+ * This class contains all the variables needed for transaction after a purchase ot sale has been made
+ * Contains values from Transactions Table
+ * @author Paul King
+ * @version 1.0
+ * @since 30/10/2018
+ */
 public class Transaction {
 
+	// class member variables
 	private int id;
-	
-	// used in database
-	private String buyerId;
-	private String sellerId;
-	private String stockId;
-	
-	private final TradingAccount buyer;
-	private final TradingAccount seller;
-	private final Stock stock;
-	private final Timestamp dateTime;
-	
+	private final int buyerId;
+	private final int sellerId;
+	private final String companyCode;
+	private final Timestamp dateTime;	
 	private final float price;
 	private final int amount;
 	
-	public Transaction(Timestamp dateTime, String buyerId, String sellerId,
-			String stockId, float price, int amount) {
+	/**
+	 * Constructor
+	 * @param dateTime
+	 * @param buyerId
+	 * @param sellerId
+	 * @param companyCode
+	 * @param price
+	 * @param amount
+	 */
+	public Transaction(Timestamp dateTime, int buyerId, int sellerId,
+			String companyCode, float price, int amount) {
 		
-//		this.id = id;
 		this.buyerId = buyerId;
 		this.sellerId = sellerId;
-		this.stockId = stockId;
+		this.companyCode = companyCode;
 		this.price = price;
 		this.dateTime = dateTime;
 		this.amount = amount;
-		buyer = null;
-		seller = null;
-		stock = null;
-	}
-	
-	public Transaction(TradingAccount buyer, TradingAccount seller,
-			Stock stock, Timestamp dateTime, float price) {
-		
-//		this.id = id;
-		this.price = price;
-		this.buyer = buyer;
-		this.seller = seller;
-		this.stock = stock;
-		this.dateTime = dateTime;
-		this.amount = stock.getQuantity();
-	}
-	
-	public void makeTransaction() {
-		
-		// get the Stock Market object
-		@SuppressWarnings("unused")
-		Model model = Model.getInstance();		
-		// transfer the funds
-		StockMarket market = StockMarket.getInstance();		
-		
-		market.transferFunds(buyer, seller, price);		
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public int getTranasctionId() {
 		return this.id;
-	}
-
-	public String getBuyerId() {
+	}	
+	/**
+	 * 
+	 * @return
+	 */
+	public Timestamp getTimestamp() {
+		return dateTime;
+	}	
+	public int getBuyerId() {
 		return buyerId;
 	}
-
-	public String getSellerId() {
+	/**
+	 * 
+	 * @return
+	 */
+	public int getSellerId() {
 		return sellerId;
 	}
-	
-	public String getStockId() {
-		return stockId;
-	}
-
-	
+	/**
+	 * 
+	 * @return
+	 */
 	public float getPrice() {
 		return price;
 	}
-	
+	/**
+	 * 
+	 * @return
+	 */
+	public int getAmount() {
+		return amount;
+	}
+	/**
+	 * 
+	 * @return
+	 */
+	public String getCompanyCode() {
+		return companyCode;
+	}
+	/*
+	 * (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	@Override
 	public String toString() {
-		return buyer + ", " + seller + ", " + stock + ", " + 
+		return buyerId + ", " + sellerId + ", " + companyCode + ", " + 
 			   dateTime + ", " + price;
 	}
 

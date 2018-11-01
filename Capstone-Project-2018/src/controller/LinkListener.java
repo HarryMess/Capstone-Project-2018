@@ -23,8 +23,24 @@ public class LinkListener extends MouseAdapter
 
 	public void mouseClicked(MouseEvent e)
 	{
+		fm.getFrame(newFrameStr).setVisible(true);
+		oldFrame.setVisible(false);
+	}
+
+
+	public void mousePressed(MouseEvent e) {
+
+	}
+	public void mouseReleased(MouseEvent e) {
+
+	}
+	public void mouseEntered(MouseEvent e) {
+
+	}
+	public void mouseExited(MouseEvent e) {
+
 		//Get new frame from Frame Manager
-		JFrame newFrame = fm.getFrame(newFrameStr);
-		fm.switchFrame(oldFrame, newFrame);
+//		JFrame newFrame = fm.getFrame(newFrameStr);
+//		fm.switchFrame(oldFrame, newFrame);
 	}
 }

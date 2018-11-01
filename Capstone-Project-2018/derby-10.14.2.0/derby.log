@@ -1,0 +1,19 @@
+----------------------------------------------------------------
+Thu Oct 11 21:16:25 AEDT 2018:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-0166-62a0-9f5e-000007037640 
+on database directory C:\RMIT\Programming Project\Project Source\Capstone-Project-2018\derby-10.14.2.0\Database with class loader sun.misc.Launcher$AppClassLoader@55f96302 
+Loaded from file:/C:/RMIT/Programming%20Project/Project%20Source/Capstone-Project-2018/derby-10.14.2.0/lib/derby.jar
+java.vendor=Oracle Corporation
+java.runtime.version=1.8.0_181-b13
+user.dir=C:\RMIT\Programming Project\Project Source\Capstone-Project-2018\derby-10.14.2.0
+os.name=Windows 10
+os.arch=amd64
+os.version=10.0
+derby.system.home=null
+Database Class Loader started - derby.database.classpath=''
+----------------------------------------------------------------
+Thu Oct 11 21:17:25 AEDT 2018: Shutting down Derby engine
+----------------------------------------------------------------
+Thu Oct 11 21:17:25 AEDT 2018:
+Shutting down instance a816c00e-0166-62a0-9f5e-000007037640 on database directory C:\RMIT\Programming Project\Project Source\Capstone-Project-2018\derby-10.14.2.0\Database with class loader sun.misc.Launcher$AppClassLoader@55f96302 
+----------------------------------------------------------------

@@ -1,8 +1,8 @@
 package draw;
 
+import java.sql.SQLException;
 import java.util.List;
 
-import com.sun.jmx.snmp.Timestamp;
 
 /** This example can be found from the following web page:
  *  https://docs.oracle.com/javafx/2/charts/line-chart.htm
@@ -15,30 +15,30 @@ import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.stage.Stage;
+import model.StockTimeStamp;
 import model.database.StockHistoryTable;
-import model.database.StockTimeStamp;
+
  
 public class PriceLineChart extends Application {
  
 
 	@Override 
-	    public void start(Stage stage) {
+	    public void start(Stage stage) throws SQLException {
     	ShowChart(stage, "");
     }
     
 	
     @SuppressWarnings({ "unchecked", "rawtypes" })
-        public void ShowChart(Stage stage, String companyCode) {
- 
+        public void ShowChart(Stage stage, String companyCode) throws SQLException {
+            String CompanyCode = companyCode;
     	    StockHistoryTable shti = StockHistoryTable.getInstance();
-    	    StockTimeStamp stsi = StockTimeStamp.getInstance();
     	    
-    	    List<StockTimeStamp> stslist = shti.getStockHistory(companyCode);
+    	    List<StockTimeStamp> stslist = shti.getStockHistory(CompanyCode);
             
     	    final CategoryAxis xAxis = new CategoryAxis();
             final NumberAxis yAxis = new NumberAxis();
             final LineChart<String,Number> lineChart = new LineChart<String,Number>(xAxis,yAxis);
-            StockTimeStamp sts0 = stslist[0];
+            StockTimeStamp sts0 = stslist.get(0);
             
             String comcode = sts0.getCompanyCode();
             stage.setTitle(comcode);
@@ -51,13 +51,12 @@ public class PriceLineChart extends Application {
             series1.setName(comcode);
             
             //get price array
-            int[] price = getPrice();
             
-            for(int i = 0; i< stslist.length ; i ++) {
-            	StockTimeStamp sts = stslist[i];
-            	int price1 = sts.getPrice();
-            	String date = sts.getTimestamp();
-            	series1.getData().add(new XYChart.Data<String, Integer>(date, price1));
+            for(int i = 0; i< stslist.size(); i ++) {
+            	StockTimeStamp sts = stslist.get(i);
+            	float price = sts.getMarketPrice();            	
+            	java.sql.Timestamp date = sts.getTimestamp();
+            	series1.getData().add(new XYChart.Data<java.sql.Timestamp, Float>(date, price));
             }
      
             Scene scene  = new Scene(lineChart,800,600);       

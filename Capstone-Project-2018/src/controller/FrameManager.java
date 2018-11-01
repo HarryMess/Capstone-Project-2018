@@ -13,6 +13,7 @@ import view.*;
 
 import javax.swing.*;
 import java.awt.*;
+import java.sql.SQLException;
 
 public class FrameManager
 {
@@ -28,59 +29,66 @@ public class FrameManager
 
 	public JFrame getFrame(String frame)
 	{
-		switch(frame)
-		{
-			case("login"):
-				return loginFrame;
-
-			case("register"):
-				if(registerFrame == null)
-				{
-					registerFrame = new RegisterFrame(this, frameTitle);
-				}
-				return registerFrame;
-
-			case("forgotpass"):
-				if(forgotPassFrame == null)
-				{
-					forgotPassFrame = new ForgotPasswordFrame(this, frameTitle);
-				}
-				return forgotPassFrame;
-
-			case("dashboard"):
-				if(dashboardFrame == null)
-				{
-					dashboardFrame = new DashboardFrame(this, frameTitle);
-				}
-				return dashboardFrame;
-
-			case("account"):
-				if(accountFrame == null)
-				{
-					accountFrame = new AccountFrame(this, frameTitle);
-				}
-				return accountFrame;
-			case("mystocks"):
-				if(myStocksFrame == null)
-				{
-					myStocksFrame = new StockInfoFrame("mystocks", this, frameTitle);
-				}
-				return myStocksFrame;
-			case("buystocks"):
-				if(buyStocksFrame == null)
-				{
-					buyStocksFrame = new StockInfoFrame("buystocks", this, frameTitle);
-				}
-				return buyStocksFrame;
-			case("transactions"):
-				if(transactionsFrame == null)
-				{
-					transactionsFrame = new StockInfoFrame("transactions", this, frameTitle);
-				}
-				return transactionsFrame;
-			default:
-				return loginFrame; //If something goes wrong, return user to login
-				//TODO: Add error screen?
+		try {
+		
+			switch(frame)
+			{
+				case("login"):
+					return loginFrame;
+	
+				case("register"):
+					if(registerFrame == null)
+					{
+						registerFrame = new RegisterFrame(this, frameTitle);
+					}
+					return registerFrame;
+	
+				case("forgotpass"):
+					if(forgotPassFrame == null)
+					{
+						forgotPassFrame = new ForgotPasswordFrame(this, frameTitle);
+					}
+					return forgotPassFrame;
+	
+				case("dashboard"):
+					if(dashboardFrame == null)
+					{
+						dashboardFrame = new DashboardFrame(this, frameTitle);
+					}
+					return dashboardFrame;
+	
+				case("account"):
+					if(accountFrame == null)
+					{
+						accountFrame = new AccountFrame(this, frameTitle);
+					}
+					return accountFrame;
+				case("mystocks"):
+					if(myStocksFrame == null)
+					{
+						myStocksFrame = new StockInfoFrame("mystocks", this, frameTitle);
+					}
+					return myStocksFrame;
+				case("buystocks"):
+					if(buyStocksFrame == null)
+					{
+						buyStocksFrame = new StockInfoFrame("buystocks", this, frameTitle);
+					}
+					return buyStocksFrame;
+				case("transactions"):
+					if(transactionsFrame == null)
+					{
+						transactionsFrame = new StockInfoFrame("transactions", this, frameTitle);
+					}
+					return transactionsFrame;
+				default:
+					return loginFrame; //If something goes wrong, return user to login
+					//TODO: Add error screen?
+			}
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+			return null;
 		}
 	}
 

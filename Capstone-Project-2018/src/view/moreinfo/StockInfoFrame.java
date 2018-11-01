@@ -1,6 +1,8 @@
 package view.moreinfo;
 
 import controller.FrameManager;
+import javafx.application.Platform;
+import javafx.embed.swing.JFXPanel;
 import view.AbstractFrame;
 import view.BackToDashboardPanel;
 import view.dashboard.DashboardFrame;
@@ -10,6 +12,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+import java.sql.SQLException;
 
 public class StockInfoFrame extends AbstractFrame
 {
@@ -17,10 +20,15 @@ public class StockInfoFrame extends AbstractFrame
 	private Object[][] rowData;
 	private Object[] columnNames;
 	private JTable stockTable;
-	public StockInfoFrame(String frameType, FrameManager fm, String title)
+	
+	// added by Paul
+	private String companyCode;
+	
+	public StockInfoFrame(String frameType, FrameManager fm, String title) throws SQLException
 	{
 		super(fm, title);
 		String pageTitle;
+		companyCode = "A2M";
 
 		switch(frameType)
 		{
@@ -56,6 +64,8 @@ public class StockInfoFrame extends AbstractFrame
 		JButton buyButton = new JButton("Buy");
 		JButton sellButton = new JButton("Sell");
 		JPanel buttonPanel = new JPanel();
+		
+		
 
 		//Component settings
 		buyButton.setHorizontalAlignment(SwingConstants.LEFT);
@@ -71,9 +81,24 @@ public class StockInfoFrame extends AbstractFrame
 		stockTable.getTableHeader().setReorderingAllowed(false);
 
 		//graph
-		JPanel graph = new JPanel();
+//		JPanel graph = new JPanel();
+		JFXPanel graph = new PriceChartPanel(companyCode);
 		JLabel temp = new JLabel("THIS WILL BE A GRAPH OF PRICES OVER TIME");
 
+		// Added by Paul
+//		Platform.runLater(new Runnable() {
+//			
+//            @Override
+//            public void run() {
+//            	companyCode = "A2M";
+//                try {                	
+//					new PriceChartPanel(companyCode);					
+//				} catch (SQLException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
+//            }
+//       });
 
 		//Add components
 		if(!frameType.equals("transactions"))

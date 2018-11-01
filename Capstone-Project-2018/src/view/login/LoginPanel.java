@@ -31,8 +31,9 @@ public class LoginPanel extends JPanel
 				new LinkListener(parentFrame.getFrameManager(), parentFrame, "register"));
 
 		//Login text fields
-		JTextField emailText = new CustomTextField("Email");
-		JTextField passText = new CustomPasswordField("Password");
+		// add default values for quicker login
+		JTextField emailText = new CustomTextField("admin@asx.com.au");
+		JTextField passText = new CustomPasswordField("password");
 
 		//Login button
 		JButton loginButton = new JButton("Login");
@@ -43,8 +44,7 @@ public class LoginPanel extends JPanel
 		forgotPassLabel.setForeground(Color.blue);
 		forgotPassLabel.addMouseListener(
 				new LinkListener(parentFrame.getFrameManager(), parentFrame, "forgotpass"));
-
-
+		
 		//Add all elements to panel
 		this.add(loginLabel, gbc);
 		this.add(regLabel, gbc);

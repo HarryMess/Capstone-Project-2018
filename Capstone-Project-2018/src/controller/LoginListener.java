@@ -41,8 +41,6 @@ public class LoginListener implements ActionListener
 		System.out.println("Test call.\n Email: " + email + " Password: " + password);
 		
 		if(users.login(email, password)) {
-			JOptionPane.showMessageDialog(null, "Login successul", "Login Confirmation",
-					JOptionPane.INFORMATION_MESSAGE);
 			
 			// open dashboard screen - replace the code below with actual screen
 			new DashboardFrame(fm ,"Dashboard");

@@ -52,7 +52,7 @@ public class PriceChartPanel extends JFXPanel {
         	series1.getData().add(new XYChart.Data<String, Float>(date, price));
         }
  
-        Scene scene  = new Scene(lineChart,800,600);       
+        Scene scene  = new Scene(lineChart, 320, 320);       
         lineChart.getData().addAll(series1);
        
         setScene(scene);

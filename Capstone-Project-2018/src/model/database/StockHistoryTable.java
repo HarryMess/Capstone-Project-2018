@@ -72,7 +72,7 @@ public class StockHistoryTable extends DatabaseTable{
 	 * retrieves all time stamps in the StockHistory table matching a company's unique code
 	 * This list is used to for drawing a graph of the history on the GUI
 	 * @param companyCode takes the company code as string for use in SQL query
-	 * @return returns a linked list of objects from 'StockTimeStamp' built from the result set
+	 * @return returns ab array list of objects from 'StockTimeStamp' built from the result set
 	 * @throws SQLException
 	 */
 	// 

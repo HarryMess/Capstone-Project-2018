@@ -12,6 +12,11 @@ import view.*;
 
 
 import javax.swing.*;
+
+import model.Stock;
+import model.User;
+import model.database.DatabaseTable;
+
 import java.awt.*;
 import java.sql.SQLException;
 
@@ -20,11 +25,16 @@ public class FrameManager
 	private String frameTitle;
 	private AbstractFrame loginFrame, registerFrame, forgotPassFrame, dashboardFrame, accountFrame,
 			myStocksFrame, buyStocksFrame, transactionsFrame;
+	
+	private User user;
+	private String companyCode;
 
 	public FrameManager(String frameTitle)
 	{
 		loginFrame = new LoginFrame(this, frameTitle);
 		this.frameTitle = frameTitle;
+		user = DatabaseTable.getCurrentUser();
+		companyCode = "";
 	}
 
 	public JFrame getFrame(String frame)
@@ -66,19 +76,19 @@ public class FrameManager
 				case("mystocks"):
 					if(myStocksFrame == null)
 					{
-						myStocksFrame = new StockInfoFrame("mystocks", this, frameTitle);
+						myStocksFrame = new StockInfoFrame("mystocks", this, frameTitle, companyCode);
 					}
 					return myStocksFrame;
 				case("buystocks"):
 					if(buyStocksFrame == null)
 					{
-						buyStocksFrame = new StockInfoFrame("buystocks", this, frameTitle);
+						buyStocksFrame = new StockInfoFrame("buystocks", this, frameTitle, companyCode);
 					}
 					return buyStocksFrame;
 				case("transactions"):
 					if(transactionsFrame == null)
 					{
-						transactionsFrame = new StockInfoFrame("transactions", this, frameTitle);
+						transactionsFrame = new StockInfoFrame("transactions", this, frameTitle, companyCode);
 					}
 					return transactionsFrame;
 				default:
@@ -106,6 +116,11 @@ public class FrameManager
 		//Switch visible frame
 		newFrame.setVisible(true);
 		oldFrame.setVisible(false);
+	}
+	
+	// Added by Paul
+	public void SetCompanyCode(String companyCode) {
+		this.companyCode = companyCode;
 	}
 
 }

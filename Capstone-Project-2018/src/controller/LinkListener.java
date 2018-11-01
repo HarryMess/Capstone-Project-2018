@@ -14,11 +14,20 @@ public class LinkListener extends MouseAdapter
 	private JFrame oldFrame;
 	private String newFrameStr;
 	private FrameManager fm;
+	
 	public LinkListener(FrameManager fm, JFrame oldFrame, String newFrameStr)
 	{
 		this.oldFrame = oldFrame;
 		this.newFrameStr = newFrameStr;
 		this.fm = fm;
+	}
+	
+	public LinkListener(FrameManager fm, JFrame oldFrame, String newFrameStr, String companyCode)
+	{
+		this.oldFrame = oldFrame;
+		this.newFrameStr = newFrameStr;
+		this.fm = fm;
+		this.fm.SetCompanyCode(companyCode);
 	}
 
 	public void mouseClicked(MouseEvent e)
@@ -42,5 +51,10 @@ public class LinkListener extends MouseAdapter
 		//Get new frame from Frame Manager
 //		JFrame newFrame = fm.getFrame(newFrameStr);
 //		fm.switchFrame(oldFrame, newFrame);
+	}
+	
+	// Added by Paul
+	public void setCompanyCode(String code) {
+		fm.SetCompanyCode(code);
 	}
 }

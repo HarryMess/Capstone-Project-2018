@@ -1,7 +1,6 @@
 package view.moreinfo;
 
 import controller.FrameManager;
-import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
 import view.AbstractFrame;
 import view.BackToDashboardPanel;
@@ -21,14 +20,10 @@ public class StockInfoFrame extends AbstractFrame
 	private Object[] columnNames;
 	private JTable stockTable;
 	
-	// added by Paul
-	private String companyCode;
-	
-	public StockInfoFrame(String frameType, FrameManager fm, String title) throws SQLException
+	public StockInfoFrame(String frameType, FrameManager fm, String title, String companyCode) throws SQLException
 	{
 		super(fm, title);
 		String pageTitle;
-		companyCode = "A2M";
 
 		switch(frameType)
 		{
@@ -81,24 +76,8 @@ public class StockInfoFrame extends AbstractFrame
 		stockTable.getTableHeader().setReorderingAllowed(false);
 
 		//graph
-//		JPanel graph = new JPanel();
 		JFXPanel graph = new PriceChartPanel(companyCode);
 		JLabel temp = new JLabel("THIS WILL BE A GRAPH OF PRICES OVER TIME");
-
-		// Added by Paul
-//		Platform.runLater(new Runnable() {
-//			
-//            @Override
-//            public void run() {
-//            	companyCode = "A2M";
-//                try {                	
-//					new PriceChartPanel(companyCode);					
-//				} catch (SQLException e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				}
-//            }
-//       });
 
 		//Add components
 		if(!frameType.equals("transactions"))

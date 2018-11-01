@@ -289,8 +289,29 @@ public class StocksTable extends DatabaseTable {
     }
     
     // This method will be called each hour to update the prices in the stock market
- 	public void updateMarket() {	
- 		// TODO - implement StockMarket.updateMarket
+ 	public void updateMarket() throws SQLException {	
+ 		
+ 		// Get all the stocks from the database
+ 		List<Stock> stocks = getAll();
+ 		
+ 		PreparedStatement statement = connection.prepareStatement("UPDATE Stocks\n"
+				+ "SET current_price = ? WHERE code = ?");
+ 		
+ 		// Iterate through the list updating the price for each stock
+ 		for(Stock stock : stocks) {
+ 			
+ 			// Update the list using the an algorithm
+ 			stock.updatePrice();
+ 			
+ 			statement.setDouble(1, stock.getMarketPrice());
+ 			statement.setString(2, stock.getCode());
+ 			
+ 			// run the query
+ 			statement.executeQuery();
+ 			
+ 			// add time to the stock history after price change
+ 			stockHistory.addTimeStamp(stock);
+ 		}
  		
  	}
  	

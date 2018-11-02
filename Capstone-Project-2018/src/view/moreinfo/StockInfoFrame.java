@@ -2,6 +2,7 @@ package view.moreinfo;
 
 import controller.BuyListener;
 import controller.FrameManager;
+import controller.SellListener;
 import javafx.embed.swing.JFXPanel;
 
 import view.AbstractFrame;
@@ -68,6 +69,7 @@ public class StockInfoFrame extends AbstractFrame
 		
 		// add listeners to buttons
 		buyButton.addActionListener(new BuyListener(this, companyCode));
+		sellButton.addActionListener(new SellListener(this, companyCode));
 
 		//Table model
 //		Object[][] rowData = {{"CBA", "72.19", "1.405%", "$1.00", "72.17", "72.19", "71.45", "72.31", "71.45", "12345"}};

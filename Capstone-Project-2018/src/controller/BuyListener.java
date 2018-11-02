@@ -20,6 +20,7 @@ public class BuyListener implements ActionListener {
 	private String companyCode;
 	private User user;
 	
+	// constructor
 	public BuyListener(JFrame frame, String companyCode) {
 		
 		this.frame = frame;
@@ -36,7 +37,7 @@ public class BuyListener implements ActionListener {
 		try {
 			Stock stock = stocksTable.getStock(companyCode);			
 			TradingAccount buyer = tradingAccounts.getTradingAccount(user.getEmail());
-			TradingAccount seller = tradingAccounts.getTradingAccount("admin@asx.com.au");
+			TradingAccount seller = tradingAccounts.getTradingAccount(DatabaseTable.STOCK_MARKET_ACCOUNT);
 			
 			// checks if the the stock is already owned by this trading account
 			if(stock.isOwnedBy(buyer.getId())) {
@@ -50,13 +51,15 @@ public class BuyListener implements ActionListener {
 						"Not enough money", JOptionPane.WARNING_MESSAGE);
 			}
 			
-			else {	
+			else {
+				// updates the information in the database
 				stocksTable.transferStock(buyer, seller, stock.getCode(), 1, stock.getMarketPrice());
 			
-				JOptionPane.showMessageDialog(frame, "You have bought the following from the stock market\n"
-						+ stock.getCode() + "\t" + stock.getCompanyName(), "Purcahse Confirmation", 
-						JOptionPane.INFORMATION_MESSAGE);
-				}
+				if(stocksTable.transferStock(buyer, seller, stock.getCode(), 1, stock.getMarketPrice()))
+					JOptionPane.showMessageDialog(frame, "You have bought the following from the stock market\n"
+					+ stock.getCode() + "\t" + stock.getCompanyName(), "Purcahse Confirmation", 
+					JOptionPane.INFORMATION_MESSAGE);
+			}
 			
 		} catch (SQLException ex) {
 			

@@ -6,6 +6,7 @@ import view.AbstractFrame;
 import javax.swing.*;
 import java.awt.*;
 
+@SuppressWarnings("serial")
 public class StockTable extends JPanel
 {
 	private JTable table;
@@ -28,7 +29,9 @@ public class StockTable extends JPanel
 		moreInfoLabel.setHorizontalAlignment(JLabel.CENTER);
 
 		//Action listeners
-		moreInfoLabel.addMouseListener(new LinkListener(parentFrame.getFrameManager(), parentFrame, linkedFrame));
+		
+		//TODO replace last argument with a variable containing the selected company code
+		moreInfoLabel.addMouseListener(new LinkListener(parentFrame.getFrameManager(), parentFrame, linkedFrame, "A2M"));
 
 		//Add table header, then table itself
 		add(table.getTableHeader(), BorderLayout.NORTH);

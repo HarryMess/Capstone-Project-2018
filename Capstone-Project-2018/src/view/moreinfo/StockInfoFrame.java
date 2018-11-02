@@ -1,8 +1,10 @@
 package view.moreinfo;
 
+import controller.BuyListener;
 import controller.FrameManager;
-import javafx.application.Platform;
+import controller.SellListener;
 import javafx.embed.swing.JFXPanel;
+
 import view.AbstractFrame;
 import view.BackToDashboardPanel;
 import view.dashboard.DashboardFrame;
@@ -14,6 +16,7 @@ import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.sql.SQLException;
 
+@SuppressWarnings("serial")
 public class StockInfoFrame extends AbstractFrame
 {
 	private JTable table;
@@ -21,14 +24,10 @@ public class StockInfoFrame extends AbstractFrame
 	private Object[] columnNames;
 	private JTable stockTable;
 	
-	// added by Paul
-	private String companyCode;
-	
-	public StockInfoFrame(String frameType, FrameManager fm, String title) throws SQLException
+	public StockInfoFrame(String frameType, FrameManager fm, String title, String companyCode) throws SQLException
 	{
 		super(fm, title);
 		String pageTitle;
-		companyCode = "A2M";
 
 		switch(frameType)
 		{
@@ -52,7 +51,6 @@ public class StockInfoFrame extends AbstractFrame
 			}
 		});
 
-
 		setLayout(new BorderLayout());
 
 		//Create components
@@ -63,14 +61,15 @@ public class StockInfoFrame extends AbstractFrame
 
 		JButton buyButton = new JButton("Buy");
 		JButton sellButton = new JButton("Sell");
-		JPanel buttonPanel = new JPanel();
-		
-		
+		JPanel buttonPanel = new JPanel();		
 
 		//Component settings
 		buyButton.setHorizontalAlignment(SwingConstants.LEFT);
 		sellButton.setHorizontalAlignment(SwingConstants.LEFT);
-
+		
+		// add listeners to buttons
+		buyButton.addActionListener(new BuyListener(this, companyCode));
+		sellButton.addActionListener(new SellListener(this, companyCode));
 
 		//Table model
 //		Object[][] rowData = {{"CBA", "72.19", "1.405%", "$1.00", "72.17", "72.19", "71.45", "72.31", "71.45", "12345"}};
@@ -81,9 +80,9 @@ public class StockInfoFrame extends AbstractFrame
 		stockTable.getTableHeader().setReorderingAllowed(false);
 
 		//graph
-//		JPanel graph = new JPanel();
 		JFXPanel graph = new PriceChartPanel(companyCode);
 		JLabel temp = new JLabel("THIS WILL BE A GRAPH OF PRICES OVER TIME");
+<<<<<<< HEAD
 		
 		
 		// Added by Paul
@@ -100,6 +99,8 @@ public class StockInfoFrame extends AbstractFrame
 //				}
 //            }
 //       });
+=======
+>>>>>>> 956111981aebadff2dcd05e17a48611f93e8d9d9
 
 		//Add components
 		if(!frameType.equals("transactions"))

@@ -18,7 +18,7 @@ public class PlayerHistoryChart extends Application {
 
 	@Override 
     public void start(Stage stage) throws SQLException {
-		ShowChart(stage,000);
+		ShowChart(stage,1);
     }
     
 	
@@ -53,7 +53,7 @@ public class PlayerHistoryChart extends Application {
         	AccountTimeStamp aht = ahtlist.get(i);
         	float balance = aht.getBalance();            	
         	java.sql.Timestamp date = aht.getTimestamp();
-        	series1.getData().add(new XYChart.Data<java.sql.Timestamp, Float>(date, balance));
+        	series1.getData().add(new XYChart.Data<String, Float>(date.toString(), balance));
         }
         
        // get share array

@@ -19,10 +19,10 @@ import model.database.StockHistoryTable;
 
  
 @SuppressWarnings("serial")
-public class PriceChartPanel extends JFXPanel {
+public class StockHistoryChartPanel extends JFXPanel {
 	
     @SuppressWarnings({ "unchecked", "rawtypes" })
-    public PriceChartPanel(String companyCode) throws SQLException {
+    public StockHistoryChartPanel(String companyCode) throws SQLException {
         String CompanyCode = companyCode;
 	    StockHistoryTable shti = StockHistoryTable.getInstance();
 	    

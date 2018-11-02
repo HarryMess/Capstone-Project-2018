@@ -1,23 +1,23 @@
-package view.moreinfo;
+package view.account;
 
 import java.sql.SQLException;
 import java.util.List;
+
 import javafx.embed.swing.JFXPanel;
 import javafx.scene.Scene;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
+
 import model.AccountTimeStamp;
 import model.database.AccountHistoryTable;
 
-
-
-public class AccountHistoryPanel extends JFXPanel{
+@SuppressWarnings("serial")
+public class AccountHistoryChartPanel extends JFXPanel {
 	
-    @SuppressWarnings({ "unchecked", "rawtypes" })
-    
-    public AccountHistoryPanel (int accountId) throws SQLException {
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	public AccountHistoryChartPanel(int accountId) throws SQLException {
     	
         int Id = accountId;
         AccountHistoryTable ahti = AccountHistoryTable.getInstance();
@@ -46,7 +46,7 @@ public class AccountHistoryPanel extends JFXPanel{
         	AccountTimeStamp aht = ahtlist.get(i);
         	float balance = aht.getBalance();            	
         	java.sql.Timestamp date = aht.getTimestamp();
-        	series1.getData().add(new XYChart.Data<java.sql.Timestamp, Float>(date, balance));
+        	series1.getData().add(new XYChart.Data<String, Float>(date.toString(), balance));
         }
         
        // get share array
@@ -55,14 +55,12 @@ public class AccountHistoryPanel extends JFXPanel{
         	AccountTimeStamp aht = ahtlist.get(i);
         	float ShareValue = aht.getShareValue();            	
         	java.sql.Timestamp date = aht.getTimestamp();
-        	 series2.getData().add(new XYChart.Data<java.sql.Timestamp, Float>(date, ShareValue));
+        	 series2.getData().add(new XYChart.Data<String, Float>(date.toString(), ShareValue));
         }
-        
-        
  
-        Scene scene  = new Scene(lineChart,800,600);       
+        Scene scene  = new Scene(lineChart, 320, 320);       
         lineChart.getData().addAll(series1);
-         	
-    }
-    
+       
+        setScene(scene);    	
+    } 
 }

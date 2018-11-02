@@ -80,27 +80,8 @@ public class StockInfoFrame extends AbstractFrame
 		stockTable.getTableHeader().setReorderingAllowed(false);
 
 		//graph
-		JFXPanel graph = new PriceChartPanel(companyCode);
+		JFXPanel graph = new StockHistoryChartPanel(companyCode);
 		JLabel temp = new JLabel("THIS WILL BE A GRAPH OF PRICES OVER TIME");
-<<<<<<< HEAD
-		
-		
-		// Added by Paul
-//		Platform.runLater(new Runnable() {
-//			
-//            @Override
-//            public void run() {
-//            	companyCode = "A2M";
-//                try {                	
-//					new PriceChartPanel(companyCode);					
-//				} catch (SQLException e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				}
-//            }
-//       });
-=======
->>>>>>> 956111981aebadff2dcd05e17a48611f93e8d9d9
 
 		//Add components
 		if(!frameType.equals("transactions"))

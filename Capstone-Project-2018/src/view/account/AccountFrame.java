@@ -26,7 +26,7 @@ public class AccountFrame extends AbstractFrame
 		//Create components
 		BackToDashboardPanel upperPanel = new BackToDashboardPanel(this, "Your Trading Account");
 		MyStockPanel myStocks = new MyStockPanel(this);
-		JFXPanel graphPanel = new PlayerHistoryPanel(user.getId());
+		JFXPanel graphPanel = new AccountHistoryChartPanel(user.getId());
 //		JLabel graphLabel = new JLabel("GRAPH STUFF TO GO HERE");
 
 		//Component settings

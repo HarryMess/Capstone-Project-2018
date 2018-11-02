@@ -1,7 +1,9 @@
 package view.moreinfo;
 
+import controller.BuyListener;
 import controller.FrameManager;
 import javafx.embed.swing.JFXPanel;
+
 import view.AbstractFrame;
 import view.BackToDashboardPanel;
 import view.dashboard.DashboardFrame;
@@ -13,6 +15,7 @@ import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.sql.SQLException;
 
+@SuppressWarnings("serial")
 public class StockInfoFrame extends AbstractFrame
 {
 	private JTable table;
@@ -47,7 +50,6 @@ public class StockInfoFrame extends AbstractFrame
 			}
 		});
 
-
 		setLayout(new BorderLayout());
 
 		//Create components
@@ -58,14 +60,14 @@ public class StockInfoFrame extends AbstractFrame
 
 		JButton buyButton = new JButton("Buy");
 		JButton sellButton = new JButton("Sell");
-		JPanel buttonPanel = new JPanel();
-		
-		
+		JPanel buttonPanel = new JPanel();		
 
 		//Component settings
 		buyButton.setHorizontalAlignment(SwingConstants.LEFT);
 		sellButton.setHorizontalAlignment(SwingConstants.LEFT);
-
+		
+		// add listeners to buttons
+		buyButton.addActionListener(new BuyListener(this, companyCode));
 
 		//Table model
 //		Object[][] rowData = {{"CBA", "72.19", "1.405%", "$1.00", "72.17", "72.19", "71.45", "72.31", "71.45", "12345"}};

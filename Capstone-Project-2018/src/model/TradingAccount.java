@@ -87,6 +87,18 @@ public class TradingAccount {
 		hoursActive++;
 	}
 	
+	/**
+	 * Checks if the trading account has enough money to make a particular purchase
+	 * @param price the price of the stock to be purchased
+	 * @return returns true if there is enough, false if there isn't
+	 */
+	public boolean enoughMoney(float price) {
+		if(balance < price)
+			return false;
+		else
+			return true;
+	}
+	
 	/*
 	 * (non-Javadoc)
 	 * @see java.lang.Object#toString()

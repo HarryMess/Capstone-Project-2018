@@ -1,0 +1,13 @@
+package main;
+
+import model.database.StocksTable;
+
+public class MarketService implements Runnable
+{
+
+    public void run()
+    {
+        StocksTable st = new StocksTable();
+        st.updateMarket();
+    }
+}

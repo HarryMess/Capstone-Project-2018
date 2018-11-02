@@ -84,7 +84,8 @@ public class StockInfoFrame extends AbstractFrame
 //		JPanel graph = new JPanel();
 		JFXPanel graph = new PriceChartPanel(companyCode);
 		JLabel temp = new JLabel("THIS WILL BE A GRAPH OF PRICES OVER TIME");
-
+		
+		
 		// Added by Paul
 //		Platform.runLater(new Runnable() {
 //			

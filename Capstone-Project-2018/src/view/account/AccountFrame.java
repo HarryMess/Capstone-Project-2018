@@ -3,12 +3,12 @@ package view.account;
 import controller.FrameManager;
 import view.AbstractFrame;
 import view.BackToDashboardPanel;
-import view.dashboard.AbstractTablePanel;
 import view.dashboard.MyStockPanel;
 
 import javax.swing.*;
 import java.awt.*;
 
+@SuppressWarnings("serial")
 public class AccountFrame extends AbstractFrame
 {
 	public AccountFrame(FrameManager fm, String title)

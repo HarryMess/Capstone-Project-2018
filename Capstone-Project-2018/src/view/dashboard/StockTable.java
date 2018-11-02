@@ -6,6 +6,7 @@ import view.AbstractFrame;
 import javax.swing.*;
 import java.awt.*;
 
+@SuppressWarnings("serial")
 public class StockTable extends JPanel
 {
 	private JTable table;

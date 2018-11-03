@@ -106,7 +106,7 @@ public class StockHistoryTable extends DatabaseTable{
 	
 		// SQL update transaction goes here 
 		PreparedStatement statement = connection.prepareStatement(
-				"INSERT INTO Stock_History (COMPANY_ID, DATE_TIME, MARKET_PRICE) \n" +
+				"INSERT INTO Stock_History (COMPANY_CODE, DATE_TIME, MARKET_PRICE) \n" +
 				"VALUES ( ? , CURRENT_TIMESTAMP, ?)");
 		
 		statement.setString(1, stock.getCode());

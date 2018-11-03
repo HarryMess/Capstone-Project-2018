@@ -1,5 +1,7 @@
 package model;
 
+import java.util.List;
+
 /**
  * This class contains all the variables relevant to a trading account
  * Matches the Users Table table
@@ -15,6 +17,7 @@ public class TradingAccount {
 	private final int userId;
 	private String name;
 	private double balance;
+	private double shareValue;
 	private int hoursActive;
 	
 	/**
@@ -28,6 +31,7 @@ public class TradingAccount {
 		this.userId = userId;
 		this.name = name;
 		balance = STARTING_MONEY;
+		shareValue = STARTING_MONEY;
 		hoursActive = 0;
 	}
 	
@@ -37,11 +41,12 @@ public class TradingAccount {
 	 * @param balance The balance saved in TradingAccounts database table is to be inserted here
 	 * @param hoursActive the hours in the TradingAccounts database table is to be inserted here
 	 */
-	public TradingAccount(int userId, String name, double balance, int hoursActive) {
+	public TradingAccount(int userId, String name, double balance, double shareValue, int hoursActive) {
 		
 		this.userId = userId;
 		this.name = name;
 		this.balance = balance;
+		this.shareValue = shareValue;
 		this.hoursActive = hoursActive;
 	}
 	
@@ -77,15 +82,37 @@ public class TradingAccount {
 		return balance;
 	}
 	
+	/**
+	 * Accessor
+	 * @return
+	 */
+	public double getShareValue() {
+		return shareValue;
+	}
+	
 	/* end of Accessors */
 	
 	/**
-	 * Increments the number of hours player by 1
-	 * @deprecated due to database implementation
+	 * Calculates the total stock value based on all the stocks owned by the trading account
+	 * and sets the share value based on the total
+	 * @param stocks takes a list of stock objects to get the prices from them
 	 */
-	public void incrementHours() {
-		hoursActive++;
+	public void setShareValue(List<Stock> stocks) {
+		shareValue = 0;
+		
+		for(Stock s: stocks) {
+			shareValue += s.getMarketPrice();
+		}
 	}
+	
+	/**
+	 * 
+	 * @return returns the total value of a player by adding their balance and share value together
+	 */
+	public double getTotalValue() {
+		return balance + shareValue;
+	}
+	
 	
 	/**
 	 * Checks if the trading account has enough money to make a particular purchase

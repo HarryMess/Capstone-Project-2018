@@ -308,12 +308,27 @@ public class StocksTable extends DatabaseTable {
  			statement.setString(2, stock.getCode());
  			
  			// run the query
- 			statement.executeQuery();
+ 			statement.execute();
  			
  			// add time to the stock history after price change
  			stockHistory.addTimeStamp(stock);
  		}
  		
  	}
+ 	
+ 	/**
+ 	 * Calculates the total stock value based on all the stocks owned by the trading account
+	 * @param stocks takes a list of stock objects to get the prices from them
+ 	 * @return returns the stock value based on the calculated total
+ 	 */
+	public double getTotalStockValue(List<Stock> stocks) {
+		double stockValue = 0;
+		
+		for(Stock s: stocks) {
+			stockValue += s.getMarketPrice();
+		}
+		
+		return stockValue;
+	}
  	
 }

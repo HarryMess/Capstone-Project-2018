@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
 
+import model.Stock;
 import model.TradingAccount;
 import model.User;
 
@@ -21,6 +22,9 @@ public class TradingAccountsTable extends DatabaseTable {
 	
 	private static TradingAccountsTable tradingAccounts;	
     private Connection connection; /* Instance */
+    
+    private AccountHistoryTable accountHistory = AccountHistoryTable.getInstance();
+    private StocksTable stocksTable = StocksTable.getInstance();
     
     /**
 	 * Used to get the static object of this class
@@ -69,10 +73,15 @@ public class TradingAccountsTable extends DatabaseTable {
  		double balance = (double) result.getFloat("Balance");
  		int hours = result.getInt("Hours_active");
  		
- 		result.close();		
+ 		result.close();	
+ 		
+ 		// get all the stocks owned by this user
+ 		List<Stock> stocksOwned = stocksTable.getStocksOwned(userId);
+ 		// calculate the total value
+ 		double shareValue = stocksTable.getTotalStockValue(stocksOwned);
  		
  		// return new trading account object containing all matching values
- 		return new TradingAccount(userId, name, balance, hours);
+ 		return new TradingAccount(userId, name, balance, shareValue, hours);
  	}
  	
  	/**
@@ -97,12 +106,18 @@ public class TradingAccountsTable extends DatabaseTable {
  		int userId = result.getInt("Id");
  		String name = result.getString("Name");
  		double balance = (double) result.getFloat("Balance");
+ 		
+ 		// get all the stocks owned by this user
+ 		List<Stock> stocksOwned = stocksTable.getStocksOwned(userId);
+ 		// calculate the total value
+ 		double shareValue = stocksTable.getTotalStockValue(stocksOwned);
+ 		
  		int hours = result.getInt("Hours_active");
  		
  		result.close();		
  		
  		// return new trading account object containing all matching values
- 		return new TradingAccount(userId, name, balance, hours);
+ 		return new TradingAccount(userId, name, balance, shareValue, hours);
  	}
  	
  	/**
@@ -112,9 +127,6 @@ public class TradingAccountsTable extends DatabaseTable {
  	 * @throws SQLException
  	 */
  	public void addTradingAccount(User user, String name) throws SQLException{
- 		
-// 		System.out.println("Old Trading Account table:");
-// 		showTradeAccountsTable();
 
  		// get the id from the email address
  		PreparedStatement statement1 = connection.prepareStatement("SELECT ID FROM USERS WHERE EMAIL = ?");
@@ -132,27 +144,24 @@ public class TradingAccountsTable extends DatabaseTable {
  		TradingAccount account = new TradingAccount(userId, name);
  		
  		// add the trading account to the database
- 		PreparedStatement statement2 =connection.prepareStatement("INSERT INTO TRADING_ACCOUNTS (USER_ID, NAME, BALANCE, HOURS_ACTIVE)"
+ 		PreparedStatement statement2 = connection.prepareStatement("INSERT INTO TRADING_ACCOUNTS (USER_ID, NAME, BALANCE, HOURS_ACTIVE)"
  																 + "VALUES (?, ?, ?, ?)");
  		
  		// add parameters to sql statement
  		statement2.setInt(1, userId);
  		statement2.setString(2, account.getName());			
  		statement2.setDouble(3, account.getBalance());
- 		statement2.setInt(4, account.getHoursActive());
- 		
-// 		System.out.println("New Trading Account table:");
-// 		showTradeAccountsTable();
+ 		statement2.setInt(4, account.getHoursActive()); 		
  			
  		statement2.execute();
  		statement2.close();
  		
-// 		System.out.println("New Trading Account table:");
-// 		showTradeAccountsTable();		
- 	}    
+ 		// add the initial timestamp after registration
+ 		accountHistory.addTimeStamp(account);
+ 	}
     
  	/**
- 	 * prints the entire trading accounts table to the console window
+ 	 * Prints the entire trading accounts table to the console window
  	 * @throws SQLException
  	 */
     public void showTradeAccountsTable() throws SQLException {

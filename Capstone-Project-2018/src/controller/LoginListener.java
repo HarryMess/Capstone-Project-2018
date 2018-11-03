@@ -4,7 +4,6 @@ import javax.swing.*;
 
 import model.database.UsersTable;
 
-import java.sql.*;
 import view.AbstractFrame;
 import view.dashboard.DashboardFrame;
 
@@ -28,18 +27,13 @@ public class LoginListener implements ActionListener
 
 		fm = parentFrame.getFrameManager();
 		users = UsersTable.getInstance();
-//		database = Database.getInstance();
 	}	
 
 	public void actionPerformed(ActionEvent e)
 	{		
 		String email = userField.getText();
 		String password = passField.getText();
-		
-		//System.out.println("Email is:" + user); 
-		
-		System.out.println("Test call.\n Email: '" + email + "' Password: '" + password + "'");
-		
+
 		if(users.login(email, password)) {
 			((DashboardFrame)fm.getFrame("dashboard")).setUserEmail(email);
 			fm.switchFrame(parentFrame, fm.getFrame("dashboard"));

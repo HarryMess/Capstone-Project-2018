@@ -37,7 +37,7 @@ public class FrameManager
 		companyCode = "";
 	}
 
-	public JFrame getFrame(String frame)
+	public AbstractFrame getFrame(String frame)
 	{
 		try {
 		
@@ -102,7 +102,7 @@ public class FrameManager
 		}
 	}
 
-	public void switchFrame(JFrame oldFrame, JFrame newFrame)
+	public void switchFrame(AbstractFrame oldFrame, AbstractFrame newFrame)
 	{
 		//Make sure new frame is same size/place as old one.
 		Dimension currentSize = oldFrame.getSize();
@@ -112,6 +112,9 @@ public class FrameManager
 		newFrame.setExtendedState(oldFrame.getExtendedState());
 
 		//System.out.println("Switching from " + oldFrame.getClass().getName() + " to " + newFrame.getClass().getName());
+
+		//Redraw necessary components
+		newFrame.redraw();
 
 		//Switch visible frame
 		newFrame.setVisible(true);

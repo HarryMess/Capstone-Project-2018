@@ -18,6 +18,7 @@ public class StockTable extends JPanel
 		//Create components
 		table = new JTable(model); //Actual table
 		JLabel moreInfoLabel = new JLabel("More Info on Selected Item");
+		JScrollPane scrollPane = new JScrollPane(table);
 
 		//Table settings
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -34,8 +35,9 @@ public class StockTable extends JPanel
 		moreInfoLabel.addMouseListener(new LinkListener(parentFrame.getFrameManager(), parentFrame, linkedFrame, "A2M"));
 
 		//Add table header, then table itself
-		add(table.getTableHeader(), BorderLayout.NORTH);
-		add(table, BorderLayout.CENTER);
+		//add(table.getTableHeader(), BorderLayout.NORTH);
+		//add(table, BorderLayout.CENTER);
+		add(scrollPane);
 		add(moreInfoLabel, BorderLayout.SOUTH);
 	}
 

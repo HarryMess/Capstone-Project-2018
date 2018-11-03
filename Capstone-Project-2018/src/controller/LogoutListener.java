@@ -1,5 +1,7 @@
 package controller;
 
+import view.AbstractFrame;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -7,8 +9,8 @@ import java.awt.event.ActionListener;
 public class LogoutListener implements ActionListener
 {
 	private FrameManager fm;
-	private JFrame oldFrame;
-	public LogoutListener(FrameManager fm, JFrame oldFrame)
+	private AbstractFrame oldFrame;
+	public LogoutListener(FrameManager fm, AbstractFrame oldFrame)
 	{
 		this.fm = fm;
 		this.oldFrame = oldFrame;
@@ -16,7 +18,7 @@ public class LogoutListener implements ActionListener
 
 	public void actionPerformed(ActionEvent e)
 	{
-		JFrame newFrame = fm.getFrame("login");
+		AbstractFrame newFrame = fm.getFrame("login");
 
 		fm.switchFrame(oldFrame, newFrame);
 		

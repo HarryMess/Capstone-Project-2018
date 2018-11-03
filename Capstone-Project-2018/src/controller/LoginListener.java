@@ -38,14 +38,12 @@ public class LoginListener implements ActionListener
 		
 		//System.out.println("Email is:" + user); 
 		
-		System.out.println("Test call.\n Email: " + email + " Password: " + password);
+		System.out.println("Test call.\n Email: '" + email + "' Password: '" + password + "'");
 		
 		if(users.login(email, password)) {
-			
-			// open dashboard screen - replace the code below with actual screen
-			new DashboardFrame(fm ,"Dashboard");
-			parentFrame.setVisible(false);			
-			
+			((DashboardFrame)fm.getFrame("dashboard")).setUserEmail(email);
+			fm.switchFrame(parentFrame, fm.getFrame("dashboard"));
+
 		} else  {			
 			JOptionPane.showMessageDialog(null, "Invalid username or password",
 					"Authentication failed", JOptionPane.ERROR_MESSAGE);						

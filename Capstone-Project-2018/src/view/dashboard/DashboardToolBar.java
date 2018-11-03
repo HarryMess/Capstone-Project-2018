@@ -10,12 +10,13 @@ import java.awt.*;
 
 public class DashboardToolBar extends JToolBar
 {
+	private BalanceLabel currentBalance;
 	public DashboardToolBar(DashboardFrame parentFrame)
 	{
 		setFloatable(false);
 
 		//Create ToolBar items
-		BalanceLabel currentBalance = new BalanceLabel();
+		currentBalance = new BalanceLabel(parentFrame);
 		JButton leaderboardButton = new JButton("Leaderboard");
 		leaderboardButton.setHorizontalAlignment(RIGHT);
 		JButton accountButton = new JButton("My Account");
@@ -34,5 +35,10 @@ public class DashboardToolBar extends JToolBar
 		logOutButton.addActionListener(new LogoutListener(parentFrame.getFrameManager(), parentFrame));
 		leaderboardButton.addActionListener(new LeaderboardListener(parentFrame));
 		accountButton.addActionListener(new AccountListener(parentFrame.getFrameManager(), parentFrame));
+	}
+
+	public BalanceLabel getBalanceLabel()
+	{
+		return currentBalance;
 	}
 }

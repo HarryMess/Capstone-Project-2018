@@ -27,6 +27,8 @@ public class LeaderboardListener implements ActionListener
 	{
 		StringBuilder sb = new StringBuilder();
 		String[][] names = {};
+		FrameManager fm = parentFrame.getFrameManager();
+
 		if(names.length > 0)
 		{
 			for (int i = 0; i < names.length; i++)

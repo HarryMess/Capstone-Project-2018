@@ -10,6 +10,8 @@ import java.awt.*;
 public class DashboardFrame extends AbstractFrame
 {
 	private AbstractTablePanel buyStockPanel, myStockPanel, transactionsPanel;
+	private String userEmail;
+	private DashboardToolBar toolBar;
 	public DashboardFrame(FrameManager fm, String title)
 	{ //TODO: Space everything out nicely
 		super(fm, title);
@@ -21,7 +23,7 @@ public class DashboardFrame extends AbstractFrame
 		mainLayout.setVgap(10);
 
 		//Create components
-		DashboardToolBar toolBar = new DashboardToolBar(this);
+		toolBar = new DashboardToolBar(this);
 		JPanel upperPanel = new JPanel(new BorderLayout());
 		JPanel mainPanel = new JPanel(mainLayout);
 		JPanel lowerPanel = new JPanel();
@@ -29,6 +31,7 @@ public class DashboardFrame extends AbstractFrame
 		buyStockPanel = new BuyStockPanel(this);
 		myStockPanel = new MyStockPanel(this);
 		transactionsPanel = new TransactionsPanel(this);
+
 		//Upper panel
 		upperPanel.add(toolBar, BorderLayout.NORTH);
 		upperPanel.add(new TitlePanel(this), BorderLayout.CENTER);
@@ -37,6 +40,7 @@ public class DashboardFrame extends AbstractFrame
 		mainPanel.add(buyStockPanel);
 		mainPanel.add(myStockPanel);
 		mainPanel.add(transactionsPanel);
+
 
 		add(upperPanel, BorderLayout.NORTH);
 		add(mainPanel, BorderLayout.CENTER);
@@ -60,5 +64,22 @@ public class DashboardFrame extends AbstractFrame
 			return transactionsPanel.getTable();
 		}
 		else return null; //TODO: Make this handle errors better?
+	}
+
+	public void setUserEmail(String userEmail)
+	{
+		this.userEmail = userEmail;
+	}
+
+	public String getUserEmail()
+	{
+		return userEmail;
+	}
+
+	@Override
+	public void redraw()
+	{
+		toolBar.getBalanceLabel().setBalance();
+		//Also redraw tables
 	}
 }

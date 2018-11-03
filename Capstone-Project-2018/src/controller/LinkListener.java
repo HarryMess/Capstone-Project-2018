@@ -22,12 +22,13 @@ public class LinkListener extends MouseAdapter
 		this.fm = fm;
 	}
 	
-	public LinkListener(FrameManager fm, JFrame oldFrame, String newFrameStr, String companyCode)
+	public LinkListener(FrameManager fm, JFrame oldFrame, String newFrameStr, JTable table)
 	{
 		this.oldFrame = oldFrame;
 		this.newFrameStr = newFrameStr;
 		this.fm = fm;
-		this.fm.SetCompanyCode(companyCode);
+		
+		// get the company code from the selected item
 	}
 
 	public void mouseClicked(MouseEvent e)

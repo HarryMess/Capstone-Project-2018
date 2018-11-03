@@ -11,8 +11,6 @@ import java.awt.*;
 
 public class RegisterPanel extends JPanel
 {
-
-
 	public RegisterPanel(RegisterFrame parentFrame)
 	{
 		JTextField emailText, firstNameText, lastNameText;

@@ -23,11 +23,19 @@ public abstract class AbstractFrame extends JFrame
 		setMinimumSize(new Dimension(500, 250));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLayout(new GridLayout(3, 1)); //TODO: Change this (not all frames have this layout)
-
 	}
 
 	public FrameManager getFrameManager()
 	{
 		return fm;
+	}
+
+	@Override
+	public void setVisible(boolean var)
+	{
+		super.setVisible(var);
+
+		getContentPane().requestFocusInWindow();
+		//Makes it so no text fields are in focus when frame is set to visible.
 	}
 }

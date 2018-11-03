@@ -308,7 +308,7 @@ public class StocksTable extends DatabaseTable {
  			statement.setString(2, stock.getCode());
  			
  			// run the query
- 			statement.executeQuery();
+ 			statement.execute();
  			
  			// add time to the stock history after price change
  			stockHistory.addTimeStamp(stock);

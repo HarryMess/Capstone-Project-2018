@@ -1,17 +1,19 @@
 package controller;
 
+import view.AbstractFrame;
+
 import javax.swing.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class StockTableListener extends MouseAdapter
 {
-	private JFrame oldFrame;
+	private AbstractFrame oldFrame;
 	private String newFrameStr;
 	private FrameManager fm;
 	private JTable table;
 	
-	public StockTableListener(FrameManager fm, JFrame oldFrame, String newFrameStr, JTable table)
+	public StockTableListener(FrameManager fm, AbstractFrame oldFrame, String newFrameStr, JTable table)
 	{
 		this.oldFrame = oldFrame;
 		this.newFrameStr = newFrameStr;
@@ -26,7 +28,7 @@ public class StockTableListener extends MouseAdapter
 		fm.SetCompanyCode(code);
 		
 		// get new frame from Frame Manager
-		JFrame newFrame = fm.getFrame(newFrameStr);
+		AbstractFrame newFrame = fm.getFrame(newFrameStr);
 		fm.switchFrame(oldFrame, newFrame);
 	}
 }

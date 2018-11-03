@@ -121,7 +121,7 @@ public class UsersTable extends DatabaseTable{
 			
 			// add the trading account to the trading account table			
 			tradingAccounts.addTradingAccount(user, name);
-			
+
 			return true;
 			
 		} catch (SQLException e) {

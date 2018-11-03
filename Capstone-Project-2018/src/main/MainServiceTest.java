@@ -1,6 +1,4 @@
-/*package main;
-
-import model.database.StocksTable;
+package main;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -14,4 +12,4 @@ public class MainServiceTest
         MarketService mS = new MarketService();
         sec.schedule(mS, 60, TimeUnit.MINUTES);
     }
-}*/
+}

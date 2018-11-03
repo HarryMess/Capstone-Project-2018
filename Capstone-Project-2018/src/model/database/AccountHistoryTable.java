@@ -9,6 +9,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import model.AccountTimeStamp;
+import model.TradingAccount;
 
 /**
  * Contains methods that run SQL queries relevant to the AccountHistory Table
@@ -21,7 +22,7 @@ import model.AccountTimeStamp;
 public class AccountHistoryTable extends DatabaseTable {
 	
 	private static AccountHistoryTable accountHistory;
-	private static Connection connec; 
+	private static Connection connection; 
 	
 	/**
 	 * Used to get the static object of this class
@@ -41,7 +42,7 @@ public class AccountHistoryTable extends DatabaseTable {
 	 * Constructor. Retrieves the database connection.
 	 */
 	private AccountHistoryTable() {
-		connec = super.getConnection();
+		connection = super.getConnection();
 	}
 	
 	/*
@@ -54,7 +55,7 @@ public class AccountHistoryTable extends DatabaseTable {
 		List<AccountTimeStamp> valueHistory = new LinkedList<AccountTimeStamp>();    	
     	
     	// create the statement
-    	PreparedStatement statement = connec.prepareStatement("SELECT * FROM Account_History");
+    	PreparedStatement statement = connection.prepareStatement("SELECT * FROM Account_History");
 
 		ResultSet results = statement.executeQuery();
     	
@@ -85,7 +86,7 @@ public class AccountHistoryTable extends DatabaseTable {
     	List<AccountTimeStamp> valueHistory = new LinkedList<AccountTimeStamp>();    	
     	
     	// create the statement
-    	PreparedStatement statement = connec.prepareStatement(
+    	PreparedStatement statement = connection.prepareStatement(
 				"SELECT * FROM Account_History\n" + 
 				"WHERE account_id = ?");
 
@@ -107,4 +108,24 @@ public class AccountHistoryTable extends DatabaseTable {
     	
 		return valueHistory;
     }
+	
+	/**
+	 * Adds a new timestamp record to the AccountHistory database table
+	 * @param account Takes a TradingAccount object to retrieve details
+	 * @throws SQLException
+	 */
+	public void addTimeStamp(TradingAccount account) throws SQLException {
+		
+		// SQL update transaction goes here 
+		PreparedStatement statement = connection.prepareStatement(
+				"INSERT INTO Account_History (date_time, account_id, balance, share_value) \n" +
+				"VALUES (CURRENT_TIMESTAMP, ?, ? , ?)");
+		
+		statement.setInt(1, account.getId());
+		statement.setDouble(2, account.getBalance());
+		statement.setDouble(3, account.getShareValue());
+		
+		statement.execute();
+		statement.close();
+	}
 }

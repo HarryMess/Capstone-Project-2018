@@ -87,7 +87,7 @@ public class AccountHistoryTable extends DatabaseTable {
     	// create the statement
     	PreparedStatement statement = connec.prepareStatement(
 				"SELECT * FROM Account_History\n" + 
-				"WHERE Trading_accounts.user_id = ?");
+				"WHERE account_id = ?");
 
     	// set variable for parameter
 		statement.setInt(1, userId);

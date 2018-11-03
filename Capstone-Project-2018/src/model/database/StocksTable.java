@@ -174,10 +174,11 @@ public class StocksTable extends DatabaseTable {
      * @param amount the amount of stocks being purchased of the specified company. Set this argument to 1
      * @param price the price of the stock determining the amount of money involved in the transaction
      * @return returns true on success, false on failure
+     * @deprecated
      */
     // Transfers stock ownership from one account to the next
  	public boolean transferStock(TradingAccount buyer, TradingAccount seller, Stock stock, 
- 			int amount, float price) {
+ 			int amount) {
  		
  		TradingAccountsTable accounts = TradingAccountsTable.getInstance();
  		
@@ -193,10 +194,10 @@ public class StocksTable extends DatabaseTable {
  			statement.execute();
  			statement.close();
  			
- 			accounts.transferFunds(buyer, seller, price);
+ 			accounts.transferFunds(buyer, seller, stock.getMarketPrice());
  			transactions.addTransaction(
  					new Transaction(new Timestamp(System.currentTimeMillis()), 
- 							buyer.getId(), seller.getId(), stock.getCode(), price, 1)
+ 							buyer.getId(), seller.getId(), stock.getCode(), stock.getMarketPrice(), 1)
  			);
  			
  		} catch (SQLException e) {

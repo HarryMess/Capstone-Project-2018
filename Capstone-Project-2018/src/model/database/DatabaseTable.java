@@ -16,6 +16,8 @@ import model.User;
  */
 public abstract class DatabaseTable {
 
+	public static final String STOCK_MARKET_ACCOUNT = "admin@asx.com.au";
+	
 	private static final String dbUrl = "jdbc:derby:C:\\RMIT\\Programming Project\\Project Source\\Database;create=true;upgrade=true;user=username";
 	private static Connection connection;
 	private static User currentUser = null;

@@ -14,7 +14,7 @@ public class Stock {
 	private String companyName;
 	private int ownerId;
 	private int quantity;
-	private double marketPrice;
+	private float marketPrice;
 	private float profitPerHour;
 	
 	private final int INCREASE_TRESHOLD = 9;
@@ -93,7 +93,7 @@ public class Stock {
 	 * 
 	 * @return
 	 */
-	public double getMarketPrice() {
+	public float getMarketPrice() {
 		return marketPrice;
 	}
 	
@@ -135,20 +135,29 @@ public class Stock {
 	 */
 	public void updatePrice() {
 		double randomNumber = Math.random();
-//		System.out.println("Random number: " + randomNumber);
 		
 		double adjustment;
 		
 		if(randomNumber > 0.5) {
 			adjustment =  1 + (randomNumber / INCREASE_TRESHOLD);
-//			System.out.println("Price Adjustment: " + adjustment);
 			marketPrice *= adjustment;
 		}
 		else {
 			adjustment = 1 - (randomNumber / DECREASE_TRESHOLD);
-//			System.out.println("Price Adjustment: " + adjustment);
 			marketPrice *= adjustment;
 		}
+	}
+	
+	/**
+	 * Checks if the current stock is already owned by specific user id
+	 * @param id the id of the user and trading account
+	 * @return returns true if the IDs match false if the don't
+	 */
+	public boolean isOwnedBy(int id) {
+		if(ownerId == id)
+			return true;
+		
+		return false;
 	}
 	
 	/*

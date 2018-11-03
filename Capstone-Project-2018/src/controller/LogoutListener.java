@@ -19,5 +19,7 @@ public class LogoutListener implements ActionListener
 		JFrame newFrame = fm.getFrame("login");
 
 		fm.switchFrame(oldFrame, newFrame);
+		
+		//TODO All frames need to be set to null when this happens
 	}
 }

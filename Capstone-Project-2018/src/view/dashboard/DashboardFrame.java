@@ -86,5 +86,26 @@ public class DashboardFrame extends AbstractFrame
 		myStockPanel.updateTable();
 		buyStockPanel.updateTable();
 		transactionsPanel.updateTable();
+
+		updateSelection();
+	}
+
+	public void updateSelection()
+	{ //If no selection in table, set 'more info' colour to grey.
+		AbstractTablePanel[] panels = {myStockPanel, buyStockPanel, transactionsPanel};
+		for(AbstractTablePanel panel : panels)
+		{
+			JLabel moreInfo = panel.getTablePanel().getMoreInfo();
+			if (panel.getTable().getSelectedRow() == -1)
+			{
+				moreInfo.setForeground(Color.GRAY);
+				moreInfo.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR)); //Change to hand cursor on hover
+			}
+			else
+			{
+				moreInfo.setForeground(Color.BLUE);
+				moreInfo.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR)); //Change to hand cursor on hover
+			}
+		}
 	}
 }

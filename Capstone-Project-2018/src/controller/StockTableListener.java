@@ -24,11 +24,14 @@ public class StockTableListener extends MouseAdapter
 	@Override
 	public void mouseClicked(MouseEvent e)
 	{
-		String code = (String) table.getValueAt(table.getSelectedRow(), 0);
-		fm.SetCompanyCode(code);
-		
-		// get new frame from Frame Manager
-		AbstractFrame newFrame = fm.getFrame(newFrameStr);
-		fm.switchFrame(oldFrame, newFrame);
+		if(table.getSelectedRow() != -1)
+		{
+			String code = table.getValueAt(table.getSelectedRow(), 0).toString();
+			fm.SetCompanyCode(code);
+
+			// get new frame from Frame Manager
+			AbstractFrame newFrame = fm.getFrame(newFrameStr);
+			fm.switchFrame(oldFrame, newFrame);
+		}
 	}
 }

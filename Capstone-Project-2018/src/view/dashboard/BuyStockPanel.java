@@ -14,6 +14,7 @@ import java.util.ArrayList;
 @SuppressWarnings("serial")
 public class BuyStockPanel extends AbstractTablePanel
 {
+	private StockTable buyStocks;
 	public BuyStockPanel(AbstractFrame parentFrame)
 	{
 		super(parentFrame);
@@ -28,7 +29,7 @@ public class BuyStockPanel extends AbstractTablePanel
 		
 		StockTableModel model = new StockTableModel(rowData, columnNames);
 		
-		StockTable buyStocks = new StockTable(linkedFrame, this, model); //TODO: Add search?
+		buyStocks = new StockTable(linkedFrame, this, model); //TODO: Add search?
 		setTable(buyStocks.getTable());
 
 		//Add components
@@ -65,6 +66,12 @@ public class BuyStockPanel extends AbstractTablePanel
 			e.printStackTrace();
 			return null;
 		}	
+	}
+
+	@Override
+	public StockTable getTablePanel()
+	{
+		return buyStocks;
 	}
 	
 }

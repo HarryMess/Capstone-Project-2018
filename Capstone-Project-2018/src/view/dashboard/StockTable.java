@@ -2,6 +2,7 @@ package view.dashboard;
 
 import controller.LinkListener;
 import controller.StockTableListener;
+import controller.TableSelectionListener;
 import view.AbstractFrame;
 
 import javax.swing.*;
@@ -11,6 +12,7 @@ import java.awt.*;
 public class StockTable extends JPanel
 {
 	private JTable table;
+	private JLabel moreInfoLabel;
 	private AbstractTablePanel parentPanel;
 	public StockTable(String linkedFrame, AbstractTablePanel parentPanel, StockTableModel model)
 	{
@@ -20,7 +22,7 @@ public class StockTable extends JPanel
 
 		// Create components
 		table = new JTable(model); //Actual table
-		JLabel moreInfoLabel = new JLabel("More Info on Selected Item");
+		moreInfoLabel = new JLabel("More Info on Selected Item");
 		JScrollPane scrollPane = new JScrollPane(table);
 
 		// Table settings
@@ -28,12 +30,12 @@ public class StockTable extends JPanel
 		table.getTableHeader().setReorderingAllowed(false);
 
 		// Component settings
-		moreInfoLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR)); //Change to hand cursor on hover
-		moreInfoLabel.setForeground(Color.blue);
+
 		moreInfoLabel.setHorizontalAlignment(JLabel.CENTER);
 
 		// Action listeners	
 		moreInfoLabel.addMouseListener(new StockTableListener(parentFrame.getFrameManager(), parentFrame, linkedFrame, table));
+		table.getSelectionModel().addListSelectionListener(new TableSelectionListener((DashboardFrame)parentFrame));
 
 		//Add table header, then table itself
 		//add(table.getTableHeader(), BorderLayout.NORTH);
@@ -45,6 +47,11 @@ public class StockTable extends JPanel
 	public JTable getTable()
 	{
 		return table;
+	}
+
+	public JLabel getMoreInfo()
+	{
+		return moreInfoLabel;
 	}
 }
 

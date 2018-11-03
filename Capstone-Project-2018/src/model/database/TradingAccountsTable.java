@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 
 import model.Stock;
@@ -45,11 +46,31 @@ public class TradingAccountsTable extends DatabaseTable {
 		connection = super.getConnection();
 	}
     
-	/* Needs to be implemented */
+	/* Implemented by Harry */
 	@Override
 	public List<TradingAccount> getAll() throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		PreparedStatement statement = connection.prepareStatement("SELECT * FROM Trading_Accounts");
+
+		ResultSet result = statement.executeQuery();
+
+		List<TradingAccount> returnList = new ArrayList<>();
+		while(result.next())
+		{
+			String name = result.getString("Name");
+			int userId = Integer.parseInt(result.getString("User_id"));
+			double balance = (double) result.getFloat("Balance");
+			int hours = result.getInt("Hours_active");
+
+
+			List<Stock> stocksOwned = stocksTable.getStocksOwned(userId);
+
+			// calculate the total value
+			double shareValue = stocksTable.getTotalStockValue(stocksOwned);
+
+			// return new trading account object containing all matching values
+			returnList.add(new TradingAccount(userId, name, balance, shareValue, hours));
+		}
+		return returnList;
 	}
     
 	/**

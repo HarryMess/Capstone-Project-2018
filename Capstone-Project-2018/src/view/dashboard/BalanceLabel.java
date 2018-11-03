@@ -30,6 +30,7 @@ public class BalanceLabel extends JLabel
 	public void setBalance()
 	{
 		TradingAccountsTable accounts = TradingAccountsTable.getInstance();
+
 		try
 		{
 			TradingAccount currentAccount = accounts.getTradingAccount(parentFrame.getUserEmail());

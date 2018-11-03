@@ -18,6 +18,7 @@ import java.util.List;
 @SuppressWarnings("serial")
 public class MyStockPanel extends AbstractTablePanel implements TableData
 {
+	private StockTable myStocks;
 	public MyStockPanel(AbstractFrame parentFrame)
 	{
 		super(parentFrame);
@@ -31,7 +32,7 @@ public class MyStockPanel extends AbstractTablePanel implements TableData
 		Object[][] rowData = getRowData(columnNames.length);
 		
 		StockTableModel model = new StockTableModel(rowData, columnNames);
-		StockTable myStocks = new StockTable(linkedFrame, this, model);
+		myStocks = new StockTable(linkedFrame, this, model);
 		setTable(myStocks.getTable());
 
 		//Add components
@@ -66,6 +67,12 @@ public class MyStockPanel extends AbstractTablePanel implements TableData
 			e.printStackTrace();
 			return null;
 		}
+	}
+
+	@Override
+	public StockTable getTablePanel()
+	{
+		return myStocks;
 	}
 	
 }

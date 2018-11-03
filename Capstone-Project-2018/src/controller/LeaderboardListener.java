@@ -1,10 +1,18 @@
 package controller;
 
+import model.TradingAccount;
+import model.database.TradingAccountsTable;
 import view.AbstractFrame;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 public class LeaderboardListener implements ActionListener
 {
@@ -26,14 +34,38 @@ public class LeaderboardListener implements ActionListener
 	public String getLeaderboard()
 	{
 		StringBuilder sb = new StringBuilder();
-		String[][] names = {};
-		FrameManager fm = parentFrame.getFrameManager();
+		TradingAccountsTable accountsTable = TradingAccountsTable.getInstance();
+		ArrayList<String> names = new ArrayList<>();
 
-		if(names.length > 0)
+		try
 		{
-			for (int i = 0; i < names.length; i++)
+			List<TradingAccount> accounts = accountsTable.getAll();
+			Collections.sort(accounts, new Comparator<TradingAccount>()
 			{
-				sb.append(i + 1 + ". " + names[i][0] + " - $" + names[i][1] + '\n');
+				@Override
+				public int compare(TradingAccount ta1, TradingAccount ta2)
+				{
+					return (int)(ta2.getTotalValue() - ta1.getTotalValue());
+				}
+			});
+			int i=0;
+			for(TradingAccount account : accounts)
+			{
+				names.add(String.format("%s - $%f\n", account.getName(), account.getTotalValue()));
+			}
+
+		} catch(SQLException e) {
+			System.out.println(e.toString());
+		}
+
+
+
+
+		if(names.size() > 0)
+		{
+			for (int i=0;i < names.size();i++)
+			{
+				sb.append(i + 1 + ". " + names.get(i));
 			}
 		} else {
 			//If no trading accounts retrieved, display this:

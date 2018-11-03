@@ -18,6 +18,7 @@ import java.util.List;
 @SuppressWarnings("serial")
 public class TransactionsPanel extends AbstractTablePanel implements TableData
 {
+	private StockTable transactions;
 	public TransactionsPanel(AbstractFrame parentFrame)
 	{
 		super(parentFrame);
@@ -30,7 +31,7 @@ public class TransactionsPanel extends AbstractTablePanel implements TableData
 		Object[][] rowData = getRowData(columnNames.length);
 		
 		StockTableModel model = new StockTableModel(rowData, columnNames);
-		StockTable transactions = new StockTable(linkedFrame, this, model);
+		transactions = new StockTable(linkedFrame, this, model);
 		setTable(transactions.getTable());
 		JLabel title = new JLabel("Recent Transactions:", SwingConstants.CENTER);
 
@@ -71,5 +72,11 @@ public class TransactionsPanel extends AbstractTablePanel implements TableData
 			e.printStackTrace();
 			return null;
 		}		
+	}
+
+	@Override
+	public StockTable getTablePanel()
+	{
+		return transactions;
 	}
 }

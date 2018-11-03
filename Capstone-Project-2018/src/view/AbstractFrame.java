@@ -34,4 +34,13 @@ public abstract class AbstractFrame extends JFrame
 	{
 		return fm;
 	}
+
+	@Override
+	public void setVisible(boolean var)
+	{
+		super.setVisible(var);
+
+		getContentPane().requestFocusInWindow();
+		//Makes it so no text fields are in focus when frame is set to visible.
+	}
 }

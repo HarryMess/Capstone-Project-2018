@@ -80,6 +80,11 @@ public class DashboardFrame extends AbstractFrame
 	public void redraw()
 	{
 		toolBar.getBalanceLabel().setBalance();
+		toolBar.redrawName();
+
 		//Also redraw tables
+		myStockPanel.updateTable();
+		buyStockPanel.updateTable();
+		transactionsPanel.updateTable();
 	}
 }

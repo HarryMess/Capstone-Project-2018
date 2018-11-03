@@ -24,7 +24,7 @@ public class BuyStockPanel extends AbstractTablePanel
 		//Create components
 		JLabel title = new JLabel("Buy New Stocks:", SwingConstants.CENTER);
 		Object[] columnNames = getColumnNames();
-		Object[][] rowData = getRowData();
+		Object[][] rowData = getRowData(columnNames.length);
 		
 		StockTableModel model = new StockTableModel(rowData, columnNames);
 		
@@ -37,12 +37,12 @@ public class BuyStockPanel extends AbstractTablePanel
 	}
 	
 	/** Added by Paul **/
-	
-	private Object[] getColumnNames() {
+	@Override
+	public Object[] getColumnNames() {
 		return new Object[]{"Stock Code", "Stock Name", "Price"};
 	}
-	
-	private Object[][] getRowData() {
+	@Override
+	public Object[][] getRowData(int columns) {
 		
 		DatabaseTable stockTable = StocksTable.getInstance();
 		

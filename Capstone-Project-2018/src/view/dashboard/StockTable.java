@@ -11,9 +11,10 @@ import java.awt.*;
 public class StockTable extends JPanel
 {
 	private JTable table;
+	private AbstractTablePanel parentPanel;
 	public StockTable(String linkedFrame, AbstractTablePanel parentPanel, StockTableModel model)
-	{ 
-		// TODO: Actually pull stock data from DataBase
+	{
+		this.parentPanel = parentPanel;
 		setLayout(new BorderLayout());
 		AbstractFrame parentFrame = parentPanel.getParentFrame();
 

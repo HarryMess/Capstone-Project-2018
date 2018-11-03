@@ -126,4 +126,14 @@ public class FrameManager
 		this.companyCode = companyCode;
 	}
 
+	public User getCurrentUser()
+	{
+		return user;
+	}
+
+	public void updateUser()
+	{
+		user = DatabaseTable.getCurrentUser();
+	}
+
 }

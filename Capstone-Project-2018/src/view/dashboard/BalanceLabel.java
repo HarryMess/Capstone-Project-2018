@@ -27,8 +27,8 @@ public class BalanceLabel extends JLabel
 		return balance;
 	}
 
-	public void setBalance() //TODO: Draw from User/StockAccount class
-	{ //TODO: Better validation??
+	public void setBalance()
+	{
 		TradingAccountsTable accounts = TradingAccountsTable.getInstance();
 		try
 		{
@@ -39,6 +39,11 @@ public class BalanceLabel extends JLabel
 			{
 				balance = newBalance;
 				this.setText("Current Balance: " + balance);
+			}
+			else
+			{
+				balance = 0;
+				setText("You are out of money :(");
 			}
 		} catch (SQLException e) {
 			System.out.println(e.toString());

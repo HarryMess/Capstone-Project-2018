@@ -27,4 +27,18 @@ public abstract class AbstractTablePanel extends JPanel
 	{
 		this.table=table;
 	}
+
+	public Object[] getColumnNames(){
+		return new Object[0];
+	}
+	public Object[][] getRowData(int columns){
+		return new Object[0][0];
+	}
+
+	public void updateTable()
+	{
+		Object[] columnNames = getColumnNames();
+		Object[][] rowData = getRowData(columnNames.length);
+		table.setModel(new StockTableModel(rowData, columnNames));
+	}
 }

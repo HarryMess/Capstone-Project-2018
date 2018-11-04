@@ -5,6 +5,8 @@ import controller.FrameManager;
 import controller.SellListener;
 import javafx.embed.swing.JFXPanel;
 
+import model.Stock;
+import model.database.StocksTable;
 import view.AbstractFrame;
 import view.BackToDashboardPanel;
 import view.dashboard.DashboardFrame;
@@ -23,10 +25,24 @@ public class StockInfoFrame extends AbstractFrame
 	private Object[][] rowData;
 	private Object[] columnNames;
 	private JTable stockTable;
-	
-	public StockInfoFrame(String frameType, FrameManager fm, String title, String companyCode) throws SQLException
+	private JFXPanel graph;
+	private String companyCode;
+	private String frameType;
+	private JPanel mainPanel;
+	private BuyListener buyListener;
+	private SellListener sellListener;
+
+	public StockInfoFrame(String frameType, FrameManager fm, String title) throws SQLException
 	{
 		super(fm, title);
+
+		DashboardFrame dashboardFrame = (DashboardFrame)fm.getFrame("dashboard");
+		table = dashboardFrame.getTable(frameType);
+
+		this.frameType = frameType;
+		int selectedIndex = table.getSelectedRow();
+		if(!frameType.equals("transactions"))
+			companyCode = (String)table.getValueAt(selectedIndex, 0);
 		String pageTitle;
 
 		switch(frameType)
@@ -38,8 +54,7 @@ public class StockInfoFrame extends AbstractFrame
 				pageTitle = "Company Info";
 		}
 
-		DashboardFrame dashboardFrame = (DashboardFrame)fm.getFrame("dashboard");
-		table = dashboardFrame.getTable(frameType);
+
 
 		addComponentListener(new ComponentAdapter()
 		{
@@ -55,21 +70,24 @@ public class StockInfoFrame extends AbstractFrame
 
 		//Create components
 		BackToDashboardPanel upperPanel = new BackToDashboardPanel(this, pageTitle);
-		JPanel mainPanel = new JPanel(new BorderLayout());
+		mainPanel = new JPanel(new BorderLayout());
 		JPanel tablePanel = new JPanel(new BorderLayout());
 		JLabel companyName = new JLabel("COMPANY NAME HERE");
 
 		JButton buyButton = new JButton("Buy");
 		JButton sellButton = new JButton("Sell");
-		JPanel buttonPanel = new JPanel();		
+		JPanel buttonPanel = new JPanel();
 
 		//Component settings
 		buyButton.setHorizontalAlignment(SwingConstants.LEFT);
 		sellButton.setHorizontalAlignment(SwingConstants.LEFT);
-		
+
 		// add listeners to buttons
-		buyButton.addActionListener(new BuyListener(this, companyCode));
-		sellButton.addActionListener(new SellListener(this, companyCode));
+		buyListener = new BuyListener(this, companyCode);
+		sellListener = new SellListener(this, companyCode);
+
+		buyButton.addActionListener(buyListener);
+		sellButton.addActionListener(sellListener);
 
 		//Table model
 //		Object[][] rowData = {{"CBA", "72.19", "1.405%", "$1.00", "72.17", "72.19", "71.45", "72.31", "71.45", "12345"}};
@@ -80,7 +98,7 @@ public class StockInfoFrame extends AbstractFrame
 		stockTable.getTableHeader().setReorderingAllowed(false);
 
 		//graph
-		JFXPanel graph = new StockHistoryChartPanel(companyCode);
+		graph = new StockHistoryChartPanel(companyCode);
 		JLabel temp = new JLabel("THIS WILL BE A GRAPH OF PRICES OVER TIME");
 
 		//Add components
@@ -106,11 +124,23 @@ public class StockInfoFrame extends AbstractFrame
 
 	public void updateTable()
 	{
-		columnNames = new Object[]{"Code", "Last Price", "Change %", "Change $", "Bid", "Offer", "Open", "High", "Low", "Volume"};
-		System.out.println("test2");
 		int selectedIndex = table.getSelectedRow();
+		StocksTable stocksInst = StocksTable.getInstance();
+		Stock desiredStock = null;
+		try
+		{
+			desiredStock = stocksInst.getStock(companyCode);
+		} catch(SQLException e)
+		{
+			System.out.println(e.toString());
+		}
+
+		columnNames = new Object[]{"Code", "Company Name", "Market Price"};
 		int numColumns = table.getColumnCount();
 		rowData = new Object[1][numColumns];
+		rowData[0][0] = desiredStock.getCode();
+		rowData[0][1] = desiredStock.getCompanyName();
+		rowData[0][2] = desiredStock.getMarketPrice();
 
 		for(int i=0;i<numColumns;i++)
 		{
@@ -119,6 +149,28 @@ public class StockInfoFrame extends AbstractFrame
 		}
 
 		stockTable.setModel(new StockTableModel(rowData, columnNames));
+	}
+
+	public void redraw()
+	{
+		updateTable();
+		int selectedIndex = table.getSelectedRow();
+		companyCode = (String)table.getValueAt(selectedIndex, 0);
+
+		if(!frameType.equals("transactions"))
+		{
+			mainPanel.remove(graph);
+			try {
+				graph = new StockHistoryChartPanel(companyCode);
+			} catch(SQLException e) {
+				System.out.println(e.toString());
+			}
+			mainPanel.add(graph, BorderLayout.SOUTH);
+		}
+
+		buyListener.updateCompany(companyCode);
+		sellListener.updateCompany(companyCode);
+
 	}
 
 }

@@ -68,5 +68,10 @@ public class SellListener implements ActionListener {
 			+ ex.getMessage(), "Error purchasing stock", JOptionPane.ERROR_MESSAGE);
 		}
 	}
+
+	public void updateCompany(String newCode)
+	{
+		companyCode = newCode;
+	}
 	
 }

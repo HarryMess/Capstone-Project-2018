@@ -76,19 +76,19 @@ public class FrameManager
 				case("mystocks"):
 					if(myStocksFrame == null)
 					{
-						myStocksFrame = new StockInfoFrame("mystocks", this, frameTitle, companyCode);
+						myStocksFrame = new StockInfoFrame("mystocks", this, frameTitle);
 					}
 					return myStocksFrame;
 				case("buystocks"):
 					if(buyStocksFrame == null)
 					{
-						buyStocksFrame = new StockInfoFrame("buystocks", this, frameTitle, companyCode);
+						buyStocksFrame = new StockInfoFrame("buystocks", this, frameTitle);
 					}
 					return buyStocksFrame;
 				case("transactions"):
 					if(transactionsFrame == null)
 					{
-						transactionsFrame = new StockInfoFrame("transactions", this, frameTitle, companyCode);
+						transactionsFrame = new StockInfoFrame("transactions", this, frameTitle);
 					}
 					return transactionsFrame;
 				default:

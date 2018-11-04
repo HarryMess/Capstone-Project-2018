@@ -11,18 +11,18 @@ import java.util.EventListener;
 
 public class LinkListener extends MouseAdapter
 {
-	private JFrame oldFrame;
+	private AbstractFrame oldFrame;
 	private String newFrameStr;
 	private FrameManager fm;
 	
-	public LinkListener(FrameManager fm, JFrame oldFrame, String newFrameStr)
+	public LinkListener(FrameManager fm, AbstractFrame oldFrame, String newFrameStr)
 	{
 		this.oldFrame = oldFrame;
 		this.newFrameStr = newFrameStr;
 		this.fm = fm;
 	}
 	
-	public LinkListener(FrameManager fm, JFrame oldFrame, String newFrameStr, JTable table)
+	public LinkListener(FrameManager fm, AbstractFrame oldFrame, String newFrameStr, JTable table)
 	{
 		this.oldFrame = oldFrame;
 		this.newFrameStr = newFrameStr;
@@ -33,8 +33,7 @@ public class LinkListener extends MouseAdapter
 
 	public void mouseClicked(MouseEvent e)
 	{
-		fm.getFrame(newFrameStr).setVisible(true);
-		oldFrame.setVisible(false);
+		fm.switchFrame(oldFrame, fm.getFrame(newFrameStr));
 	}
 
 

@@ -69,4 +69,9 @@ public class BuyListener implements ActionListener {
 		}
 	}
 
+	public void updateCompany(String newCode)
+	{
+		companyCode = newCode;
+	}
+
 }

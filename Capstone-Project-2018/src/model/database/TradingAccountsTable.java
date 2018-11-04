@@ -215,7 +215,7 @@ public class TradingAccountsTable extends DatabaseTable {
      * @throws SQLException
      */
 	// Transfers moneys from one player to another by updating the balance on both players on the database table
-	public boolean transferFunds(TradingAccount sender, TradingAccount receiver, float amount) throws SQLException {
+	public void transferFunds(TradingAccount sender, TradingAccount receiver, float amount) throws SQLException {
 	
 		PreparedStatement statement1 = connection.prepareStatement("UPDATE Trading_Accounts\n"
 															+ "SET balance = balance - ?\n"
@@ -229,14 +229,7 @@ public class TradingAccountsTable extends DatabaseTable {
 		statement2.setFloat(1, amount);
 		statement2.setString(2, receiver.getName());
 		
-		// attempt to execute the query
-		if(statement1.execute() && statement2.execute()) {
-			statement1.close();
-			statement2.close();
-			return true;
-		}
-						
-		return false;
-		
+		statement1.execute();
+		statement2.execute();		
 	}
 }

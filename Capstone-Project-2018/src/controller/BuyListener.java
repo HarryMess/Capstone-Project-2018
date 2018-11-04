@@ -52,9 +52,8 @@ public class BuyListener implements ActionListener {
 			}
 			
 			else {
-				// updates the information in the database
-				stocksTable.transferStock(buyer, seller, stock.getCode(), 1, stock.getMarketPrice());
-			
+				
+				// updates the information in the database			
 				if(stocksTable.transferStock(buyer, seller, stock.getCode(), 1, stock.getMarketPrice()))
 					JOptionPane.showMessageDialog(frame, "You have bought the following from the stock market\n"
 					+ stock.getCode() + "\t" + stock.getCompanyName(), "Purcahse Confirmation", 

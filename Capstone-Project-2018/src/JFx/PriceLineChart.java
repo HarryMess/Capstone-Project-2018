@@ -1,4 +1,4 @@
-package draw;
+package JFx;
 
 import java.sql.SQLException;
 import java.util.List;

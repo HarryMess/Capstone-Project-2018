@@ -168,8 +168,8 @@ public class StockInfoFrame extends AbstractFrame
 			mainPanel.add(graph, BorderLayout.SOUTH);
 		}
 
-		buyListener.updateCompany(companyCode);
-		sellListener.updateCompany(companyCode);
+		buyListener.updateInfo(companyCode);
+		sellListener.updateInfo(companyCode);
 
 	}
 

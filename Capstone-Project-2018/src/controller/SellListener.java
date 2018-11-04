@@ -69,9 +69,10 @@ public class SellListener implements ActionListener {
 		}
 	}
 
-	public void updateCompany(String newCode)
+	public void updateInfo(String newCode)
 	{
 		companyCode = newCode;
+		user = DatabaseTable.getCurrentUser();
 	}
 	
 }

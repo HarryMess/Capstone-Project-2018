@@ -6,6 +6,7 @@ import model.User;
 import model.database.DatabaseTable;
 import view.AbstractFrame;
 import view.BackToDashboardPanel;
+import view.dashboard.AbstractTablePanel;
 import view.dashboard.MyStockPanel;
 
 import javax.swing.*;
@@ -15,6 +16,7 @@ import java.sql.SQLException;
 @SuppressWarnings("serial")
 public class AccountFrame extends AbstractFrame
 {
+	private AbstractTablePanel myStocks;
 	public AccountFrame(FrameManager fm, String title) throws SQLException
 	{
 		super(fm, title);
@@ -25,7 +27,7 @@ public class AccountFrame extends AbstractFrame
 
 		//Create components
 		BackToDashboardPanel upperPanel = new BackToDashboardPanel(this, "Your Trading Account");
-		MyStockPanel myStocks = new MyStockPanel(this);
+		myStocks = new MyStockPanel(this);
 		JFXPanel graphPanel = new AccountHistoryChartPanel(user.getId());
 //		JLabel graphLabel = new JLabel("GRAPH STUFF TO GO HERE");
 
@@ -40,5 +42,10 @@ public class AccountFrame extends AbstractFrame
 		add(graphPanel);
 
 
+	}
+
+	public void redraw()
+	{
+		myStocks.updateTable();
 	}
 }

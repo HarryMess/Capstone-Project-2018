@@ -48,7 +48,7 @@ public class LeaderboardListener implements ActionListener
 					return (int)(ta2.getTotalValue() - ta1.getTotalValue());
 				}
 			});
-			int i=0;
+
 			for(TradingAccount account : accounts)
 			{
 				if(!account.getName().equals("Stock Market"))

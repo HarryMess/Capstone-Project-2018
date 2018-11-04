@@ -37,26 +37,18 @@ public class AccountHistoryChartPanel extends JFXPanel {
 
         XYChart.Series series1 = new XYChart.Series();
         series1.setName("User: "+FirstId+" Balance");
-        XYChart.Series series2 = new XYChart.Series();
-        series2.setName("User: "+FirstId+" Share value");
         
         //get balance array
         
         for(int i = 0; i< ahtlist.size(); i ++) {
         	AccountTimeStamp aht = ahtlist.get(i);
-        	float balance = aht.getBalance();            	
+        	float balance = aht.getBalance();        
+        	float ShareValue = aht.getShareValue();
+        	float totalbalance = balance + ShareValue;
         	java.sql.Timestamp date = aht.getTimestamp();
-        	series1.getData().add(new XYChart.Data<String, Float>(date.toString(), balance));
+        	series1.getData().add(new XYChart.Data<String, Float>(date.toString(), totalbalance));
         }
         
-       // get share array
-        
-        for(int i = 0; i< ahtlist.size(); i ++) {
-        	AccountTimeStamp aht = ahtlist.get(i);
-        	float ShareValue = aht.getShareValue();            	
-        	java.sql.Timestamp date = aht.getTimestamp();
-        	 series2.getData().add(new XYChart.Data<String, Float>(date.toString(), ShareValue));
-        }
  
         Scene scene  = new Scene(lineChart, 320, 320);       
         lineChart.getData().addAll(series1);

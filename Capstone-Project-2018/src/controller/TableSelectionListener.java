@@ -1,14 +1,14 @@
 package controller;
 
-import view.dashboard.DashboardFrame;
+import view.AbstractFrame;
 
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 public class TableSelectionListener implements ListSelectionListener
 {
-	private DashboardFrame parentFrame;
-	public TableSelectionListener(DashboardFrame parentFrame)
+	private AbstractFrame parentFrame;
+	public TableSelectionListener(AbstractFrame parentFrame)
 	{
 		this.parentFrame = parentFrame;
 	}
@@ -16,7 +16,7 @@ public class TableSelectionListener implements ListSelectionListener
 	@Override
 	public void valueChanged(ListSelectionEvent e)
 	{
-		parentFrame.updateSelection();
+		parentFrame.redraw();
 
 	}
 }

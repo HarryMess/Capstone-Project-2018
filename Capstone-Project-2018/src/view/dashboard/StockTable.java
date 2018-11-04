@@ -35,7 +35,7 @@ public class StockTable extends JPanel
 
 		// Action listeners	
 		moreInfoLabel.addMouseListener(new StockTableListener(parentFrame.getFrameManager(), parentFrame, linkedFrame, table));
-		table.getSelectionModel().addListSelectionListener(new TableSelectionListener((DashboardFrame)parentFrame));
+		table.getSelectionModel().addListSelectionListener(new TableSelectionListener(parentFrame));
 
 		//Add table header, then table itself
 		//add(table.getTableHeader(), BorderLayout.NORTH);

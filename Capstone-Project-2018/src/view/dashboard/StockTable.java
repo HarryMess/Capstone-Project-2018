@@ -20,28 +20,27 @@ public class StockTable extends JPanel
 		setLayout(new BorderLayout());
 		AbstractFrame parentFrame = parentPanel.getParentFrame();
 
+
+
 		// Create components
 		table = new JTable(model); //Actual table
-		moreInfoLabel = new JLabel("More Info on Selected Item");
+
 		JScrollPane scrollPane = new JScrollPane(table);
 
 		// Table settings
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		table.getTableHeader().setReorderingAllowed(false);
 
-		// Component settings
-
-		moreInfoLabel.setHorizontalAlignment(JLabel.CENTER);
-
-		// Action listeners	
-		moreInfoLabel.addMouseListener(new StockTableListener(parentFrame.getFrameManager(), parentFrame, linkedFrame, table));
 		table.getSelectionModel().addListSelectionListener(new TableSelectionListener(parentFrame));
 
-		//Add table header, then table itself
-		//add(table.getTableHeader(), BorderLayout.NORTH);
-		//add(table, BorderLayout.CENTER);
 		add(scrollPane);
-		add(moreInfoLabel, BorderLayout.SOUTH);
+		if(!linkedFrame.equals("transactions"))
+		{
+			moreInfoLabel = new JLabel("More Info on Selected Item");
+			moreInfoLabel.setHorizontalAlignment(JLabel.CENTER);
+			moreInfoLabel.addMouseListener(new StockTableListener(parentFrame.getFrameManager(), parentFrame, linkedFrame, table));
+			add(moreInfoLabel, BorderLayout.SOUTH);
+		}
 	}
 
 	public JTable getTable()

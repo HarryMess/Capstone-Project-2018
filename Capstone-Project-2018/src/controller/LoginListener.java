@@ -35,8 +35,8 @@ public class LoginListener implements ActionListener
 		String password = passField.getText();
 
 		if(users.login(email, password)) {
-			((DashboardFrame)fm.getFrame("dashboard")).setUserEmail(email);
 			fm.updateUser();
+			((DashboardFrame)fm.getFrame("dashboard")).setUserEmail(email);
 			fm.switchFrame(parentFrame, fm.getFrame("dashboard"));
 		} else  {			
 			JOptionPane.showMessageDialog(null, "Invalid username or password",

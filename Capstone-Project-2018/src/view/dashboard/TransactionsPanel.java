@@ -1,5 +1,6 @@
 package view.dashboard;
 
+import model.TradingAccount;
 import view.AbstractFrame;
 import view.TableData;
 
@@ -43,7 +44,7 @@ public class TransactionsPanel extends AbstractTablePanel implements TableData
 	@Override
 	public Object[] getColumnNames() {
 		
-		return new Object[] {"Date & Time", "Company", "Buyer ID", "Seller ID", "Price"};
+		return new Object[] {"Date & Time", "Company", "Buy/Sell", "Price"};
 	}
 
 	@Override
@@ -57,12 +58,17 @@ public class TransactionsPanel extends AbstractTablePanel implements TableData
 			Object[][] rowData = new Object[transactions.size()][columns];
 			
 			// iterate through each transaction adding values to the row data
-			for(int i=0; i<transactions.size(); i++) {
+			for(int i=0; i<transactions.size(); i++)
+			{
+				String buyOrSell;
+				int currentUserID = getParentFrame().getFrameManager().getCurrentUser().getId();
+				if(currentUserID == transactions.get(i).getBuyerId()) buyOrSell = "Buy";
+				else buyOrSell = "Sell";
+
 				rowData[i][0] = transactions.get(i).getTimestamp();
 				rowData[i][1] = transactions.get(i).getCompanyCode();
-				rowData[i][2] = transactions.get(i).getBuyerId();
-				rowData[i][3] = transactions.get(i).getSellerId();
-				rowData[i][4] = transactions.get(i).getPrice();
+				rowData[i][2] = buyOrSell;
+				rowData[i][3] = transactions.get(i).getPrice();
 			}
 			
 			return rowData;

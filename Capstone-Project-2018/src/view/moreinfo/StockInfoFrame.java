@@ -41,20 +41,8 @@ public class StockInfoFrame extends AbstractFrame
 
 		this.frameType = frameType;
 		int selectedIndex = table.getSelectedRow();
-		if(!frameType.equals("transactions"))
-			companyCode = (String)table.getValueAt(selectedIndex, 0);
-		String pageTitle;
-
-		switch(frameType)
-		{
-			case("transactions"):
-				pageTitle = "Transaction Info";
-				break;
-			default:
-				pageTitle = "Company Info";
-		}
-
-
+		companyCode = (String)table.getValueAt(selectedIndex, 0);
+		String pageTitle = "Company Info";
 
 		addComponentListener(new ComponentAdapter()
 		{
@@ -97,19 +85,18 @@ public class StockInfoFrame extends AbstractFrame
 		stockTable.setRowSelectionAllowed(false);
 		stockTable.getTableHeader().setReorderingAllowed(false);
 
+		//Add components
+
+
 		//graph
 		graph = new StockHistoryChartPanel(companyCode);
 		JLabel temp = new JLabel("THIS WILL BE A GRAPH OF PRICES OVER TIME");
 
-		//Add components
-		if(!frameType.equals("transactions"))
-		{
-			buttonPanel.add(buyButton);
-			buttonPanel.add(sellButton);
-			upperPanel.add(companyName, BorderLayout.SOUTH);
-			mainPanel.add(graph, BorderLayout.SOUTH);
-		}
 
+		buttonPanel.add(buyButton);
+		buttonPanel.add(sellButton);
+		upperPanel.add(companyName, BorderLayout.SOUTH);
+		mainPanel.add(graph, BorderLayout.SOUTH);
 		graph.add(temp);
 		tablePanel.add(stockTable.getTableHeader(), BorderLayout.NORTH);
 		tablePanel.add(stockTable, BorderLayout.CENTER);
@@ -157,16 +144,14 @@ public class StockInfoFrame extends AbstractFrame
 		int selectedIndex = table.getSelectedRow();
 		companyCode = (String)table.getValueAt(selectedIndex, 0);
 
-		if(!frameType.equals("transactions"))
-		{
-			mainPanel.remove(graph);
-			try {
-				graph = new StockHistoryChartPanel(companyCode);
-			} catch(SQLException e) {
-				System.out.println(e.toString());
-			}
-			mainPanel.add(graph, BorderLayout.SOUTH);
+
+		mainPanel.remove(graph);
+		try {
+			graph = new StockHistoryChartPanel(companyCode);
+		} catch(SQLException e) {
+			System.out.println(e.toString());
 		}
+		mainPanel.add(graph, BorderLayout.SOUTH);
 
 		buyListener.updateInfo(companyCode);
 		sellListener.updateInfo(companyCode);

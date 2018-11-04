@@ -95,7 +95,7 @@ public class DashboardFrame extends AbstractFrame
 
 	public void updateSelection()
 	{ //If no selection in table, set 'more info' colour to grey.
-		AbstractTablePanel[] panels = {myStockPanel, buyStockPanel, transactionsPanel};
+		AbstractTablePanel[] panels = {myStockPanel, buyStockPanel};
 		for(AbstractTablePanel panel : panels)
 		{
 			JLabel moreInfo = panel.getTablePanel().getMoreInfo();

@@ -4,6 +4,7 @@ import view.AbstractFrame;
 
 import javax.swing.*;
 
+@SuppressWarnings("serial")
 public abstract class AbstractTablePanel extends JPanel
 {
 	private AbstractFrame parentFrame;

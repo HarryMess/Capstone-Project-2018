@@ -1,13 +1,10 @@
 package view.forgotpass;
 
-import javax.swing.*;
-
 import controller.FrameManager;
 import view.AbstractFrame;
 import view.TitlePanel;
 
-import controller.FrameManager;
-
+@SuppressWarnings("serial")
 public class ForgotPasswordFrame extends AbstractFrame
 {
 

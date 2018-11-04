@@ -2,7 +2,6 @@ package controller;
 
 import javax.swing.*;
 
-import model.User;
 import model.database.UsersTable;
 
 import java.awt.event.ActionEvent;

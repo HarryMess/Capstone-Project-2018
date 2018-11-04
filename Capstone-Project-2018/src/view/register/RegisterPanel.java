@@ -11,6 +11,7 @@ import view.CustomTextField;
 import javax.swing.*;
 import java.awt.*;
 
+@SuppressWarnings("serial")
 public class RegisterPanel extends JPanel
 {
 

@@ -1,6 +1,5 @@
 package view.dashboard;
 
-import model.TradingAccount;
 import view.AbstractFrame;
 import view.TableData;
 

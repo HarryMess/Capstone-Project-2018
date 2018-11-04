@@ -6,6 +6,7 @@ import controller.LogoutListener;
 import javax.swing.*;
 import java.awt.*;
 
+@SuppressWarnings("serial")
 public class BackToDashboardPanel extends JPanel
 {
 	public BackToDashboardPanel(AbstractFrame parentFrame, String pageTitle)

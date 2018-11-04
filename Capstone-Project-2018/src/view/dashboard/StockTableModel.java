@@ -4,6 +4,7 @@ import java.util.Vector;
 
 import javax.swing.table.DefaultTableModel;
 
+@SuppressWarnings("serial")
 public class StockTableModel extends DefaultTableModel
 {
 
@@ -12,7 +13,7 @@ public class StockTableModel extends DefaultTableModel
 	}
 	
 	// Added by Paul
-	public StockTableModel(Vector data, Vector columNames) {
+	public StockTableModel(Vector<?> data, Vector<?> columNames) {
 		super(data, columNames);
 	}
 

@@ -7,6 +7,7 @@ import view.BackToDashboardPanel;
 import javax.swing.*;
 import java.awt.*;
 
+@SuppressWarnings("serial")
 public class TransInfoFrame extends AbstractFrame
 {
 	public TransInfoFrame(FrameManager fm, String title)

@@ -8,8 +8,10 @@ import view.CustomTextField;
 import javax.swing.*;
 import java.awt.*;
 
+@SuppressWarnings("serial")
 public class ForgotPasswordPanel extends JPanel
 {
+	@SuppressWarnings("unused")
 	private AbstractFrame parentFrame;
 	public ForgotPasswordPanel(ForgotPasswordFrame parentFrame)
 	{

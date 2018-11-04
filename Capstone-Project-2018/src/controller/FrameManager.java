@@ -9,11 +9,6 @@ import view.login.LoginFrame;
 import view.register.RegisterFrame;
 import view.moreinfo.StockInfoFrame;
 import view.*;
-
-
-import javax.swing.*;
-
-import model.Stock;
 import model.User;
 import model.database.DatabaseTable;
 
@@ -27,6 +22,7 @@ public class FrameManager
 			myStocksFrame, buyStocksFrame, transactionsFrame;
 	
 	private User user;
+	@SuppressWarnings("unused")
 	private String companyCode;
 
 	public FrameManager(String frameTitle)

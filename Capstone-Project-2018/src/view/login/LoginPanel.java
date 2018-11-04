@@ -2,7 +2,6 @@ package view.login;
 
 import controller.LinkListener;
 import controller.LoginListener;
-import controller.TextFieldListener;
 import view.AbstractFrame;
 import view.CustomPasswordField;
 import view.CustomTextField;
@@ -10,6 +9,7 @@ import view.CustomTextField;
 import javax.swing.*;
 import java.awt.*;
 
+@SuppressWarnings("serial")
 public class LoginPanel extends JPanel
 {
 	public LoginPanel(AbstractFrame parentFrame)

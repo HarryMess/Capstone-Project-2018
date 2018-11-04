@@ -2,13 +2,13 @@ package view.dashboard;
 
 import model.TradingAccount;
 import model.database.TradingAccountsTable;
-import view.AbstractFrame;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.sql.SQLException;
 
+@SuppressWarnings("serial")
 public class BalanceLabel extends JLabel
 {
 	private double balance = 1000000;

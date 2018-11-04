@@ -1,6 +1,5 @@
 package view.dashboard;
 
-import controller.LinkListener;
 import controller.StockTableListener;
 import controller.TableSelectionListener;
 import view.AbstractFrame;
@@ -16,7 +15,7 @@ public class StockTable extends JPanel
 	private AbstractTablePanel parentPanel;
 	public StockTable(String linkedFrame, AbstractTablePanel parentPanel, StockTableModel model)
 	{
-		this.parentPanel = parentPanel;
+		this.setParentPanel(parentPanel);
 		setLayout(new BorderLayout());
 		AbstractFrame parentFrame = parentPanel.getParentFrame();
 
@@ -51,6 +50,14 @@ public class StockTable extends JPanel
 	public JLabel getMoreInfo()
 	{
 		return moreInfoLabel;
+	}
+
+	public AbstractTablePanel getParentPanel() {
+		return parentPanel;
+	}
+
+	public void setParentPanel(AbstractTablePanel parentPanel) {
+		this.parentPanel = parentPanel;
 	}
 }
 

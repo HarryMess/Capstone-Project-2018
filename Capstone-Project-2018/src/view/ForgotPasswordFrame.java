@@ -1,9 +1,8 @@
 package view;
 
-import javax.swing.*;
-
 import controller.FrameManager;
 
+@SuppressWarnings("serial")
 public class ForgotPasswordFrame extends AbstractFrame
 {
 

@@ -9,7 +9,6 @@ import view.BackToDashboardPanel;
 import view.dashboard.AbstractTablePanel;
 import view.dashboard.MyStockPanel;
 
-import javax.swing.*;
 import java.awt.*;
 import java.sql.SQLException;
 

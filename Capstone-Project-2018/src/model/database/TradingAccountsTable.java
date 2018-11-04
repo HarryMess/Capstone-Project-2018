@@ -16,8 +16,8 @@ import model.User;
  * Contains methods that run SQL queries relevant to the TradingAccounts Table.
  * Transfer of money is also handled here
  * @author Paul King - s3449513
- * @version 1.0
- * @since 30/10/2018
+ * @version 1.1
+ * @since  4/11/2018
  */
 public class TradingAccountsTable extends DatabaseTable {
 	

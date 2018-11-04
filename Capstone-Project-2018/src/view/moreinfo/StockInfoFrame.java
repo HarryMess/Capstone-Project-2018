@@ -27,7 +27,6 @@ public class StockInfoFrame extends AbstractFrame
 	private JTable stockTable;
 	private JFXPanel graph;
 	private String companyCode;
-	private String frameType;
 	private JPanel mainPanel;
 	private BuyListener buyListener;
 	private SellListener sellListener;
@@ -39,7 +38,6 @@ public class StockInfoFrame extends AbstractFrame
 		DashboardFrame dashboardFrame = (DashboardFrame)fm.getFrame("dashboard");
 		table = dashboardFrame.getTable(frameType);
 
-		this.frameType = frameType;
 		int selectedIndex = table.getSelectedRow();
 		companyCode = (String)table.getValueAt(selectedIndex, 0);
 		String pageTitle = "Company Info";

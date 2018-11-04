@@ -3,11 +3,8 @@ package controller;
 import view.AbstractFrame;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.util.EventListener;
 
 public class LinkListener extends MouseAdapter
 {

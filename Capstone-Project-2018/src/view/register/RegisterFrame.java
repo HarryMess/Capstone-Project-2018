@@ -1,14 +1,11 @@
 package view.register;
 
-import javax.swing.*;
-
 import controller.FrameManager;
-
-import java.awt.*;
 
 import view.AbstractFrame;
 import view.TitlePanel;
 
+@SuppressWarnings("serial")
 public class RegisterFrame extends AbstractFrame
 {
 	FrameManager fm;

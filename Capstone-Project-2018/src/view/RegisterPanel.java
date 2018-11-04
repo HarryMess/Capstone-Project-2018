@@ -9,6 +9,7 @@ import controller.RegisterListener;
 import javax.swing.*;
 import java.awt.*;
 
+@SuppressWarnings("serial")
 public class RegisterPanel extends JPanel
 {
 	public RegisterPanel(RegisterFrame parentFrame)

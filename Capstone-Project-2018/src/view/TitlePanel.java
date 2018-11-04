@@ -7,6 +7,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
+@SuppressWarnings("serial")
 public class TitlePanel extends JPanel
 {
 	private BufferedImage logo;

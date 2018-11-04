@@ -2,17 +2,17 @@ package view;
 
 import controller.ForgotPassListener;
 import controller.LinkListener;
-import controller.LoginListener;
 
 import javax.swing.*;
 import java.awt.*;
 
+@SuppressWarnings("serial")
 public class ForgotPasswordPanel extends JPanel
 {
-	private AbstractFrame parentFrame;
+//	private AbstractFrame parentFrame;
 	public ForgotPasswordPanel(ForgotPasswordFrame parentFrame)
 	{
-		this.parentFrame = parentFrame;
+//		this.parentFrame = parentFrame;
 
 		//Layout stuff
 		this.setLayout(new GridBagLayout());

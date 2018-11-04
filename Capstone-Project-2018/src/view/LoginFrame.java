@@ -2,6 +2,7 @@ package view;
 
 import controller.FrameManager;
 
+@SuppressWarnings("serial")
 public class LoginFrame extends AbstractFrame
 {
 	FrameManager fm;

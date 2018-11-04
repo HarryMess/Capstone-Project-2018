@@ -4,6 +4,7 @@ import javax.swing.*;
 import controller.FrameManager;
 import java.awt.*;
 
+@SuppressWarnings("serial")
 public abstract class AbstractFrame extends JFrame
 {
 	private FrameManager fm;

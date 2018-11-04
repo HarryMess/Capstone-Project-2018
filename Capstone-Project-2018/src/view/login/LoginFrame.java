@@ -4,6 +4,7 @@ import controller.FrameManager;
 import view.AbstractFrame;
 import view.TitlePanel;
 
+@SuppressWarnings("serial")
 public class LoginFrame extends AbstractFrame
 {
 	public LoginFrame(FrameManager fm, String title)

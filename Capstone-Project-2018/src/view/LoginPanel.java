@@ -1,12 +1,12 @@
 package view;
 
-import controller.FrameManager;
 import controller.LinkListener;
 import controller.LoginListener;
 
 import javax.swing.*;
 import java.awt.*;
 
+@SuppressWarnings("serial")
 public class LoginPanel extends JPanel
 {
 	AbstractFrame parentFrame;

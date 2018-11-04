@@ -6,9 +6,9 @@ import model.User;
 import model.database.TradingAccountsTable;
 
 import javax.swing.*;
-import java.awt.*;
 import java.sql.SQLException;
 
+@SuppressWarnings("serial")
 public class DashboardToolBar extends JToolBar
 {
 	private BalanceLabel currentBalance;

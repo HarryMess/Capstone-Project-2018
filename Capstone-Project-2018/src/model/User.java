@@ -84,6 +84,10 @@ public class User
 		return password;
 	}
 	
+	public boolean isAdmin() {
+		return isAdmin;
+	}
+	
 	/**
 	 * Used to update the password
 	 * @param password takes the new password as an argument

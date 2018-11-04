@@ -7,6 +7,7 @@ import view.TitlePanel;
 import javax.swing.*;
 import java.awt.*;
 
+@SuppressWarnings("serial")
 public class DashboardFrame extends AbstractFrame
 {
 	private AbstractTablePanel buyStockPanel, myStockPanel, transactionsPanel;

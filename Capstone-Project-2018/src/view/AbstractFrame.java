@@ -44,8 +44,5 @@ public abstract class AbstractFrame extends JFrame
 		//Makes it so no text fields are in focus when frame is set to visible.
 	}
 
-	public void redraw()
-	{
-		//overriden where necessary
-	}
+	public void redraw(){}
 }

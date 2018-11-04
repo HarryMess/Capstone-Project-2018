@@ -83,9 +83,12 @@ public class DashboardFrame extends AbstractFrame
 		toolBar.redrawName();
 
 		//Also redraw tables
-		myStockPanel.updateTable();
-		buyStockPanel.updateTable();
-		transactionsPanel.updateTable();
+		if(!isVisible())
+		{
+			myStockPanel.updateTable();
+			buyStockPanel.updateTable();
+			transactionsPanel.updateTable();
+		}
 
 		updateSelection();
 	}

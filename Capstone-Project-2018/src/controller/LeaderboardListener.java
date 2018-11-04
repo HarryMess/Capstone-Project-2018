@@ -51,7 +51,8 @@ public class LeaderboardListener implements ActionListener
 			int i=0;
 			for(TradingAccount account : accounts)
 			{
-				names.add(String.format("%s - $%f\n", account.getName(), account.getTotalValue()));
+				if(!account.getName().equals("Stock Market"))
+					names.add(String.format("%s - $%f\n", account.getName(), account.getTotalValue()));
 			}
 
 		} catch(SQLException e) {

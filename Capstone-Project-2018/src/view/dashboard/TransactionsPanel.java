@@ -43,7 +43,7 @@ public class TransactionsPanel extends AbstractTablePanel implements TableData
 	@Override
 	public Object[] getColumnNames() {
 		
-		return new Object[] {"Date & Time", "Company", "Buyer", "Seller", "Price"};
+		return new Object[] {"Date & Time", "Company", "Buyer ID", "Seller ID", "Price"};
 	}
 
 	@Override
@@ -59,10 +59,10 @@ public class TransactionsPanel extends AbstractTablePanel implements TableData
 			// iterate through each transaction adding values to the row data
 			for(int i=0; i<transactions.size(); i++) {
 				rowData[i][0] = transactions.get(i).getTimestamp();
-				rowData[i][4] = transactions.get(i).getCompanyCode();
-				rowData[i][1] = transactions.get(i).getBuyerId();
-				rowData[i][2] = transactions.get(i).getSellerId();
-				rowData[i][3] = transactions.get(i).getPrice();				
+				rowData[i][1] = transactions.get(i).getCompanyCode();
+				rowData[i][2] = transactions.get(i).getBuyerId();
+				rowData[i][3] = transactions.get(i).getSellerId();
+				rowData[i][4] = transactions.get(i).getPrice();
 			}
 			
 			return rowData;
